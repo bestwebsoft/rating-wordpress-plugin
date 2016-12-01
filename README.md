@@ -1,13 +1,11 @@
 <a href="http://bestwebsoft.com/products/wordpress/plugins/rating/" target=_blank>Rating WordPress Plugin</a>
 ========================
 
-Add testimonials and feedbacks from your customers to WordPress posts, pages and widgets.
+Add rating plugin to your WordPress website to receive feedback from your customers.
 
-<p>Simple plugin which adds 5 stars rating to your WordPress website posts, pages, and widgets. Customize the appearance, choose where you want to display rating statistic, and enjoy your customer's reviews.
+<p>Simple plugin which adds 5 stars rating to your WordPress website posts, pages, and widgets. Customize the appearance, choose where you want to display rating statistic, and enjoy your customer's reviews.</p>
 
-Show rating from other people to increase conversions!</p>
-
-<p><a href="http://support.bestwebsoft.com">Rating by BestWebSoft Support</a></p>
+<p>Show rating from other people to increase conversions!</p>
 
 <h4>Features</h4>
 
@@ -61,11 +59,11 @@ Show rating from other people to increase conversions!</p>
 <li>Detailed step-by-step documentation and videos</li>
 </ul>
 
-<p>If you have a feature, suggestion or idea you'd like to see in the plugin, we'd love to hear about it! <a href="http://support.bestwebsoft.com/hc/en-us/requests/new">Suggest a Feature</a></p>
+<p>If you have a feature suggestion or idea you'd like to see in the plugin, we'd love to hear about it! <a href="http://support.bestwebsoft.com/hc/en-us/requests/new">Suggest a Feature</a></p>
 
-<h4>Recommended Plugins</h4>
+<h4>Help &#38; Support</h4>
 
-<p>The author of the Testimonials also recommends the following plugins:</p>
+<p>Visit our Help Center if you have any questions, our friendly Support Team is happy to help &#8212; <a href="http://support.bestwebsoft.com/">http://support.bestwebsoft.com/</a></p>
 
 <h4>Translation</h4>
 
@@ -74,12 +72,16 @@ Show rating from other people to increase conversions!</p>
 <li>Ukrainian (uk)</li>
 </ul>
 
-<p>Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress">the text of PO and MO files</a> to <a href="http://support.bestwebsoft.com/hc/en-us/requests/new">BestWebSoft</a>, and we'll add it to the plugin. You can download the latest version of the program for working with PO and MO files  <a href="http://www.poedit.net/download.php">Poedit</a>.</p>
+<p>Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress">the text of PO and MO files</a> to <a href="http://support.bestwebsoft.com/hc/en-us/requests/new">BestWebSoft</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO <a href="http://www.poedit.net/download.php">files Poedit</a>.</p>
 
-<h4>Technical support</h4>
+<h4>Recommended Plugins</h4>
 
-<p>Dear users, our plugins are available for free download. If you have any questions or recommendations regarding the functionality of our plugins (existing options, new options, current issues), please feel free to contact us. Please note that we accept requests in English only. All messages in other languages won't be accepted.</p>
+<ul>
+<li><a href="http://bestwebsoft.com/products/wordpress/plugins/updater/">Updater</a> - Automatically check and update WordPress core with all installed plugins to the latest versions. Manual mode, email notifications and backups of all your files and database before updating.</li>
+</ul>
 
-<p>If you notice any bugs in the plugin's work, you can notify us about them and we'll investigate and fix the issue then. Your request should contain website URL, issues description and WordPress admin panel credentials.
-Moreover, we can customize the plugin to match your requirements. It's a paid service (as a rule it costs $40, but the price can vary depending on the amount of the necessary changes and their complexity). Please note that we could also include this or that feature (developed for you) in the next release and share it with the other users then.
-We can fix some things for free for the users who provide a translation of our plugin into their native language (this should be a new translation of a certain plugin, you can check available translations on the official plugin page).</p>
+<h4>Donate</h4>
+
+<p>Donations play an important role in supporting open-source projects. We greatly appreciate any donation you can make to help us continue further development of free products.</p>
+
+<p><a href="http://bestwebsoft.com/donate/">Donate Now</a></p>
