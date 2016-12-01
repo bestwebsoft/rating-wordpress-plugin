@@ -1,0 +1,52 @@
+/*
+* Plugin styles
+*/
+.rtng-form,
+.rtng-rating-total {
+    margin-bottom: 15px;
+}
+.rtng-star-rating.rtng-active .rtng-star {
+    cursor: pointer;
+}
+.rtng-star {
+    display: inline !important;
+}
+.rtng-star input {
+    visibility: hidden;
+    position: absolute;
+    opacity: 0;
+}
+.rtng-star .dashicons {
+    vertical-align: middle;
+    width: auto;
+    height: auto;
+}
+.rtng-star-rating.rtng-no-js .rtng-star input:checked + .dashicons:before {
+    content: "\f155";
+}
+.rtng-text {
+    vertical-align: middle;
+}
+.rtng-text.hidden {
+    display: none;
+}
+.rtng-add-button {
+    margin: 5px 0;
+}
+.rtng-add-button + .rtng-text {
+    display: block;
+}
+.rtng-loading:before {
+    content: "\f463";
+    display: inline-block;
+    font: 400 20px/1 dashicons;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    vertical-align: bottom;
+    -webkit-animation: rtng-rotation 2s infinite linear;
+    animation: rtng-rotation 2s infinite linear;
+}
+@keyframes rtng-rotation {
+    0% {transform:rotate(0deg);}
+    100% {transform:rotate(360deg);}
+}

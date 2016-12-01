@@ -1,0 +1,565 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: rating-bws\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-25 14:59+0200\n"
+"PO-Revision-Date: 2016-11-25 15:00+0200\n"
+"Last-Translator: plugin@bestwebsoft.com <plugin@bestwebsoft.com>\n"
+"Language-Team: BestWebSoft <plugin@bestwebsoft.com>\n"
+"Language: ua_UA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: rating-bws.php:34 rating-bws.php:246
+msgid "Rating Settings"
+msgstr "Налаштування рейтингу"
+
+#: rating-bws.php:151
+msgid "Average Rating"
+msgstr "Середній рейтинг"
+
+#: rating-bws.php:152
+msgid "My Rating"
+msgstr "Мій рейтинг"
+
+#: rating-bws.php:153
+#, php-format
+msgid "%s out of 5 stars. %s votes."
+msgstr "%s з 5 зірок. %s голосів."
+
+#: rating-bws.php:154
+#, php-format
+msgid "You must %s to submit a review."
+msgstr "Вам потрібно %s для того, щоб проголосувати."
+
+#: rating-bws.php:154
+msgid "log in"
+msgstr "залогінеться"
+
+#: rating-bws.php:155
+msgid "Thank you!"
+msgstr "Дякуемо!"
+
+#: rating-bws.php:235
+msgid "Settings saved."
+msgstr "Налаштування збережені."
+
+#: rating-bws.php:243
+msgid "All plugin settings were restored."
+msgstr "Всі налаштування плагіну було скинуто до стандартних."
+
+#: rating-bws.php:248 rating-bws.php:895 rating-bws.php:908
+msgid "Settings"
+msgstr "Налаштування"
+
+#: rating-bws.php:249
+msgid "Appearance"
+msgstr "Зовнішній вигляд"
+
+#: rating-bws.php:250
+msgid "Custom code"
+msgstr "Користувацький код"
+
+#: rating-bws.php:262
+#, php-format
+msgid ""
+"If you would like to add rating to your page or post, please use %s button"
+msgstr ""
+"Якщо ви хочете додати рейтинг на вашу сторінку або пост, будь ласка, "
+"використовуйте кнопку %s"
+
+#: rating-bws.php:267
+#, php-format
+msgid ""
+"You can add rating to your page or post by clicking on %s button in the "
+"content edit block using the Visual mode. If the button isn't displayed, "
+"please use the shortcode %s."
+msgstr ""
+"Ви можете додати рейтинг на вашу сторінку або пост, натиснувши на кнопку %s "
+"в блоці редагування контенту в режимі Visual. Якщо кнопка не відображається, "
+"будь ласка, використовуйте шорткод %s."
+
+#: rating-bws.php:277
+msgid "Display rating"
+msgstr "Відображати рейтинг"
+
+#: rating-bws.php:291
+msgid "Average rating position"
+msgstr "Розташування середного рейтингу"
+
+#: rating-bws.php:296 rating-bws.php:318
+msgid "before the content"
+msgstr "перед контентом"
+
+#: rating-bws.php:301 rating-bws.php:323
+msgid "after the content"
+msgstr "після контенту"
+
+#: rating-bws.php:307
+msgid "Combine average rating with a rate option"
+msgstr "Об'єднати середній рейтинг і опцію \"оцінити \""
+
+#: rating-bws.php:313
+msgid "Rate option position"
+msgstr "Розташування опції \"оцінити\""
+
+#: rating-bws.php:328
+msgid "in comments"
+msgstr "у коментарях"
+
+#: rating-bws.php:336 rating-bws.php:425
+msgid "Save Changes"
+msgstr "Зберегти зміни"
+
+#: rating-bws.php:345
+msgid "Star color"
+msgstr "Колір зірки"
+
+#: rating-bws.php:351
+msgid "Hover color for star"
+msgstr "Колір зірок при наведенні"
+
+#: rating-bws.php:357
+msgid "Star size"
+msgstr "Розмір зірки"
+
+#: rating-bws.php:359 rating-bws.php:371
+msgid "px"
+msgstr "пх"
+
+#: rating-bws.php:363
+msgid "Text color"
+msgstr "Колір тексту"
+
+#: rating-bws.php:369
+msgid "Text font-size"
+msgstr "Розмір шрифту тексту"
+
+#: rating-bws.php:375
+msgid "Average rating title"
+msgstr "Заголовок середнього рейтингу"
+
+#: rating-bws.php:381
+msgid "Total message"
+msgstr "Текст для загальної статистики"
+
+#: rating-bws.php:387
+#, php-format
+msgid "Use %s to insert current rate."
+msgstr "Використовуйте %s, щоб додати поточний рейтинг."
+
+#: rating-bws.php:391
+#, php-format
+msgid "Use %s to insert rates count."
+msgstr "Використовуйте %s, щоб додати кількість голосів."
+
+#: rating-bws.php:398
+msgid "Rate option title"
+msgstr "Заголовок опції \"оцінити\""
+
+#: rating-bws.php:404
+msgid "Message for non-login users"
+msgstr "Повідомлення для не залогінених користувачів"
+
+#: rating-bws.php:410
+#, php-format
+msgid "Use %s to insert login link."
+msgstr "Використовуйте %s, щоб вставити посилання на сторінку логіна."
+
+#: rating-bws.php:417
+msgid "Message after adding a rate"
+msgstr "Повідомлення після додавання рейтингу"
+
+#: rating-bws.php:529 rating-bws.php:605
+msgid "Rate"
+msgstr "Оцінити"
+
+#: rating-bws.php:830
+msgid "Add Rating block to your page or post"
+msgstr "Додати блок рейтингу на вашу сторінку або пост"
+
+#: rating-bws.php:909
+msgid "FAQ"
+msgstr "FAQ"
+
+#: rating-bws.php:910
+msgid "Support"
+msgstr "Підтримка"
+
+#~ msgid "None"
+#~ msgstr "Не використовувати"
+
+#, fuzzy
+#~ msgid "Display user rating in the comment"
+#~ msgstr "Відображати кнопки в уривку"
+
+#, fuzzy
+#~ msgid "Rating results"
+#~ msgstr "Розташування рейтингу"
+
+#~ msgid "Before"
+#~ msgstr "До"
+
+#~ msgid "After"
+#~ msgstr "Після"
+
+#, fuzzy
+#~ msgid "Rating form position"
+#~ msgstr "Розташування рейтингу"
+
+#, fuzzy
+#~ msgid "Total rating"
+#~ msgstr "Відображати рейтинг"
+
+#~ msgid "Shortcode"
+#~ msgstr "Шорткод"
+
+#~ msgid "Error: File size > 32K"
+#~ msgstr "Помилка: Розмір файлу > 32K"
+
+#~ msgid "Error: Invalid file type"
+#~ msgstr "Помилка: Невірний тип файлу"
+
+#~ msgid "Upload successful."
+#~ msgstr "Файл був завантажений успішно"
+
+#~ msgid "Error: moving file failed"
+#~ msgstr "Помилка: не вдалося переміщення файлів"
+
+#~ msgid "Error: check image width or height"
+#~ msgstr "Помилка: Перевірте ширину або висоту зображення"
+
+#~ msgid "Uploading Error: check image properties"
+#~ msgstr "Помилка Завантаження: Перевірте властивості зображення"
+
+#~ msgid "How to Use Step-by-step Instruction"
+#~ msgstr "Iнструкцiя з використання"
+
+#~ msgid "Extra settings"
+#~ msgstr "Додаткові налаштування"
+
+#~ msgid "Go PRO"
+#~ msgstr "Перейти на PRO версію"
+
+#~ msgid "Please, enable JavaScript in Your browser."
+#~ msgstr "Будь ласка, активуйте JavaScript у Вашому браузері."
+
+#~ msgid "Facebook buttons language"
+#~ msgstr "Мова кнопок Facebook"
+
+#~ msgid "Change the language of Facebook Button"
+#~ msgstr "Змінити мову для кнопок Facebook"
+
+#~ msgid "Use the current site language"
+#~ msgstr "Використовувати поточну мову сайту"
+
+#~ msgid "Using"
+#~ msgstr "Використовуючи"
+
+#~ msgid "Activate"
+#~ msgstr "Активувати"
+
+#~ msgid "Download"
+#~ msgstr "Завантажити"
+
+#~ msgid "Close"
+#~ msgstr "Закрити"
+
+#~ msgid "Meta tags"
+#~ msgstr "Мета теги"
+
+#~ msgid "Image"
+#~ msgstr "Зображення"
+
+#~ msgid "Featured Image"
+#~ msgstr "Головне зображення"
+
+#~ msgid "Custom Image"
+#~ msgstr "Користувацьке зображення"
+
+#~ msgid "This image will be used for all of the posts"
+#~ msgstr "Це зображення буде використовуватися для всiх записiв"
+
+#~ msgid "Description"
+#~ msgstr "Короткий опис"
+
+#~ msgid "Post excerpt"
+#~ msgstr "Уривок"
+
+#~ msgid "This description will be used for all of the posts"
+#~ msgstr "Цей короткий опис буде використовуватися у всiх постах"
+
+#~ msgid "If you upgrade to Pro version all your settings will be saved."
+#~ msgstr "Якщо ви перейдете на Pro версію, усі установки будуть збережені."
+
+#~ msgid "Unlock premium options by upgrading to Pro version"
+#~ msgstr "Зробити доступними преміум-опції, перейшовши на Pro версію"
+
+#~ msgid "Learn More"
+#~ msgstr "Докладніше"
+
+#~ msgid "Your Facebook ID or username"
+#~ msgstr "ID вашого Facebook акаунту"
+
+#~ msgid "\"My page\" button image"
+#~ msgstr "Зображення кнопки \"Моя сторінка\""
+
+#~ msgid "Standard Facebook image"
+#~ msgstr "Стандартне зображення Facebook "
+
+#~ msgid "Custom Facebook image"
+#~ msgstr "Кастомне зображення Facebook"
+
+#~ msgid ""
+#~ "To use custom image you need to setup permissions to upload directory of "
+#~ "your site"
+#~ msgstr ""
+#~ "Для використання кастомного зображення Вам необхідно видати права доступу "
+#~ "на папку завантажень на вашому сайті"
+
+#~ msgid "Current image"
+#~ msgstr "Поточне зображення"
+
+#~ msgid ""
+#~ "Image properties: max image width:100px; max image height:40px; max image "
+#~ "size:32Kb; image types:\"jpg\", \"jpeg\", \"png\"."
+#~ msgstr ""
+#~ "Властивості зображення: максимальна ширина зображення:100px; максимальна "
+#~ "висота зображення: 40px; максимальний розмір зображення: 32Kb; типи "
+#~ "зображеннь :\"jpg\", \"jpeg\", \"png\"."
+
+#~ msgid "Button layout"
+#~ msgstr "Тип кнопок"
+
+#~ msgid "Like button action"
+#~ msgstr "Дія кнопки \"Like\""
+
+#~ msgid "Recommend"
+#~ msgstr "Рекомендую"
+
+#~ msgid "Show faces"
+#~ msgstr "Показувати обличчя"
+
+#~ msgid "Layout width"
+#~ msgstr "Ширина блоку"
+
+#~ msgid "Color scheme"
+#~ msgstr "Кольорова схема"
+
+#~ msgid "Light"
+#~ msgstr "Світла"
+
+#~ msgid "Dark"
+#~ msgstr "Темна"
+
+#~ msgid "Html tag for \"Like\" button"
+#~ msgstr "Html тег для кнопки \"Подобається\""
+
+#~ msgid "Use this tag to improve validation of your site"
+#~ msgstr "Використовуйте цей тег для поліпшення валідації вашого сайту"
+
+#~ msgid "\"Like\" for an entire site on every page:"
+#~ msgstr "\"Подобається\" для всього сайту на кожній сторінці"
+
+#~ msgid ""
+#~ "Notice: \"Like for the entire site\" option does not create an extra "
+#~ "button. This option merely allows your users to like the entire website "
+#~ "when this option is enabled, or a single post when this option is "
+#~ "disabled, when clicking the regular \"Like\" button."
+#~ msgstr ""
+#~ "Увага: опція  \"Подобається для всього сайту\" - не створює додаткову "
+#~ "кнопку. Ця опція дозволяє при кліку користувачами на стандартну кнопку "
+#~ "плагіна ставити \"Подобається\" усьому сайту , якщо ця опція увімкнена, "
+#~ "або ставити \"Подобається\" окремим постам, якщо опція вимкнена."
+
+#~ msgid "Facebook Button preview:"
+#~ msgstr "Попередній перегляд Facebook кнопок:"
+
+#~ msgid ""
+#~ "Please choose the necessary post types (or single pages) where Facebook "
+#~ "button will be displayed:"
+#~ msgstr ""
+#~ "Будь ласка, оберіть необхідні типи постів (чи сторінок), де буде "
+#~ "відображатися кнопка Facebook"
+
+#~ msgid "Show URL for pages"
+#~ msgstr "Відображати URL сторінок"
+
+#~ msgid "Example of the site's pages tree"
+#~ msgstr "Приклад дерева сторінок сайту"
+
+#~ msgid "Example of site pages' tree"
+#~ msgstr "Приклад дерева сторінок сайту"
+
+#~ msgid "Custom description"
+#~ msgstr "Користувацький короткий опис"
+
+#~ msgid "Notice:"
+#~ msgstr "Нагадування:"
+
+#~ msgid ""
+#~ "The plugin's settings have been changed. In order to save them please "
+#~ "don't forget to click the 'Save Changes' button."
+#~ msgstr ""
+#~ "Налаштування плагіну було змінено. Для того, щоб зберегти ці зміни, не "
+#~ "забудьте нажати кнопку \"Зберегти зміни\"."
+
+#~ msgid "pixels"
+#~ msgstr "px"
+
+#~ msgid "Go"
+#~ msgstr "Перейти"
+
+#~ msgid "Are you sure you want to restore all settings by default?"
+#~ msgstr "Ви впевнені, що хочете скинути налаштування плагіну до стандартних?"
+
+#~ msgid "Yes, restore all settings"
+#~ msgstr "Так, скинути налаштування"
+
+#~ msgid "No, go back to the settings page"
+#~ msgstr "Ні, повернутись назад на сторінку налаштувань"
+
+#~ msgid "Restore all plugin settings to defaults"
+#~ msgstr "Скинути налаштування плагіну до стандартних"
+
+#~ msgid "Restore settings"
+#~ msgstr "Скинути налаштування"
+
+#~ msgid "Choose display settings:"
+#~ msgstr "Виберіть відображати установки:"
+
+#~ msgid "Facebook image:"
+#~ msgstr "Зображення Facebook :"
+
+#~ msgid "requires"
+#~ msgstr "потребує"
+
+#~ msgid ""
+#~ "or higher, that is why it has been deactivated! Please upgrade WordPress "
+#~ "and try again."
+#~ msgstr ""
+#~ "чи вище, тому він був деактивований! Будь ласка оновіть WordPress та "
+#~ "спробуйте ще раз."
+
+#~ msgid "Back to the WordPress"
+#~ msgstr "Повернутися до WordPress на"
+
+#~ msgid "Plugins page"
+#~ msgstr "Сторінку плагинів"
+
+#~ msgid "Wrong license key"
+#~ msgstr "Невірний ліцензійний ключ!"
+
+#~ msgid ""
+#~ "Something went wrong. Try again later. If the error will appear again, "
+#~ "please, contact us <a href=http://support.bestwebsoft.com>BestWebSoft</"
+#~ "a>. We are sorry for inconvenience."
+#~ msgstr ""
+#~ "Виникли певні проблеми. Спробуйте ще раз пізніше. Якщо помилка виникатиме "
+#~ "знову, будь ласка, зверніться до нашої служби підтримки href=http://"
+#~ "support.bestwebsoft.com>BestWebSoft</a>. Просимо вибачення за незручності."
+
+#~ msgid "This license key is bind to another site"
+#~ msgstr "Ліцензійний ключ прив'язано до іншого сайту"
+
+#~ msgid ""
+#~ "Unfortunately, you have exceeded the number of available tries. Please, "
+#~ "upload the plugin manually."
+#~ msgstr ""
+#~ "На жаль, Ви перевищили кількість доступних спроб на день. Будь ласка, "
+#~ "завантажте плагін вручну."
+
+#~ msgid "Failed to open the zip archive. Please, upload the plugin manually"
+#~ msgstr ""
+#~ "Виникли проблеми під чаз розпакування zip-архіву. Будь ласка, завантажте "
+#~ "плагін вручну."
+
+#~ msgid ""
+#~ "Your server does not support either ZipArchive or Phar. Please, upload "
+#~ "the plugin manually"
+#~ msgstr ""
+#~ "Ваш сервер не підтримує ані ZipArchive, ані Phar. Будь ласка, завантажте "
+#~ "плагін вручну"
+
+#~ msgid ""
+#~ "Failed to download the zip archive. Please, upload the plugin manually"
+#~ msgstr ""
+#~ "Виникли проблеми під час завантаження zip-архіву. Будь ласка, завантажте "
+#~ "архів вручну."
+
+#~ msgid ""
+#~ "Something went wrong. Try again later or upload the plugin manually. We "
+#~ "are sorry for inconvienience."
+#~ msgstr ""
+#~ "Виникли певні проблеми. Спробуйте ще раз пізніше або завантажте плагін "
+#~ "вручну. Просимо вібачення за незручності."
+
+#~ msgid "Please, enter Your license key"
+#~ msgstr "Будь ласка, впишіть ваш ліцензійний ключ"
+
+#~ msgid "If you enjoy our plugin, please give it 5 stars on WordPress"
+#~ msgstr ""
+#~ "Якщо Вам сподобався наш плагін, ми будемо раді, якщо Ви оціните його у "
+#~ "п'ять зірочок на WordPress"
+
+#~ msgid "Rate the plugin"
+#~ msgstr "Оцініти плагін"
+
+#~ msgid "If there is something wrong about it, please contact us"
+#~ msgstr "Якщо у вас є запитання, будь ласка, звертайтесь до нас"
+
+#~ msgid ""
+#~ "Congratulations! The PRO version of the plugin is successfully download "
+#~ "and activated."
+#~ msgstr "Вітаємо! PRO версію плагіну успішно завантажено та активовано."
+
+#~ msgid "Please, go to"
+#~ msgstr "Будь ласка, перейдіть"
+
+#~ msgid "You will be redirected automatically in 5 seconds."
+#~ msgstr "Вас буде перенаправлено автоматично через 5 секунд."
+
+#~ msgid "You can download and activate"
+#~ msgstr "Ви можете завантажити та активувати"
+
+#~ msgid "version of this plugin by entering Your license key."
+#~ msgstr "версію уього плагіну, якщо впишете ваш ліцензійний ключ."
+
+#~ msgid ""
+#~ "You can find your license key on your personal page Client area, by "
+#~ "clicking on the link"
+#~ msgstr ""
+#~ "Ви можете знайти ваш ліцензійний ключ на вашій персональній сторінці у  "
+#~ "Client area, перейшовши за посиланням"
+
+#~ msgid ""
+#~ "(your username is the email you specify when purchasing the product)."
+#~ msgstr ""
+#~ "(ім'я користувача - це електронна адреса, яку ви вказуєте при купівлі "
+#~ "продукту)."
+
+#~ msgid "Go!"
+#~ msgstr "Перейти!"
+
+#~ msgid ""
+#~ "Unfortunately, you have exceeded the number of available tries per day. "
+#~ "Please, upload the plugin manually."
+#~ msgstr ""
+#~ "На жаль, Ви перевищили кількість доступних спроб на день. Будь ласка, "
+#~ "завантажте плагін вручну."
+
+#~ msgid ""
+#~ "It's time to upgrade your <strong>Facebook Like Button</strong> to "
+#~ "<strong>PRO</strong> version"
+#~ msgstr ""
+#~ "Час оновити ваш <strong>Facebook Like Button</strong> до <strong>PRO</"
+#~ "strong> версії!"
+
+#~ msgid "Extend standard plugin functionality with new great options"
+#~ msgstr "Розширити стандартний функціонал плагіну новими опціями."
