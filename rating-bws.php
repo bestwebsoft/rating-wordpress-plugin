@@ -1,17 +1,17 @@
 <?php
 /*
 Plugin Name: Rating by BestWebSoft
-Plugin URI: http://bestwebsoft.com/products/wordpress/plugins/rating/
+Plugin URI: https://bestwebsoft.com/products/wordpress/plugins/rating/
 Description: Add rating plugin to your WordPress website to receive feedback from your customers.
 Author: BestWebSoft
 Text Domain: rating-bws
 Domain Path: /languages
-Version: 0.1
-Author URI: http://bestwebsoft.com/
+Version: 0.2
+Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
 
-/*  © Copyright 2016  BestWebSoft  ( http://support.bestwebsoft.com )
+/*  © Copyright 2017  BestWebSoft  ( https://support.bestwebsoft.com )
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as
@@ -260,12 +260,12 @@ if ( ! function_exists( 'rtng_settings_page' ) ) {
 					<div><?php $icon_shortcode = plugins_url( 'bws_menu/images/shortcode-icon.png', __FILE__ );
 					printf( 
 						__( "If you would like to add rating to your page or post, please use %s button", 'rating-bws' ), 
-						'<span class="bws_code"><img style="vertical-align: sub;" src="' . $icon_shortcode . '" alt=""/></span>' ); ?> 
+						'<span class="bws_code"><span class="bwsicons bwsicons-shortcode"></span></span>' ); ?> 
 						<div class="bws_help_box bws_help_box_right dashicons dashicons-editor-help">
 							<div class="bws_hidden_help_text" style="min-width: 180px;">
 								<?php printf( 
 									__( "You can add rating to your page or post by clicking on %s button in the content edit block using the Visual mode. If the button isn't displayed, please use the shortcode %s.", 'rating-bws' ), 
-									'<code><img style="vertical-align: sub;" src="' . $icon_shortcode . '" alt="" /></code>', 
+									'<span class="bws_code"><span class="bwsicons bwsicons-shortcode"></span></span>', 
 									'<code>[bws-rating]</code>'
 								 ); ?>
 							</div>
@@ -906,8 +906,8 @@ if ( ! function_exists ( 'rtng_links' ) ) {
 		if ( $file == $base ) {
 			if ( ! is_network_admin() )
 				$links[] = 	'<a href="admin.php?page=rating.php">' . __( 'Settings', 'rating-bws' ) . '</a>';
-			$links[] = 	'<a href="http://wordpress.org/plugins/rating-bws/faq/" target="_blank">' . __( 'FAQ', 'rating-bws' ) . '</a>';
-			$links[] = 	'<a href="http://support.bestwebsoft.com">' . __( 'Support', 'rating-bws' ) . '</a>';
+			$links[] = 	'<a href="https://support.bestwebsoft.com/hc/en-us/sections/203319926" target="_blank">' . __( 'FAQ', 'rating-bws' ) . '</a>';
+			$links[] = 	'<a href="https://support.bestwebsoft.com">' . __( 'Support', 'rating-bws' ) . '</a>';
 		}
 		return $links;
 	}
