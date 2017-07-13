@@ -6,7 +6,7 @@ Description: Add rating plugin to your WordPress website to receive feedback fro
 Author: BestWebSoft
 Text Domain: rating-bws
 Domain Path: /languages
-Version: 0.2
+Version: 0.3
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -59,7 +59,7 @@ if ( ! function_exists( 'rtng_init' ) ) {
 		bws_include_init( plugin_basename( __FILE__ ) );
 		
 		/* check compatible with current WP version */
-		bws_wp_min_version_check( plugin_basename( __FILE__ ), $rtng_plugin_info, '3.8' );
+		bws_wp_min_version_check( plugin_basename( __FILE__ ), $rtng_plugin_info, '3.9' );
 
 		/* Get/Register and check settings for plugin */	
 		if ( ! is_admin() || ( isset( $_GET['page'] ) && 'rating.php' ==  $_GET['page'] ) ) {
@@ -257,19 +257,15 @@ if ( ! function_exists( 'rtng_settings_page' ) ) {
 			} else {
 				if ( ! isset( $_GET['action'] ) ) { ?>
 					<br>
-					<div><?php $icon_shortcode = plugins_url( 'bws_menu/images/shortcode-icon.png', __FILE__ );
-					printf( 
-						__( "If you would like to add rating to your page or post, please use %s button", 'rating-bws' ), 
-						'<span class="bws_code"><span class="bwsicons bwsicons-shortcode"></span></span>' ); ?> 
-						<div class="bws_help_box bws_help_box_right dashicons dashicons-editor-help">
-							<div class="bws_hidden_help_text" style="min-width: 180px;">
-								<?php printf( 
-									__( "You can add rating to your page or post by clicking on %s button in the content edit block using the Visual mode. If the button isn't displayed, please use the shortcode %s.", 'rating-bws' ), 
-									'<span class="bws_code"><span class="bwsicons bwsicons-shortcode"></span></span>', 
-									'<code>[bws-rating]</code>'
-								 ); ?>
-							</div>
-						</div>
+					<div>
+						<?php printf( 
+							__( "If you would like to add rating to your page or post, please use %s button", 'rating-bws' ), 
+							'<span class="bws_code"><span class="bwsicons bwsicons-shortcode"></span></span>' );
+							echo bws_add_help_box( sprintf( 
+								__( "You can add rating to your page or post by clicking on %s button in the content edit block using the Visual mode. If the button isn't displayed, please use the shortcode %s.", 'rating-bws' ),
+								'<span class="bws_code"><span class="bwsicons bwsicons-shortcode"></span></span>', 
+								'<code>[bws-rating]</code>'
+							) ); ?>							
 					</div>
 					<form method="post" action="" enctype="multipart/form-data" class="bws_form">
 						<table class="form-table">
@@ -823,8 +819,7 @@ if ( ! function_exists( 'rtng_pagination_callback' ) ) {
 
 /* add shortcode content  */
 if ( ! function_exists( 'rtng_shortcode_button_content' ) ) {
-	function rtng_shortcode_button_content( $content ) {
-		global $wp_version; ?>
+	function rtng_shortcode_button_content( $content ) { ?>
 		<div id="rtng" style="display:none;">
 			<fieldset>				
 				<?php _e( 'Add Rating block to your page or post', 'rating-bws' ); ?>
@@ -840,7 +835,9 @@ if ( ! function_exists( 'rtng_admin_head' ) ) {
 	function rtng_admin_head() {
 		if ( isset( $_GET['page'] ) && 'rating.php' == $_GET['page'] ) {
 			wp_enqueue_style( 'wp-color-picker' );
-   			wp_enqueue_script( 'rtng_script', plugins_url( 'js/admin_script.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ) );		
+   			wp_enqueue_script( 'rtng_script', plugins_url( 'js/admin_script.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ) );
+
+   			bws_enqueue_settings_scripts();
 		
 			if ( isset( $_GET['action'] ) && 'custom_code' == $_GET['action'] )
 				bws_plugins_include_codemirror();

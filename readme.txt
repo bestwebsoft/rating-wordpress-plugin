@@ -2,9 +2,9 @@
 Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: 5 stars, rating, stars, rating plugin, add rating, plugin star rating, add vote, voiting, rate, post rating, rating system, review
-Requires at least: 3.8
-Tested up to: 4.7.3
-Stable tag: 0.2
+Requires at least: 3.9
+Tested up to: 4.8
+Stable tag: 0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -67,7 +67,7 @@ Some of these translations are not complete. We are constantly adding new featur
 
 = Recommended Plugins =
 
-* [Updater](https://bestwebsoft.com/products/wordpress/plugins/updater/?k=c7ce6f79072aa3d73d66318b2370b719) - Automatically check and update WordPress core with all installed plugins to the latest versions. Manual mode, email notifications and backups of all your files and database before updating.
+* [Updater](https://bestwebsoft.com/products/wordpress/plugins/updater/?k=c7ce6f79072aa3d73d66318b2370b719) - Automatically check and update WordPress website core with all installed plugins and themes to the latest versions.
 
 == Installation == 
 
@@ -106,6 +106,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V0.3 - 13.07.2017 =
+* Update : We updated all functionality for wordpress 4.8.
+
 = V0.2 - 17.04.2017 =
 * Bugfix : Multiple Cross-Site Scripting (XSS) vulnerability was fixed.
 
@@ -113,6 +116,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 Release date of Rating.
 
 == Upgrade Notice ==
+
+= V0.3 =
+* The compatibility with new WordPress version updated.
 
 = V0.2 =
 * Bugs fixed.
