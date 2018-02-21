@@ -1,16 +1,19 @@
 ( function( $ ) {
 	$( document ).ready( function() {
 		$( '.rtng-star-rating' ).removeClass( 'rtng-no-js' );
-		$( '.rtng-add-button' ).hide();
 
 		$( document ).on( 'change', '.rtng-star-rating.rtng-active .rtng-star input', function() {
 			var form = $( this ).closest( '.rtng-form' );
+
+			form.before( '<div class="rtng-form-marker"></div>' );
+
 			var val = $( this ).val(),
 				object_id = form.find( 'input[name="rtng_object_id"]' ).val(),
 				post_id = form.data( 'id' ),
 				object_type = form.find( 'input[name="rtng_object_type"]' ).val();
+				show_title = form.find( 'input[name="rtng_show_title"]' ).val();
 
-			form.find( '.rtng-star-rating' ).html( '<span class="rtng-loading"></span>' );
+			form.find( '.rtng-star-rating' ).append( '<span class="rtng-loading"></span>' );
 
 			$.ajax( {
 				url: rtng_vars.ajaxurl,
@@ -19,29 +22,32 @@
 					rtng_rating_val: val,
 					rtng_object_id: object_id,
 					rtng_post_id: post_id,
+					rtng_show_title: show_title,
 					rtng_nonce: rtng_vars.nonce
 				},
 				type: 'POST',
 				success: function( data ) {
+					if ( data ) {
+						data = JSON.parse( data );
 
-					$( '.rtng-rating-total[data-id="' + post_id + '"]' ).each( function() {
-						if ( $( this ).next( 'form.rtng-form' ).length > 0 ) {
-							$( this ).next( 'form.rtng-form' ).remove();
-							$( this ).html( data );							
+						$( '.rtng-rating-total[data-id="' + post_id + '"]' ).not( '.rtng-form-combined' ).replaceWith( data.total );
+						$( '.rtng-form[data-id="' + post_id + '"]' ).not( '.rtng-form-combined' ).replaceWith( data.rate );
+						$( '.rtng-form-combined[data-id="' + post_id + '"]' ).replaceWith( data.combined );
+
+						form = $( '.rtng-form-marker + .rtng-form' );
+
+						var $message_block = form.find( '.rtng-thankyou' );
+						if ( $message_block.length ) {
+							$message_block.replaceWith( data.message );
 						} else {
-							$( this ).html( data ).find( '.rtng-form' ).remove();
+							form.append( data.message );
 						}
-					});
-
-					$( 'form.rtng-form[data-id="' + post_id + '"]' ).each( function() {
-						if ( $( this ).prev( '.rtng-rating-total' ).length == 0 ) {
-							$( this ).html( data ).find( '.rtng-rating-total' ).remove();					
-						}
-					});
-					
-					setTimeout( function() {
-						$( '.rtng-rating-total[data-id="' + post_id + '"]' ).find( '.rtng-thankyou' ).remove();						
-					}, 5000 );						
+						setTimeout( function() {
+							form.find( '.rtng-thankyou' ).fadeOut();
+						}, 5000 );
+					}
+					form.find( '.rtng-loading' ).remove();
+					$( '.rtng-form-marker' ).remove();
 				}
 			} );
 		});
@@ -83,6 +89,6 @@
 							.addClass( 'dashicons-star-half' );
 				}
 			}
-		});	
-	});			
+		});
+	});
 })( jQuery );

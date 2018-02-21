@@ -14,6 +14,8 @@
 </ul>
 </li>
 <li>Add rating via shortcode</li>
+<li>Select the user roles that can submit ratings [NEW]</li>
+<li>Allow non-logged in users to submit ratings [NEW]</li>
 <li>Choose average rating position:
 <ul>
 <li>Before the content</li>
@@ -41,6 +43,7 @@
 <li>Text</li>
 </ul>
 </li>
+<li>Include JSON-LD schema [NEW]</li>
 <li>Customize message:
 <ul>
 <li>Total number of stars</li>
@@ -48,6 +51,7 @@
 <li>When rating is submitted successfully</li>
 </ul>
 </li>
+<li>Exclude JSON-LD schema per post [NEW]</li>
 <li>Add custom code via plugin settings page</li>
 <li>Compatible with latest WordPress version</li>
 <li>Incredibly simple settings for fast setup without modifying code</li>
@@ -57,6 +61,7 @@
 <h4>Documentation &amp; Videos</h4>
 <ul>
 <li><a href="https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/" rel="nofollow">[Doc] Installation</a></li>
+<li><a href="https://docs.google.com/document/d/1xFQZHTvem37naS9h3l_Xx_LnRy7djUKBlvtYgHR6k7s/" rel="nofollow">[Doc] How to Use</a></li>
 </ul>
 <h4>Help &amp; Support</h4>
 <p>Visit our Help Center if you have any questions, our friendly Support Team is happy to help — <a href="https://support.bestwebsoft.com/" rel="nofollow">https://support.bestwebsoft.com/</a></p>

@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: 5 stars, rating, stars, rating plugin, add rating, plugin star rating, add vote, voiting, rate, post rating, rating system, review
 Requires at least: 3.9
-Tested up to: 4.8
-Stable tag: 0.3
+Tested up to: 4.9.4
+Stable tag: 0.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -24,6 +24,8 @@ Show rating from other people to increase conversions!
 	* Media
 	* Custom post types
 * Add rating via shortcode
+* Select the user roles that can submit ratings [NEW]
+* Allow non-logged in users to submit ratings [NEW]
 * Choose average rating position:
 	* Before the content
 	* After the content
@@ -39,10 +41,12 @@ Show rating from other people to increase conversions!
 * Set the size for:
 	* Stars
 	* Text
+* Include JSON-LD schema [NEW]
 * Customize message:
 	* Total number of stars
 	* Guest users that submit a review
 	* When rating is submitted successfully
+* Exclude JSON-LD schema per post [NEW]
 * Add custom code via plugin settings page
 * Compatible with latest WordPress version
 * Incredibly simple settings for fast setup without modifying code
@@ -53,6 +57,7 @@ If you have a feature suggestion or idea you'd like to see in the plugin, we'd l
 = Documentation & Videos =
 
 * [[Doc] Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
+* [[Doc] How to Use](https://docs.google.com/document/d/1xFQZHTvem37naS9h3l_Xx_LnRy7djUKBlvtYgHR6k7s/)
 
 = Help & Support =
 
@@ -69,7 +74,7 @@ Some of these translations are not complete. We are constantly adding new featur
 
 * [Updater](https://bestwebsoft.com/products/wordpress/plugins/updater/?k=c7ce6f79072aa3d73d66318b2370b719) - Automatically check and update WordPress website core with all installed plugins and themes to the latest versions.
 
-== Installation == 
+== Installation ==
 
 1. Upload the `rating-bws` folder to `/wp-content/plugins/` directory.
 2. Activate the plugin using the 'Plugins' menu in your WordPress admin panel.
@@ -77,13 +82,15 @@ Some of these translations are not complete. We are constantly adding new featur
 
 == Frequently Asked Questions ==
 
-= All users can leave a rating? =
+= How can I allow guests (non-logged in users) to submit ratings? =
 
-No, user must log in to submit a review.
+1. Go to the plugin settings page.
+2. Find "Enable Rating for" option and mark "Guest" checkbox.
+3. Click "Save Changes" button.
 
 = How many times user can leave a review? =
 
-Your users can live one review for a single post or page.
+Your users can leave one review for a single post or page.
 
 = I have some problems with the plugin's work. What Information should I provide to receive proper support? =
 
@@ -92,12 +99,12 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 1. the link to the page where the problem occurs
 2. the name of the plugin and its version. If you are using a pro version - your order number.
 3. the version of your WordPress installation
-4. copy and paste into the message your system status report. Please read more here: [Instruction on System Status](https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/edit)
+4. copy and paste your system status report into the message. Please read more here: [Instruction on System Status](https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/edit)
 
 == Screenshots ==
 
 1. Average rating displaying.
-2. Average rating with a rate option for non-login users.
+2. Average rating with a rate option for non-logged in users.
 3. Average rating and a rate option.
 4. Combined average rating with a rate option on hover.
 5. Rate option in comments.
@@ -106,16 +113,24 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V0.4 - 21.02.2018 =
+* NEW : Ability to select user roles that can submit ratings has been added.
+* NEW : Ability to include JSON-LD schema has been added.
+* NEW : Ability to make stars unclickable when a post is already rated.
+
 = V0.3 - 13.07.2017 =
 * Update : We updated all functionality for wordpress 4.8.
 
 = V0.2 - 17.04.2017 =
 * Bugfix : Multiple Cross-Site Scripting (XSS) vulnerability was fixed.
 
-= V0.1 - 30.11.2016 = 
+= V0.1 - 30.11.2016 =
 Release date of Rating.
 
 == Upgrade Notice ==
+
+= V0.4 =
+* New features added.
 
 = V0.3 =
 * The compatibility with new WordPress version updated.
