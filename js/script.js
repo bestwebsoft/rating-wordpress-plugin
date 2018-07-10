@@ -1,7 +1,6 @@
 ( function( $ ) {
 	$( document ).ready( function() {
 		$( '.rtng-star-rating' ).removeClass( 'rtng-no-js' );
-
 		$( document ).on( 'change', '.rtng-star-rating.rtng-active .rtng-star input', function() {
 			var form = $( this ).closest( '.rtng-form' );
 
@@ -51,6 +50,7 @@
 				}
 			} );
 		});
+
 		$( document ).on( 'mouseenter', '.rtng-star-rating.rtng-active .rtng-star', function() {
 			$( this )
 				.nextUntil( $( this ), '.rtng-star' )

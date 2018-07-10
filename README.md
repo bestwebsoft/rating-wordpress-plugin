@@ -14,8 +14,8 @@
 </ul>
 </li>
 <li>Add rating via shortcode</li>
-<li>Select the user roles that can submit ratings [NEW]</li>
-<li>Allow non-logged in users to submit ratings [NEW]</li>
+<li>Select the user roles that can submit ratings</li>
+<li>Allow non-logged in users to submit ratings</li>
 <li>Choose average rating position:
 <ul>
 <li>Before the content</li>
@@ -43,7 +43,7 @@
 <li>Text</li>
 </ul>
 </li>
-<li>Include JSON-LD schema [NEW]</li>
+<li>Include JSON-LD schema</li>
 <li>Customize message:
 <ul>
 <li>Total number of stars</li>
@@ -51,7 +51,7 @@
 <li>When rating is submitted successfully</li>
 </ul>
 </li>
-<li>Exclude JSON-LD schema per post [NEW]</li>
+<li>Exclude JSON-LD schema per post</li>
 <li>Add custom code via plugin settings page</li>
 <li>Compatible with latest WordPress version</li>
 <li>Incredibly simple settings for fast setup without modifying code</li>

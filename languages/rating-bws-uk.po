@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rating-bws\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-15 17:18+0200\n"
-"PO-Revision-Date: 2018-02-15 18:35+0200\n"
+"POT-Creation-Date: 2018-07-06 17:39+0300\n"
+"PO-Revision-Date: 2018-07-06 17:39+0300\n"
 "Last-Translator: plugin@bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language-Team: BestWebSoft <plugin@bestwebsoft.com>\n"
 "Language: ua_UA\n"
@@ -16,67 +16,67 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: rating-bws.php:34 rating-bws.php:302
+#: rating-bws.php:34 rating-bws.php:307
 msgid "Rating Settings"
 msgstr "Налаштування Rating"
 
-#: rating-bws.php:173 rating-bws.php:1658
+#: rating-bws.php:177 rating-bws.php:1688
 msgid "Average Rating"
 msgstr "Середній рейтинг"
 
-#: rating-bws.php:174
+#: rating-bws.php:178
 msgid "My Rating"
 msgstr "Мій рейтинг"
 
-#: rating-bws.php:175
+#: rating-bws.php:179
 #, php-format
 msgid "%s out of 5 stars. %s votes."
 msgstr "%s з 5 зірок. %s голосів."
 
-#: rating-bws.php:176
+#: rating-bws.php:180
 #, php-format
 msgid "You should %s to submit a review."
 msgstr "Вам потрібно %s для того, щоб проголосувати."
 
-#: rating-bws.php:176
+#: rating-bws.php:180
 msgid "log in"
 msgstr "авторизуватися"
 
-#: rating-bws.php:177
+#: rating-bws.php:181
 msgid "Thank you!"
 msgstr "Дякуемо!"
 
-#: rating-bws.php:178
+#: rating-bws.php:182
 msgid "You cannot submit ratings."
 msgstr "Ви не можете виставляти оцінку."
 
-#: rating-bws.php:179
+#: rating-bws.php:183
 msgid "You have already rated this post."
 msgstr "Ви вже оцінили цей запис."
 
-#: rating-bws.php:291
+#: rating-bws.php:296
 msgid "Settings saved."
 msgstr ""
 "Розмітка для структурованих даних не буде виводитися якщо рейтинг записи "
 "опуститься нижче вказаного значення"
 
-#: rating-bws.php:299
+#: rating-bws.php:304
 msgid "All plugin settings were restored."
 msgstr "Всі налаштування плагіну було скинуто до стандартних."
 
-#: rating-bws.php:304 rating-bws.php:1827 rating-bws.php:1840
+#: rating-bws.php:309 rating-bws.php:1857 rating-bws.php:1870
 msgid "Settings"
 msgstr "Налаштування"
 
-#: rating-bws.php:305
+#: rating-bws.php:310
 msgid "Appearance"
 msgstr "Зовнішній вигляд"
 
-#: rating-bws.php:306
+#: rating-bws.php:311
 msgid "Custom code"
 msgstr "Користувацький код"
 
-#: rating-bws.php:318
+#: rating-bws.php:323
 #, php-format
 msgid ""
 "If you would like to add rating to your page or post, please use %s button"
@@ -84,7 +84,7 @@ msgstr ""
 "Якщо ви хочете додати рейтинг на вашу сторінку або запис, будь ласка, "
 "використовуйте кнопку %s"
 
-#: rating-bws.php:321
+#: rating-bws.php:326
 #, php-format
 msgid ""
 "You can add rating to your page or post by clicking on %s button in the "
@@ -95,51 +95,47 @@ msgstr ""
 "в блоці редагування змісту в режимі Visual. Якщо кнопка не відображається, "
 "будь ласка, використовуйте шорткод %s."
 
-#: rating-bws.php:329
+#: rating-bws.php:334
 msgid "Display Rating"
 msgstr "Відображення рейтингу"
 
-#: rating-bws.php:343
+#: rating-bws.php:348
 msgid "Average Rating Position"
 msgstr "Розташування середнього рейтингу"
 
-#: rating-bws.php:348 rating-bws.php:370
+#: rating-bws.php:353 rating-bws.php:375
 msgid "Before the content"
 msgstr "Перед змістом"
 
-#: rating-bws.php:353 rating-bws.php:375
+#: rating-bws.php:358 rating-bws.php:380
 msgid "After the content"
 msgstr "Після змісту"
 
-#: rating-bws.php:359
+#: rating-bws.php:364
 msgid "Combine Average Rating with Rate Option"
 msgstr "Об'єднати середній рейтинг і форму рейтингу"
 
-#: rating-bws.php:365
+#: rating-bws.php:370
 msgid "Rate Option Position"
 msgstr "Розташування опції \"оцінити\""
 
-#: rating-bws.php:380
+#: rating-bws.php:385
 msgid "In comments"
 msgstr "В коментарях"
 
-#: rating-bws.php:386
-msgid "Enable Rating for"
-msgstr "Включити рейтинг для"
+#: rating-bws.php:391
+msgid "Required Rating"
+msgstr "Обов'язковий рейтинг"
 
-#: rating-bws.php:390
-msgid "All"
-msgstr "Все"
+#: rating-bws.php:396
+msgid "Enable to make rating submitting required for comments form."
+msgstr "Увімкніть, щоб зробити рейтинг обов'язковим для форми коментарів."
 
-#: rating-bws.php:398
-msgid "Guest"
-msgstr "Гість"
-
-#: rating-bws.php:404
+#: rating-bws.php:402
 msgid "Always Clickable Stars"
 msgstr "Клікабельні зірки"
 
-#: rating-bws.php:409
+#: rating-bws.php:407
 msgid ""
 "Enable to make stars always clickable, even if the user has already rated "
 "the post or user role is disabled."
@@ -147,238 +143,250 @@ msgstr ""
 "Увімкніть, щоб на зірки завжди можна було натиснути, навіть якщо користувач "
 "вже оцінив цю сторінку або користувацька роль відключена."
 
-#: rating-bws.php:415
+#: rating-bws.php:413
 msgid "Schema Markup"
 msgstr "Структуровані дані"
 
-#: rating-bws.php:423
+#: rating-bws.php:421
 #, php-format
 msgid "Enable to add JSON-LD rating %s markup."
 msgstr "Увімкніть, щоб додати %s JSON-LD."
 
-#: rating-bws.php:426 rating-bws.php:1475
+#: rating-bws.php:424 rating-bws.php:1505
 msgid "schema"
 msgstr "структуровані дані"
 
-#: rating-bws.php:431
+#: rating-bws.php:429
 msgid "Learn More"
 msgstr "Докладніше"
 
-#: rating-bws.php:439
+#: rating-bws.php:437
 msgid "Minimum Rating to Add Schema"
 msgstr "Мінімальний рейтинг для додавання структурованих даних"
 
-#: rating-bws.php:442
+#: rating-bws.php:440
 msgid ""
 "Schema markup will not be included if post rating goes under this value."
 msgstr ""
 "Розмітка для структурованих даних не буде виводитися якщо рейтинг запису "
 "опуститься нижче вказаного значення"
 
-#: rating-bws.php:449 rating-bws.php:562
+#: rating-bws.php:445
+msgid "Enable Rating for"
+msgstr "Включити рейтинг для"
+
+#: rating-bws.php:449
+msgid "All"
+msgstr "Все"
+
+#: rating-bws.php:457
+msgid "Guest"
+msgstr "Гість"
+
+#: rating-bws.php:465 rating-bws.php:586
 msgid "Save Changes"
 msgstr "Зберегти зміни"
 
-#: rating-bws.php:458
+#: rating-bws.php:482
 msgid "Star Color"
 msgstr "Колір зірки"
 
-#: rating-bws.php:464
+#: rating-bws.php:488
 msgid "Star Color on Hover"
 msgstr "Колір зірки при наведенні"
 
-#: rating-bws.php:470
+#: rating-bws.php:494
 msgid "Star Size"
 msgstr "Розмір зірки"
 
-#: rating-bws.php:472 rating-bws.php:484
+#: rating-bws.php:496 rating-bws.php:508
 msgid "px"
 msgstr "пікс."
 
-#: rating-bws.php:476
+#: rating-bws.php:500
 msgid "Text Color"
 msgstr "Колір тексту"
 
-#: rating-bws.php:482
+#: rating-bws.php:506
 msgid "Text Font-Size"
 msgstr "Розмір шрифту тексту"
 
-#: rating-bws.php:488
+#: rating-bws.php:512
 msgid "Average Rating Title"
 msgstr "Заголовок середнього рейтингу"
 
-#: rating-bws.php:494
+#: rating-bws.php:518
 msgid "Total Rating Message"
 msgstr "Текст загального рейтингу"
 
-#: rating-bws.php:500
+#: rating-bws.php:524
 #, php-format
 msgid "Use %s to insert current rate."
 msgstr "Використовуйте %s, щоб додати поточний рейтинг."
 
-#: rating-bws.php:504
+#: rating-bws.php:528
 #, php-format
 msgid "Use %s to insert rates count."
 msgstr "Використовуйте %s, щоб додати кількість голосів."
 
-#: rating-bws.php:511
+#: rating-bws.php:535
 msgid "Rate Option Title"
 msgstr "Заголовок опції \"оцінити\""
 
-#: rating-bws.php:517
+#: rating-bws.php:541
 msgid "Message for Guests"
 msgstr "Повідомлення для не залогінених користувачів"
 
-#: rating-bws.php:523
+#: rating-bws.php:547
 #, php-format
 msgid "Use %s to insert login link."
 msgstr "Використовуйте %s, щоб додати посилання на сторінку логіна."
 
-#: rating-bws.php:530
+#: rating-bws.php:554
 msgid "Thank You Message"
 msgstr "Текст подяки"
 
-#: rating-bws.php:535
+#: rating-bws.php:559
 msgid "This message will be displayed after the rating is submitted."
 msgstr "Повідомлення, яке буде показано в разі успішної оцінки сторінки."
 
-#: rating-bws.php:540
+#: rating-bws.php:564
 msgid "Disabled User Role Message"
 msgstr "Повідомлення для відключеної користувальницької ролі"
 
-#: rating-bws.php:545
+#: rating-bws.php:569
 msgid "This message will be displayed if user role is disabled."
 msgstr ""
 "Це повідомлення буде показано в разі, якщо користувацька роль вимкнена."
 
-#: rating-bws.php:550
+#: rating-bws.php:574
 msgid "Already Rated Message"
 msgstr "Повідомлення для раніше оцінених сторінок"
 
-#: rating-bws.php:555
+#: rating-bws.php:579
 msgid "This message will be displayed if the user has already rated the post."
 msgstr ""
 "Повідомлення, яке буде показано в разі, якщо користувач раніше вже оцінював "
 "цю сторінку."
 
-#: rating-bws.php:729 rating-bws.php:833
+#: rating-bws.php:753 rating-bws.php:857
 msgid "Post ID is required"
 msgstr "ID записи є обов'язковим"
 
-#: rating-bws.php:733 rating-bws.php:849
+#: rating-bws.php:757 rating-bws.php:873
 msgid "Specified User IP is invalid"
 msgstr "Зазначений IP користувача є некоректним"
 
-#: rating-bws.php:837
+#: rating-bws.php:861
 msgid "User or comment ID is required"
 msgstr "ID користувача або коментаря є обов'язковим"
 
-#: rating-bws.php:844
+#: rating-bws.php:868
 msgid "Rating is required"
 msgstr "Рейтинг є обов'язковим"
 
-#: rating-bws.php:1092 rating-bws.php:1214
+#: rating-bws.php:1112 rating-bws.php:1234
 msgid "Rate"
 msgstr "Оцінити"
 
-#: rating-bws.php:1443
+#: rating-bws.php:1473
 msgid "Rating"
 msgstr "Рейтинг"
 
-#: rating-bws.php:1466
+#: rating-bws.php:1496
 msgid "Exclude schema"
 msgstr "Виключення структурованих даних"
 
-#: rating-bws.php:1472
+#: rating-bws.php:1502
 #, php-format
 msgid "Enable to exclude JSON-LD %s markup."
 msgstr "Увімкніть, щоб виключити %s JSON-LD."
 
-#: rating-bws.php:1642 rating-bws.php:1649
+#: rating-bws.php:1672 rating-bws.php:1679
 msgid "Use plugin settings"
 msgstr "Використовувати налаштування плагіна"
 
-#: rating-bws.php:1643
+#: rating-bws.php:1673
 msgid "Average Rating Only"
 msgstr "Лише середній рейтинг"
 
-#: rating-bws.php:1644
+#: rating-bws.php:1674
 msgid "Rate Option Only"
 msgstr "Лише форма рейтингу"
 
-#: rating-bws.php:1645
+#: rating-bws.php:1675
 msgid "Average Rating and Rate Option"
 msgstr "Середній рейтинг і форма рейтингу"
 
-#: rating-bws.php:1646
+#: rating-bws.php:1676
 msgid "Combined"
 msgstr "Комбінувати"
 
-#: rating-bws.php:1650
+#: rating-bws.php:1680
 msgid "Include"
 msgstr "Додавати"
 
-#: rating-bws.php:1651
+#: rating-bws.php:1681
 msgid "Exclude"
 msgstr "Виключати"
 
-#: rating-bws.php:1654
+#: rating-bws.php:1684
 msgid "Select Shortcode"
 msgstr "Оберіть шорткод"
 
-#: rating-bws.php:1656
+#: rating-bws.php:1686
 msgid "Rating Block"
 msgstr "Рейтинг"
 
-#: rating-bws.php:1657
+#: rating-bws.php:1687
 msgid "Total Rates Number"
 msgstr "Загальна кількість оцінок"
 
-#: rating-bws.php:1659
+#: rating-bws.php:1689
 msgid "Max Stars Available"
 msgstr "Максимально доступна кількість зірок"
 
-#: rating-bws.php:1662
+#: rating-bws.php:1692
 msgid "Add Rating block to your page or post"
 msgstr "Додати блок рейтингу на вашу сторінку"
 
-#: rating-bws.php:1666
+#: rating-bws.php:1696
 msgid "Display"
 msgstr "Відображення"
 
-#: rating-bws.php:1672
+#: rating-bws.php:1702
 msgid "rating block title"
 msgstr "заголовок блоку рейтинг"
 
-#: rating-bws.php:1677
+#: rating-bws.php:1707
 msgid "rating block text"
 msgstr "текст блоку рейтинг"
 
-#: rating-bws.php:1684
+#: rating-bws.php:1714
 msgid "Output"
 msgstr "Вид"
 
-#: rating-bws.php:1694
+#: rating-bws.php:1724
 msgid "Schema"
 msgstr "Структуровані дані"
 
-#: rating-bws.php:1705
+#: rating-bws.php:1735
 msgid "Display total number of ratings."
 msgstr "Вивід кількості оцінок."
 
-#: rating-bws.php:1708
+#: rating-bws.php:1738
 msgid "Display average post rating."
 msgstr "Вивід середнього рейтингу."
 
-#: rating-bws.php:1711
+#: rating-bws.php:1741
 msgid "Display available number of stars."
 msgstr "Вивід максимальної кількості зірок."
 
-#: rating-bws.php:1841
+#: rating-bws.php:1871
 msgid "FAQ"
 msgstr "FAQ"
 
-#: rating-bws.php:1842
+#: rating-bws.php:1872
 msgid "Support"
 msgstr "Підтримка"
 

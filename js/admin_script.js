@@ -12,9 +12,11 @@
 
 		$( '#rtng_rate_position input' ).change( function() {
 			if ( $( '#rtng_rate_position input[value="in_comment"]' ).is( ':checked' ) ) {
+				$( 'input[name="rtng_check_rating_required"]' ).removeAttr( 'disabled' );
 				$( '#rtng_rate_position input[value!="in_comment"]' ).attr( 'disabled', 'disabled' ).removeAttr( 'checked' );
 			} else {
 				$( '#rtng_rate_position input' ).removeAttr( 'disabled' );
+				$( 'input[name="rtng_check_rating_required"]' ).attr( 'disabled', 'disabled' ).removeAttr( 'checked' );
 			}
 		} ).trigger( 'change' );
 

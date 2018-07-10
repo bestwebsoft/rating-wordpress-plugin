@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: 5 stars, rating, stars, rating plugin, add rating, plugin star rating, add vote, voiting, rate, post rating, rating system, review
 Requires at least: 3.9
-Tested up to: 4.9.4
-Stable tag: 0.4
+Tested up to: 4.9.7
+Stable tag: 0.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -24,8 +24,8 @@ Show rating from other people to increase conversions!
 	* Media
 	* Custom post types
 * Add rating via shortcode
-* Select the user roles that can submit ratings [NEW]
-* Allow non-logged in users to submit ratings [NEW]
+* Select the user roles that can submit ratings
+* Allow non-logged in users to submit ratings
 * Choose average rating position:
 	* Before the content
 	* After the content
@@ -41,12 +41,12 @@ Show rating from other people to increase conversions!
 * Set the size for:
 	* Stars
 	* Text
-* Include JSON-LD schema [NEW]
+* Include JSON-LD schema
 * Customize message:
 	* Total number of stars
 	* Guest users that submit a review
 	* When rating is submitted successfully
-* Exclude JSON-LD schema per post [NEW]
+* Exclude JSON-LD schema per post
 * Add custom code via plugin settings page
 * Compatible with latest WordPress version
 * Incredibly simple settings for fast setup without modifying code
@@ -113,6 +113,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V0.5 - 10.07.2018 =
+* NEW: The ability to make rating required for comments form has been added.
+
 = V0.4 - 21.02.2018 =
 * NEW : Ability to select user roles that can submit ratings has been added.
 * NEW : Ability to include JSON-LD schema has been added.
@@ -128,6 +131,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 Release date of Rating.
 
 == Upgrade Notice ==
+
+= V0.5 =
+* Functionality expanded.
 
 = V0.4 =
 * New features added.

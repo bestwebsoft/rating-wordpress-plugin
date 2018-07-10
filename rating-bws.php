@@ -6,7 +6,7 @@ Description: Add rating plugin to your WordPress website to receive feedback fro
 Author: BestWebSoft
 Text Domain: rating-bws
 Domain Path: /languages
-Version: 0.4
+Version: 0.5
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -73,6 +73,10 @@ if ( ! function_exists( 'rtng_init' ) ) {
 				add_action( 'comment_form_top', 'rtng_show_rating_form', 10, 0 );
 				/* comment_text - Displays the text of a comment. */
 				add_action( 'comment_text', 'rtng_show_comment_rating' );
+				if( $rtng_options['rating_required'] ) {
+					add_filter( 'preprocess_comment' , 'rtng_check_rating' );
+				}
+
 			}
 
 			if ( ! empty( $rtng_options['average_position'] ) ||
@@ -180,7 +184,8 @@ if ( ! function_exists( 'rtng_get_default_options' ) ) {
 			'enabled_roles'				=> array_keys( $wp_roles->roles ),
 			'add_schema'				=> 1,
 			'schema_min_rate'			=> 3.0,
-			'always_clickable'			=> 0
+			'always_clickable'			=> 0,
+			'rating_required'			=> 0
 		 );
 
 		return $default_options;
@@ -271,7 +276,7 @@ if ( ! function_exists( 'rtng_settings_page' ) ) {
 				}
 
 				$rtng_options['always_clickable'] = isset( $_REQUEST['rtng_always_clickable'] ) ? 1 : 0;
-
+				$rtng_options['rating_required'] = isset( $_REQUEST['rtng_check_rating_required'] ) ? 1 : 0;
 			} else {
 				$rtng_options['rate_color'] = stripslashes( esc_html( $_REQUEST['rtng_rate_color'] ) );
 				$rtng_options['rate_hover_color'] = stripslashes( esc_html( $_REQUEST['rtng_rate_hover_color'] ) );
@@ -380,6 +385,17 @@ if ( ! function_exists( 'rtng_settings_page' ) ) {
 												<?php _e( 'In comments', 'rating-bws' ); ?>
 										</label>
 									</fieldset>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php _e( 'Required Rating', 'rating-bws' ); ?></th>
+								<td>
+									<label>
+										<input type="checkbox" name="rtng_check_rating_required" value="1" <?php checked( $rtng_options['rating_required'] ); ?> />
+										<span class="bws_info">
+											<?php _e( 'Enable to make rating submitting required for comments form.', 'rating-bws'); ?>
+										</span>
+									</label>
 								</td>
 							</tr>
 							<tr>
@@ -977,12 +993,8 @@ if ( ! function_exists( 'rtng_add_rating_to_content' ) ) {
 		}
 
 		$before = $after = $schema = '';
-
-		if (
-			! empty( $rtng_options['add_schema'] ) &&
-			is_singular() &&
-			empty( get_post_meta( $post->ID, 'rtng_exclude_schema', true ) )
-		) {
+		$rtng_schema = get_post_meta( $post->ID, 'rtng_exclude_schema', true );
+		if ( ! empty( $rtng_options['add_schema'] ) && is_singular() && empty( $rtng_schema ) ) {
 			if ( empty( $rtng_added_schemas ) ) {
 				$rtng_added_schemas = array();
 			}
@@ -1233,6 +1245,16 @@ if ( ! function_exists( 'rtng_show_rating_form' ) ) {
 	}
 }
 
+/* Check rating for comment */
+if ( ! function_exists('rtng_check_rating') ) {
+	function rtng_check_rating( $commentdata ) {
+		if( empty( $_POST['rtng_rating'] ) ) {
+			wp_die( 'ERROR: please type a rating.', 'rating-bws' );
+		}
+		return $commentdata;
+	}
+}
+
 if ( ! function_exists( 'rtng_display_stars' ) ) {
 	function rtng_display_stars( $rating = 0, $class = '' ) {
 		if ( is_wp_error( $rating ) ) {
@@ -1250,7 +1272,7 @@ if ( ! function_exists( 'rtng_display_stars' ) ) {
 			for ( $i = 0; $i < $full_stars; $i++ ) {
 				$rating_block .= '
 					<label class="rtng-star" data-rating="' . ( $i+1 ) . '">
-						<input type="radio" name="rtng_rating" value="' . ( $i+1 ) . '" />
+						<input type="radio" required="required" name="rtng_rating" value="' . ( $i+1 ) . '" />
 						<span class="dashicons dashicons-star-filled"></span>
 					</label>';
 			}
@@ -1264,7 +1286,7 @@ if ( ! function_exists( 'rtng_display_stars' ) ) {
 			}
 			for ( $j = $full_stars; $j < 5; $j++ ) {
 				$rating_block .= '<label class="rtng-star" data-rating="' . ( $j+1 ) . '">
-					<input type="radio" name="rtng_rating" value="' . ( $j+1 ) . '" />
+					<input type="radio" required="required" name="rtng_rating" value="' . ( $j+1 ) . '" />
 					<span class="dashicons dashicons-star-empty"></span>
 				</label>';
 			}
