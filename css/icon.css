@@ -1,0 +1,8 @@
+/*LinkedIn*/
+.menu-top.toplevel_page_rating .wp-menu-image {
+    font-family: 'bwsicons' !important;
+}
+.menu-top.toplevel_page_rating .wp-menu-image:before {
+    content: "\e926";
+    font-family: 'bwsicons' !important;
+}

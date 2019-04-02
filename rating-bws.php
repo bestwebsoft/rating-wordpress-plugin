@@ -1,17 +1,17 @@
 <?php
 /*
-Plugin Name: Rating by BestWebSoft
+Plugin Name: Rating BestWebSoft
 Plugin URI: https://bestwebsoft.com/products/wordpress/plugins/rating/
 Description: Add rating plugin to your WordPress website to receive feedback from your customers.
 Author: BestWebSoft
 Text Domain: rating-bws
 Domain Path: /languages
-Version: 0.5
+Version: 1.0
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
 
-/*  © Copyright 2017  BestWebSoft  ( https://support.bestwebsoft.com )
+/*  © Copyright 2019  BestWebSoft  ( https://support.bestwebsoft.com )
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as
@@ -28,11 +28,20 @@ License: GPLv2 or later
 */
 
 /* Add BWS menu */
-if ( ! function_exists( 'rtng_add_pages' ) ) {
-	function rtng_add_pages() {
-		bws_general_menu();
-		$settings = add_submenu_page( 'bws_panel', __( 'Rating Settings', 'rating-bws' ), 'Rating', 'manage_options', 'rating.php', 'rtng_settings_page' );
-		add_action( 'load-' . $settings, 'rtng_add_tabs' );
+if ( ! function_exists( 'add_rtng_menu' ) ) {
+	function add_rtng_menu() {
+        global $submenu, $wp_version, $rtng_plugin_info;
+	    $settings = add_menu_page( __( 'Rating Settings', 'rating-bws' ), 'Rating', 'manage_options', 'rating.php', 'rtng_settings_page' );
+        add_submenu_page( 'rating.php', __( 'Rating Settings', 'rating-bws' ), __( 'Settings', 'rating-bws' ), 'manage_options', 'rating.php', 'rtng_settings_page' );
+        add_submenu_page( 'rating.php', 'BWS Panel', 'BWS Panel', 'manage_options', 'rtng-bws-panel', 'bws_add_menu_render' );
+
+        if ( isset( $submenu['rating.php'] ) )
+            $submenu['rating.php'][] = array(
+                '<span style="color:#d86463"> ' . __( 'Upgrade to Pro', 'contact-form-plugin' ) . '</span>',
+                'manage_options',
+                'https://bestwebsoft.com/products/wordpress/plugins/contact-form/?k=697c5e74f39779ce77850e11dbe21962&pn=77&v=' . $rtng_plugin_info["Version"] . '&wp_v=' . $wp_version );
+
+        add_action( 'load-' . $settings, 'rtng_add_tabs' );
 	}
 }
 /* Internationalization*/
@@ -42,7 +51,6 @@ if ( ! function_exists( 'rtng_plugins_loaded' ) ) {
 		load_plugin_textdomain( 'rating-bws', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 }
-
 /* Initialization */
 if ( ! function_exists( 'rtng_init' ) ) {
 	function rtng_init() {
@@ -62,7 +70,7 @@ if ( ! function_exists( 'rtng_init' ) ) {
 		bws_wp_min_version_check( plugin_basename( __FILE__ ), $rtng_plugin_info, '3.9' );
 
 		/* Get/Register and check settings for plugin */
-		if ( ! is_admin() || ( isset( $_GET['page'] ) && 'rating.php' ==  $_GET['page'] ) ) {
+		if ( ! is_admin() || ( isset( $_GET['page'] ) && 'rating.php' == $_GET['page'] ) ) {
 			rtng_settings();
 		}
 
@@ -94,7 +102,7 @@ if ( ! function_exists( 'rtng_admin_init' ) ) {
 		global $bws_plugin_info, $rtng_plugin_info, $bws_shortcode_list;
 		/* Function for bws menu */
 		if ( empty( $bws_plugin_info ) ) {
-			$bws_plugin_info = array( 'id'  => '630', 'version'  => $rtng_plugin_info["Version"] );
+			$bws_plugin_info = array( 'id' => '630', 'version' => $rtng_plugin_info["Version"] );
 		}
 		/* add Plugin to global $bws_shortcode_list */
 		$bws_shortcode_list['rtng'] = array( 'name' => 'Rating', 'js_function' => 'rtng_shortcode_init' );
@@ -105,7 +113,7 @@ if ( ! function_exists( 'rtng_admin_init' ) ) {
 if ( ! function_exists( 'rtng_settings' ) ) {
 	function rtng_settings() {
 		global $rtng_options, $rtng_plugin_info, $wpdb;
-		$db_version = '1.1';
+		$db_version = '1.2';
 		/* Install the option defaults */
 		if ( ! get_option( 'rtng_options' ) ) {
 			$options_default = rtng_get_default_options();
@@ -120,25 +128,13 @@ if ( ! function_exists( 'rtng_settings' ) ) {
 			$options_default = rtng_get_default_options();
 			$rtng_options = array_merge( $options_default, $rtng_options );
 			$rtng_options['plugin_option_version'] = $rtng_plugin_info["Version"];
-
-			/**
-			 * Update for beta version
-			 * @deprecated since 0.4
-			 * @todo remove after 12.07.2018
-			 */
-			if ( isset( $rtng_options['unclickable'] ) ) {
-				$rtng_options['always_clickable'] = ( $rtng_options['unclickable'] ) ? 0 : 1;
-				unset( $rtng_options['unclickable'] );
-				$rtng_options['error_message'] = $options_default['error_message'];
-			}
-			/* @todo end */
+            $rtng_options['hide_premium_options'] = array();
 
 			$update_option = true;
 		}
 		if ( ! isset( $rtng_options['plugin_db_version'] ) || ( isset( $rtng_options['plugin_db_version'] ) && $rtng_options['plugin_db_version'] != $db_version ) ) {
 			rtng_db_create();
 			/* updating from free: add necessary columns to 'whitelist' table */
-
 			if ( isset( $rtng_options['plugin_db_version'] ) && version_compare( $rtng_options['plugin_db_version'], '1.1', '<' ) ) {
 				$column_exists = $wpdb->query( "SHOW COLUMNS FROM `{$wpdb->prefix}bws_rating` LIKE 'user_ip'" );
 				if ( 0 == $column_exists ) {
@@ -174,6 +170,8 @@ if ( ! function_exists( 'rtng_get_default_options' ) ) {
 			'rate_size'					=> 20,
 			'text_color'				=> '#777777',
 			'text_size'					=> '18',
+			'star_post'					=> 0,
+			'quantity_star'             => '5',
 			'result_title'				=>	__( 'Average Rating', 'rating-bws' ),
 			'vote_title'				=>	__( 'My Rating', 'rating-bws' ) . ':',
 			'total_message'				=>	sprintf( __( '%s out of 5 stars. %s votes.', 'rating-bws' ), '{total_rate}', '{total_count}' ),
@@ -191,8 +189,6 @@ if ( ! function_exists( 'rtng_get_default_options' ) ) {
 		return $default_options;
 	}
 }
-
-
 /* Performed at activation */
 if ( ! function_exists( 'rtng_db_create' ) ) {
 	function rtng_db_create() {
@@ -207,8 +203,8 @@ if ( ! function_exists( 'rtng_db_create' ) ) {
 		 * datetime			date of creation
 		 * user_ip			user IP address
 		 */
-		$sql_query  =
-			"CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}bws_rating` (
+		$sql_query =
+            "CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}bws_rating` (
 			`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 			`object_id` INT( 10 ) NOT NULL,
 			`post_id` INT( 10 ) NOT NULL,
@@ -225,374 +221,22 @@ if ( ! function_exists( 'rtng_db_create' ) ) {
 /* Function formed content of the plugin's admin page. */
 if ( ! function_exists( 'rtng_settings_page' ) ) {
 	function rtng_settings_page() {
-		global $rtng_options, $rtng_plugin_info;
-		$message = $error = "";
-		$plugin_basename = plugin_basename( __FILE__ );
-		$all_post_types = get_post_types( array( 'public'  => 1, 'show_ui'  => 1 ), 'objects' );
-		$editable_roles = get_editable_roles();
-
-		if ( isset( $_REQUEST['rtng_form_submit'] ) && check_admin_referer( $plugin_basename, 'rtng_nonce_name' ) ) {
-
-			if ( ! isset( $_GET['action'] ) ) {
-				$rtng_options['use_post_types'] = isset( $_REQUEST['rtng_use_post_types'] ) ? $_REQUEST['rtng_use_post_types'] : array();
-				foreach ( (array)$rtng_options['use_post_types'] as $key => $post_type ) {
-					if ( ! array_key_exists( $post_type, $all_post_types ) )
-						unset( $rtng_options['use_post_types'][ $key ] );
-				}
-
-				$rtng_options['average_position'] = isset( $_REQUEST['rtng_average_position'] ) ? $_REQUEST['rtng_average_position'] : array();
-				foreach ( (array)$rtng_options['average_position'] as $key => $position ) {
-					if ( ! in_array( $position , array( 'before', 'after' ) ) )
-						unset( $rtng_options['average_position'][ $key ] );
-				}
-
-				$rtng_options['combined'] = isset( $_REQUEST['rtng_combined'] ) ? 1 : 0;
-				$rtng_options['rate_position'] = isset( $_REQUEST['rtng_rate_position'] ) ? $_REQUEST['rtng_rate_position'] : array();
-
-				if ( in_array( 'in_comment', (array)$rtng_options['rate_position'] ) ) {
-					$rtng_options['rate_position'] = array( 'in_comment' );
-				} else {
-					foreach ( (array)$rtng_options['rate_position'] as $key => $position ) {
-						if ( ! in_array( $position , array( 'before', 'after' ) ) )
-							unset( $rtng_options['rate_position'][ $key ] );
-					}
-				}
-
-				$rtng_options['enabled_roles'] = array();
-				if ( isset( $_POST['rtng_roles'] ) && is_array( $_POST['rtng_roles'] ) ) {
-					foreach ( array_filter( ( array )$_POST['rtng_roles'] ) as $role ) {
-						if ( array_key_exists( $role, $editable_roles ) || 'guest' == $role ) {
-							$rtng_options['enabled_roles'][] = $role;
-						}
-					}
-				}
-
-				$rtng_options['add_schema'] = isset( $_REQUEST['rtng_add_schema'] ) ? 1 : 0;
-				$rtng_options['schema_min_rate'] = floatval( $_REQUEST['rtng_schema_min_rate'] );
-				if ( $rtng_options['schema_min_rate'] > 5 ) {
-					$rtng_options['schema_min_rate'] = 5;
-				} elseif ( $rtng_options['schema_min_rate'] < 1 ) {
-					$rtng_options['schema_min_rate'] = 1;
-				}
-
-				$rtng_options['always_clickable'] = isset( $_REQUEST['rtng_always_clickable'] ) ? 1 : 0;
-				$rtng_options['rating_required'] = isset( $_REQUEST['rtng_check_rating_required'] ) ? 1 : 0;
-			} else {
-				$rtng_options['rate_color'] = stripslashes( esc_html( $_REQUEST['rtng_rate_color'] ) );
-				$rtng_options['rate_hover_color'] = stripslashes( esc_html( $_REQUEST['rtng_rate_hover_color'] ) );
-				$rtng_options['rate_size'] = intval( $_REQUEST['rtng_rate_size'] );
-
-				$rtng_options['text_color'] = stripslashes( esc_html( $_REQUEST['rtng_text_color'] ) );
-				$rtng_options['text_size'] = intval( $_REQUEST['rtng_text_size'] );
-
-				$rtng_options['result_title'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_result_title'] ) );
-				$rtng_options['total_message'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_total_message'] ) );
-				$rtng_options['vote_title'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_vote_title'] ) );
-				$rtng_options['non_login_message'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_non_login_message'] ) );
-				$rtng_options['thankyou_message'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_thankyou_message'] ) );
-				$rtng_options['error_message'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_error_message'] ) );
-				$rtng_options['already_rated_message'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_already_rated_message'] ) );
-			}
-			$message = __( 'Settings saved.', 'rating-bws' );
-			update_option( 'rtng_options', $rtng_options );
-		}
-
-		/* add restore function */
-		if ( isset( $_REQUEST['bws_restore_confirm'] ) && check_admin_referer( $plugin_basename, 'bws_settings_nonce_name' ) ) {
-			$rtng_options = rtng_get_default_options();
-			update_option( 'rtng_options', $rtng_options );
-			$message = __( 'All plugin settings were restored.', 'rating-bws' );
-		} ?>
+        global $rtng_options;
+	    if ( isset( $_REQUEST['bws_restore_confirm'] ) && check_admin_referer( plugin_basename( __FILE__ ), 'bws_settings_nonce_name' ) ) {
+            $rtng_options = rtng_get_default_options();
+            update_option( 'rtng_options', $rtng_options );
+            $message = __( 'All plugin settings were restored.', 'bws-testimonials' );
+        } /* end */
+	    require_once( dirname( __FILE__ ) . '/includes/class-rtng-settings.php' );
+        $page = new Rtng_Settings_Tabs( plugin_basename( __FILE__ ) ); ?>
 		<div class="wrap">
 			<h1><?php _e( 'Rating Settings', 'rating-bws' ); ?></h1>
-			<h2 class="nav-tab-wrapper">
-				<a class="nav-tab<?php if ( ! isset( $_GET['action'] ) ) echo ' nav-tab-active'; ?>" href="admin.php?page=rating.php"><?php _e( 'Settings', 'rating-bws' ); ?></a>
-				<a class="nav-tab<?php if ( isset( $_GET['action'] ) && 'appearance' == $_GET['action'] ) echo ' nav-tab-active'; ?>" href="admin.php?page=rating.php&amp;action=appearance"><?php _e( 'Appearance', 'rating-bws' ); ?></a>
-				<a class="nav-tab<?php if ( isset( $_GET['action'] ) && 'custom_code' == $_GET['action'] ) echo ' nav-tab-active'; ?>" href="admin.php?page=rating.php&amp;action=custom_code"><?php _e( 'Custom code', 'rating-bws' ); ?></a>
-			</h2>
-			<div class="updated fade below-h2" <?php if ( empty( $message ) || "" != $error ) echo "style=\"display:none\""; ?>><p><strong><?php echo $message; ?></strong></p></div>
-			<div class="error below-h2" <?php if ( "" ==  $error ) echo "style=\"display:none\""; ?>><p><strong><?php echo $error; ?></strong></p></div>
-			<?php bws_show_settings_notice();
-			if ( isset( $_REQUEST['bws_restore_default'] ) && check_admin_referer( $plugin_basename, 'bws_settings_nonce_name' ) ) {
-				bws_form_restore_default_confirm( $plugin_basename );
-			} else {
-				if ( ! isset( $_GET['action'] ) ) { ?>
-					<br>
-					<div>
-						<?php printf(
-							__( "If you would like to add rating to your page or post, please use %s button", 'rating-bws' ),
-							'<span class="bws_code"><span class="bwsicons bwsicons-shortcode"></span></span>' );
-							echo bws_add_help_box( sprintf(
-								__( "You can add rating to your page or post by clicking on %s button in the content edit block using the Visual mode. If the button isn't displayed, please use the shortcode %s.", 'rating-bws' ),
-								'<span class="bws_code"><span class="bwsicons bwsicons-shortcode"></span></span>',
-								'<code>[bws-rating]</code>'
-							) ); ?>
-					</div>
-					<form method="post" action="" enctype="multipart/form-data" class="bws_form">
-						<table class="form-table">
-							<tr>
-								<th scope="row"><?php _e( 'Display Rating', 'rating-bws' ); ?></th>
-								<td>
-									<fieldset>
-										<?php foreach ( $all_post_types as $key => $value  ) { ?>
-											<label>
-												<input type="checkbox" name="rtng_use_post_types[]" value="<?php echo $key; ?>" <?php if ( in_array( $key, $rtng_options['use_post_types'] ) ) echo 'checked="checked"'; ?> />
-												<?php echo $value->label; ?>
-											</label>
-											<br/>
-										<?php } ?>
-									</fieldset>
-								</td>
-							</tr>
-							<tr>
-								<th><?php _e( 'Average Rating Position', 'rating-bws' ); ?></th>
-								<td>
-									<fieldset>
-										<label>
-											<input type="checkbox" name="rtng_average_position[]" value="before" <?php if ( in_array( 'before', $rtng_options['average_position'] ) ) echo 'checked="checked"'; ?> />
-												<?php _e( 'Before the content', 'rating-bws' ); ?>
-										</label>
-										<br/>
-										<label>
-											<input type="checkbox" name="rtng_average_position[]" value="after" <?php if ( in_array( 'after', $rtng_options['average_position'] ) ) echo 'checked="checked"'; ?> />
-												<?php _e( 'After the content', 'rating-bws' ); ?>
-										</label>
-									</fieldset>
-								</td>
-							</tr>
-							<tr>
-								<th><?php _e( 'Combine Average Rating with Rate Option', 'rating-bws' ); ?></th>
-								<td>
-									<input type="checkbox" name="rtng_combined" value="1" <?php if ( 1 == $rtng_options['combined'] ) echo 'checked="checked"'; ?> />
-								</td>
-							</tr>
-							<tr id="rtng_rate_position">
-								<th><?php _e( 'Rate Option Position', 'rating-bws' ); ?></th>
-								<td>
-									<fieldset>
-										<label>
-											<input type="checkbox" name="rtng_rate_position[]" value="before" <?php if ( in_array( 'before', $rtng_options['rate_position'] ) ) echo 'checked="checked"'; ?> />
-												<?php _e( 'Before the content', 'rating-bws' ); ?>
-										</label>
-										<br/>
-										<label>
-											<input type="checkbox" name="rtng_rate_position[]" value="after" <?php if ( in_array( 'after', $rtng_options['rate_position'] ) ) echo 'checked="checked"'; ?> />
-												<?php _e( 'After the content', 'rating-bws' ); ?>
-										</label>
-										<br/>
-										<label>
-											<input type="checkbox" name="rtng_rate_position[]" value="in_comment" <?php if ( in_array( 'in_comment', $rtng_options['rate_position'] ) ) echo 'checked="checked"'; ?> />
-												<?php _e( 'In comments', 'rating-bws' ); ?>
-										</label>
-									</fieldset>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row"><?php _e( 'Required Rating', 'rating-bws' ); ?></th>
-								<td>
-									<label>
-										<input type="checkbox" name="rtng_check_rating_required" value="1" <?php checked( $rtng_options['rating_required'] ); ?> />
-										<span class="bws_info">
-											<?php _e( 'Enable to make rating submitting required for comments form.', 'rating-bws'); ?>
-										</span>
-									</label>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row"><?php _e( 'Always Clickable Stars', 'rating-bws' ); ?></th>
-								<td>
-									<label>
-										<input type="checkbox" name="rtng_always_clickable" value="1" <?php checked( $rtng_options['always_clickable'] ); ?> />&nbsp;
-										<span class="bws_info">
-											<?php _e( 'Enable to make stars always clickable, even if the user has already rated the post or user role is disabled.', 'rating-bws'); ?>
-										</span>
-									</label>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row"><?php _e( 'Schema Markup', 'rating-bws' ); ?></th>
-								<td>
-									<label>
-										<input type="checkbox" name="rtng_add_schema" value="1" <?php checked( ! empty( $rtng_options['add_schema'] ) ); ?> />&nbsp;
-										<span class="bws_info">
-											<?php printf(
-												'%s %s',
-												sprintf(
-													__( 'Enable to add JSON-LD rating %s markup.', 'rating-bws'),
-													sprintf(
-														'<a href="http://schema.org/AggregateRating" target="_blank">%s</a>',
-														__( 'schema', 'rating-bws' )
-													)
-												),
-												sprintf(
-													'<a href="https://developers.google.com/search/docs/guides/intro-structured-data" target="_blank">%s</a>',
-													__( 'Learn More', 'rating-bws' )
-												)
-											); ?>
-										</span>
-									</label>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row"><?php _e( 'Minimum Rating to Add Schema', 'rating-bws' ); ?></th>
-								<td>
-									<label>
-										<input type="number" name="rtng_schema_min_rate" class="small-text" value="<?php echo $rtng_options['schema_min_rate']; ?>" min="1" max="5" step="0.1" />&nbsp;<span class="bws_info"><?php _e( 'Schema markup will not be included if post rating goes under this value.', 'rating-bws' ); ?></span>
-									</label>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row"><?php _e( 'Enable Rating for', 'rating-bws' ); ?></th>
-								<td>
-									<fieldset>
-										<label class="hide-if-no-js">
-											<input type="checkbox" id="rtng-all-roles" />&nbsp;<span class="rtng-role-name"><strong><?php _e( 'All', 'rating-bws' ); ?></strong></span>
-										</label><br />
-											<?php foreach ( $editable_roles as $role => $role_info ) { ?>
-												<label>
-													<input type="checkbox" class="rtng-role" name="rtng_roles[]" value="<?php echo $role; ?>" <?php checked( in_array( $role, $rtng_options['enabled_roles'] ) ); ?>/>&nbsp;<span class="rtng-role-name"><?php echo translate_user_role( $role_info['name'] ); ?></span>
-												</label><br />
-											<?php } ?>
-											<label>
-												<input type="checkbox" class="rtng-role" name="rtng_roles[]" value="guest" <?php checked( in_array( 'guest', $rtng_options['enabled_roles'] ) ); ?>/>&nbsp;<span class="rtng-role-name"><?php _e( 'Guest', 'rating-bws' ); ?></span>
-											</label>
-									</fieldset>
-								</td>
-							</tr>
-						</table>
-						<p class="submit">
-							<input type="hidden" name="rtng_form_submit" value="submit" />
-							<input id="bws-submit-button" type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'rating-bws' ); ?>" />
-							<?php wp_nonce_field( $plugin_basename, 'rtng_nonce_name' ); ?>
-						</p>
-					</form>
-					<?php bws_form_restore_default_settings( $plugin_basename );
-				} elseif ( 'appearance' == $_GET['action'] ) { ?>
-					<style type="text/css">
-						.rtng-form-table .wp-picker-container {
-							float: left;
-						}
-						.rtl .rtng-form-table .wp-picker-container {
-							float: right;
-						}
-					</style>
-					<form method="post" action="" enctype="multipart/form-data" class="bws_form">
-						<table class="form-table rtng-form-table">
-							<tr>
-								<th><?php _e( 'Star Color', 'rating-bws' ); ?></th>
-								<td>
-									<input type="text" class="rtng_color" value="<?php echo $rtng_options['rate_color']; ?>" name="rtng_rate_color" data-default-color="#ffb900" /><div class="clear"></div>
-								</td>
-							</tr>
-							<tr>
-								<th><?php _e( 'Star Color on Hover', 'rating-bws' ); ?></th>
-								<td>
-									<input type="text" class="rtng_color" value="<?php echo $rtng_options['rate_hover_color']; ?>" name="rtng_rate_hover_color" data-default-color="#ffb900" /><div class="clear"></div>
-								</td>
-							</tr>
-							<tr>
-								<th><?php _e( 'Star Size', 'rating-bws' ); ?></th>
-								<td>
-									<input type="number" min="1" max="300" value="<?php echo $rtng_options['rate_size']; ?>" name="rtng_rate_size" /> <?php _e( 'px', 'rating-bws' ); ?>
-								</td>
-							</tr>
-							<tr>
-								<th><?php _e( 'Text Color', 'rating-bws' ); ?></th>
-								<td>
-									<input type="text" class="rtng_color" value="<?php echo $rtng_options['text_color']; ?>" name="rtng_text_color" data-default-color="#ffb900" /><div class="clear"></div>
-								</td>
-							</tr>
-							<tr>
-								<th><?php _e( 'Text Font-Size', 'rating-bws' ); ?></th>
-								<td>
-									<input type="number" min="1" max="100" value="<?php echo $rtng_options['text_size']; ?>" name="rtng_text_size" /> <?php _e( 'px', 'rating-bws' ); ?>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row"><?php _e( 'Average Rating Title', 'rating-bws' ); ?></th>
-								<td>
-									<input type="text" maxlength="250" class="regular-text" value="<?php echo $rtng_options['result_title']; ?>" name="rtng_result_title" />
-								</td>
-							</tr>
-							<tr>
-								<th scope="row"><?php _e( 'Total Rating Message', 'rating-bws' ); ?></th>
-								<td>
-									<input type="text" maxlength="250" class="regular-text" value="<?php echo $rtng_options['total_message']; ?>" name="rtng_total_message" />
-									<br>
-									<span class="bws_info">
-										<?php printf(
-											__( "Use %s to insert current rate.", 'rating-bws' ),
-											'{total_rate}'
-										 ); ?>
-										 <?php printf(
-											__( "Use %s to insert rates count.", 'rating-bws' ),
-											'{total_count}'
-										 ); ?>
-									</span>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row"><?php _e( 'Rate Option Title', 'rating-bws' ); ?></th>
-								<td>
-									<input type="text" maxlength="250" class="regular-text" value="<?php echo $rtng_options['vote_title']; ?>" name="rtng_vote_title" />
-								</td>
-							</tr>
-							<tr>
-								<th scope="row"><?php _e( 'Message for Guests', 'rating-bws' ); ?></th>
-								<td>
-									<input type="text" maxlength="250" class="regular-text" value="<?php echo $rtng_options['non_login_message']; ?>" name="rtng_non_login_message" />
-									<br>
-									<span class="bws_info">
-										<?php printf(
-											__( "Use %s to insert login link.", 'rating-bws' ),
-											'{login_link="text"}'
-										 ); ?>
-									</span>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row"><?php _e( 'Thank You Message', 'rating-bws' ); ?></th>
-								<td>
-									<input type="text" maxlength="250" class="regular-text" value="<?php echo $rtng_options['thankyou_message']; ?>" name="rtng_thankyou_message" />
-									<br>
-									<span class="bws_info">
-										<?php _e( 'This message will be displayed after the rating is submitted.', 'rating-bws' ); ?>
-									</span>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row"><?php _e( 'Disabled User Role Message', 'rating-bws' ); ?></th>
-								<td>
-									<input type="text" maxlength="250" class="regular-text" value="<?php echo $rtng_options['error_message']; ?>" name="rtng_error_message" />
-									<br>
-									<span class="bws_info">
-										<?php _e( 'This message will be displayed if user role is disabled.', 'rating-bws' ); ?>
-									</span>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row"><?php _e( 'Already Rated Message', 'rating-bws' ); ?></th>
-								<td>
-									<input type="text" maxlength="250" class="regular-text" value="<?php echo $rtng_options['already_rated_message']; ?>" name="rtng_already_rated_message" />
-									<br>
-									<span class="bws_info">
-										<?php _e( 'This message will be displayed if the user has already rated the post.', 'rating-bws' ); ?>
-									</span>
-								</td>
-							</tr>
-						</table>
-						<p class="submit">
-							<input type="hidden" name="rtng_form_submit" value="submit" />
-							<input id="bws-submit-button" type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'rating-bws' ); ?>" />
-							<?php wp_nonce_field( $plugin_basename, 'rtng_nonce_name' ); ?>
-						</p>
-					</form>
-					<?php bws_form_restore_default_settings( $plugin_basename );
-				} elseif ( 'custom_code' == $_GET['action'] ) {
-					bws_custom_code_tab();
-				}
-			}
-			bws_plugin_reviews_block( $rtng_plugin_info['Name'], 'rating-bws' ); ?>
+			<noscript>
+				<div class="error below-h2">
+					<p><strong><?php _e( "Please, enable JavaScript in your browser.", '' ); ?></strong></p>
+				</div>
+			</noscript>
+            <?php $page->display_content(); ?>
 		</div>
 	<?php }
 }
@@ -728,6 +372,7 @@ if ( ! function_exists( 'rtng_get_post_rating' ) ) {
 
 if ( ! function_exists( 'rtng_get_formatted_rating' ) ) {
 	function rtng_get_formatted_rating( $rating = 0 ) {
+		global $rtng_options;
 		return rtrim( number_format( ( $rating / 100 ) * 5, 1 ), '.0' );
 	}
 }
@@ -1055,7 +700,6 @@ if ( ! function_exists( 'rtng_show_total_rating' ) ) {
 
 		if ( $show_text && ! empty( $rtng_options['total_message'] ) ) {
 			$total_message = $rtng_options['total_message'];
-
 			$total_rate = rtng_get_formatted_rating( $rating );
 			if ( '' == $total_rate ) {
 				$total_rate = '0';
@@ -1063,7 +707,7 @@ if ( ! function_exists( 'rtng_show_total_rating' ) ) {
 
 			$replacements = array(
 				'{total_count}'	=> $total['count'],
-				'{total_rate}'	=> $total_rate
+				'{total_rate}' => $total_rate,
 			);
 			foreach ( $replacements as $search => $replace ) {
 				$total_message = str_replace( $search, $replace, $total_message );
@@ -1130,7 +774,7 @@ if ( ! function_exists( 'rtng_get_post_schema' ) ) {
 	function rtng_get_post_schema( $post_id = false ) {
 		global $rtng_options;
 		$schema = '';
-		if ( false !== $post_id  ) {
+		if ( false !== $post_id ) {
 			if ( empty( $rtng_options ) ) {
 				$rtng_options = get_option( 'rtng_options' );
 			}
@@ -1141,14 +785,14 @@ if ( ! function_exists( 'rtng_get_post_schema' ) ) {
 			$rating_data = rtng_get_post_rating( $post_id );
 			if ( ( intval( $rating_data['average'] ) / 100 * 5 ) >= $rtng_options['schema_min_rate'] ) {
 				$schema = sprintf(
-					'<script type="application/ld+json" data-rtng-post-id="%5$s">
+					'<script type="application/ld+json" data-rtng-post-id="%<?php echo $rtng_options["quantity_star"]$;?>s">
 						{
 							"@context": "http://schema.org/",
 							"@type": "WebPage",
 							"name": "%1$s",
 							"aggregateRating": {
 								"@type": "AggregateRating",
-								"bestRating": "5",
+								"bestRating": "$rtng_options["quantity_star"]",
 								"worstRating": "1",
 								"ratingValue": "%2$s",
 								"ratingCount": "%3$d"
@@ -1185,7 +829,7 @@ if ( ! function_exists( 'rtng_show_rating_form' ) ) {
 		$post_id = ! empty( $post_id ) ? absint( $post_id ) : $post->ID;
 
 		if ( 'comment' == $type ) {
-			if ( is_page() ) {  /* pages */
+			if ( is_page() ) { /* pages */
 				if ( ! in_array( 'page', $rtng_options['use_post_types'] ) ) {
 					return '';
 				}
@@ -1246,7 +890,7 @@ if ( ! function_exists( 'rtng_show_rating_form' ) ) {
 }
 
 /* Check rating for comment */
-if ( ! function_exists('rtng_check_rating') ) {
+if ( ! function_exists('rtng_check_rating' ) ) {
 	function rtng_check_rating( $commentdata ) {
 		if( empty( $_POST['rtng_rating'] ) ) {
 			wp_die( 'ERROR: please type a rating.', 'rating-bws' );
@@ -1260,7 +904,7 @@ if ( ! function_exists( 'rtng_display_stars' ) ) {
 		if ( is_wp_error( $rating ) ) {
 			$rating = 0;
 		}
-
+		global $rtng_options;
 		$rating_block = '<div class="rtng-star-rating rtng-no-js ' . $class . '" data-rating="' . $rating . '">';
 
 		$rating = ( $rating / 100 ) * 5;
@@ -1323,8 +967,7 @@ if ( ! function_exists( 'rtng_display_stars' ) ) {
 if ( ! function_exists( 'rtng_show_comment_rating' ) ) {
 	function rtng_show_comment_rating( $comment ) {
 		global $post, $wpdb, $rtng_options;
-
-		if ( is_page() ) {  /* pages */
+		if ( is_page() ) { /* pages */
 			if ( ! in_array( 'page', $rtng_options['use_post_types'] ) )
 				return;
 		} elseif ( is_single() || is_attachment() ) { /* posts */
@@ -1431,7 +1074,7 @@ if ( ! function_exists( 'rtng_rating_value_shortcode' ) ) {
 
 if ( ! function_exists( 'rtng_rating_max_shortcode' ) ) {
 	function rtng_rating_max_shortcode( $atts ) {
-		return '5';
+		return 5;
 	}
 }
 
@@ -1794,7 +1437,8 @@ if ( ! function_exists( 'rtng_shortcode_button_content' ) ) {
 /* Function to add plugin scripts*/
 if ( ! function_exists( 'rtng_admin_head' ) ) {
 	function rtng_admin_head() {
-		if ( isset( $_GET['page'] ) && 'rating.php' == $_GET['page'] ) {
+        wp_enqueue_style( 'rtng_icon', plugins_url( 'css/icon.css', __FILE__ ) );
+	    if ( isset( $_GET['page'] ) && 'rating.php' == $_GET['page'] ) {
 			wp_enqueue_style( 'wp-color-picker' );
 			wp_enqueue_script( 'rtng_script', plugins_url( 'js/admin_script.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ) );
 
@@ -1928,7 +1572,7 @@ if ( ! function_exists( 'rtng_delete_options' ) ) {
 }
 
 /* Calling a function add administrative menu. */
-add_action( 'admin_menu', 'rtng_add_pages' );
+add_action( 'admin_menu', 'add_rtng_menu' );
 add_action( 'plugins_loaded', 'rtng_plugins_loaded' );
 add_action( 'init', 'rtng_init' );
 add_action( 'admin_init', 'rtng_admin_init' );
