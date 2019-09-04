@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: 5 stars, rating, stars, rating plugin, add rating, plugin star rating, add vote, voiting, rate, post rating, rating system, review
 Requires at least: 4.0
-Tested up to: 5.1.1
-Stable tag: 1.0
+Tested up to: 5.2.2
+Stable tag: 1.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -56,8 +56,8 @@ Show rating from other people to increase conversions!
 >
 > All features from Free version included plus:
 > 
->Customize the number of stars [ NEW ]
->Display average rating in the list with pages/posts [ NEW ]
+>Customize the number of stars
+>Display average rating in the list with pages/posts
 
 If you have a feature suggestion or idea you'd like to see in the plugin, we'd love to hear about it! [Suggest a Feature](https://support.bestwebsoft.com/hc/en-us/requests/new)
 
@@ -120,6 +120,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V1.1 - 04.09.2019 =
+* Update: The deactivation feedback has been changed. Misleading buttons have been removed.
+
 = V1.0 - 02.04.2019 =
 * Pro : Ability to set the number of stars for rating has been added.
 * Pro : Ability to show average rating in the list of all posts and pages has been added.
@@ -143,6 +146,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * Release date of Rating.
 
 == Upgrade Notice ==
+
+= V1.1 =
+* Usability improved
 
 = V1.0 = 
 * New features added.

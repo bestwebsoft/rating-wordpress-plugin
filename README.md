@@ -60,8 +60,8 @@
 <blockquote>
 <p><strong>Pro Features</strong></p>
 <p>All features from Free version included plus:</p>
-<p>Customize the number of stars [ NEW ]<br />
-  Display average rating in the list with pages/posts [ NEW ]</p>
+<p>Customize the number of stars<br />
+  Display average rating in the list with pages/posts</p>
 </blockquote>
 <p>If you have a feature suggestion or idea you&#8217;d like to see in the plugin, we&#8217;d love to hear about it! <a href="https://support.bestwebsoft.com/hc/en-us/requests/new" rel="nofollow">Suggest a Feature</a></p>
 <h4>Documentation &amp; Videos</h4>
