@@ -6,7 +6,7 @@ Description: Add rating plugin to your WordPress website to receive feedback fro
 Author: BestWebSoft
 Text Domain: rating-bws
 Domain Path: /languages
-Version: 1.1
+Version: 1.2
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -37,9 +37,9 @@ if ( ! function_exists( 'add_rtng_menu' ) ) {
 
         if ( isset( $submenu['rating.php'] ) )
             $submenu['rating.php'][] = array(
-                '<span style="color:#d86463"> ' . __( 'Upgrade to Pro', 'contact-form-plugin' ) . '</span>',
+                '<span style="color:#d86463"> ' . __( 'Upgrade to Pro', 'rating-bws' ) . '</span>',
                 'manage_options',
-                'https://bestwebsoft.com/products/wordpress/plugins/contact-form/?k=697c5e74f39779ce77850e11dbe21962&pn=77&v=' . $rtng_plugin_info["Version"] . '&wp_v=' . $wp_version );
+                'https://bestwebsoft.com/products/wordpress/plugins/rating/?k=427287ceae749cbd015b4bba6041c4b8&pn=78&v=' . $rtng_plugin_info["Version"] . '&wp_v=' . $wp_version );
 
         add_action( 'load-' . $settings, 'rtng_add_tabs' );
 	}
@@ -81,10 +81,6 @@ if ( ! function_exists( 'rtng_init' ) ) {
 				add_action( 'comment_form_top', 'rtng_show_rating_form', 10, 0 );
 				/* comment_text - Displays the text of a comment. */
 				add_action( 'comment_text', 'rtng_show_comment_rating' );
-				if( $rtng_options['rating_required'] ) {
-					add_filter( 'preprocess_comment' , 'rtng_check_rating' );
-				}
-
 			}
 
 			if ( ! empty( $rtng_options['average_position'] ) ||
@@ -113,7 +109,7 @@ if ( ! function_exists( 'rtng_admin_init' ) ) {
 if ( ! function_exists( 'rtng_settings' ) ) {
 	function rtng_settings() {
 		global $rtng_options, $rtng_plugin_info, $wpdb;
-		$db_version = '1.2';
+		$db_version = '1.3';
 		/* Install the option defaults */
 		if ( ! get_option( 'rtng_options' ) ) {
 			$options_default = rtng_get_default_options();
@@ -140,6 +136,21 @@ if ( ! function_exists( 'rtng_settings' ) ) {
 				if ( 0 == $column_exists ) {
 					$wpdb->query( "ALTER TABLE `{$wpdb->prefix}bws_rating` ADD `user_ip` CHAR(15) NOT NULL;" );
 				}
+			}
+
+			$rating_type = $wpdb->get_var(
+				"SELECT DATA_TYPE
+				FROM INFORMATION_SCHEMA.COLUMNS
+				WHERE
+					TABLE_NAME = '" . $wpdb->base_prefix . "bws_rating' AND
+					COLUMN_NAME = 'rating'"
+			);
+
+			if ( 'varchar' != $rating_type ) {
+				$wpdb->query(
+					"ALTER TABLE `" . $wpdb->base_prefix . "bws_rating`
+					MODIFY COLUMN `rating` VARCHAR(255) NOT NULL COLLATE utf8_general_ci DEFAULT '0'"
+				);
 			}
 
 			$rtng_options['plugin_db_version'] = $db_version;
@@ -174,6 +185,9 @@ if ( ! function_exists( 'rtng_get_default_options' ) ) {
 			'quantity_star'             => '5',
 			'result_title'				=>	__( 'Average Rating', 'rating-bws' ),
 			'vote_title'				=>	__( 'My Rating', 'rating-bws' ) . ':',
+			'enable_testimonials'		=> 0,
+			'options_quantity'			=> 1,
+			'testimonials_titles'		=> array( __( 'My Rating', 'rating-bws-pro' ) . ':' ),
 			'total_message'				=>	sprintf( __( '%s out of 5 stars. %s votes.', 'rating-bws' ), '{total_rate}', '{total_count}' ),
 			'non_login_message'			=> esc_html( sprintf( __( 'You should %s to submit a review.', 'rating-bws' ), '{login_link="' . __( 'log in', 'rating-bws' ) . '"}' ) ),
 			'thankyou_message'			=> __( 'Thank you!', 'rating-bws' ),
@@ -208,7 +222,7 @@ if ( ! function_exists( 'rtng_db_create' ) ) {
 			`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 			`object_id` INT( 10 ) NOT NULL,
 			`post_id` INT( 10 ) NOT NULL,
-			`rating` INT( 2 ) NOT NULL DEFAULT '0',
+			`rating` VARCHAR(255) NOT NULL COLLATE utf8_general_ci DEFAULT '0',
 			`datetime` DATETIME NOT NULL,
 			`object_type` ENUM( 'post', 'comment' ),
 			`user_ip` CHAR( 15 ) NOT NULL,
@@ -349,19 +363,32 @@ if ( ! function_exists( 'rtng_get_post_rating' ) ) {
 		global $wpdb;
 		if ( $post_id !== false ) {
 			$post_id = absint( $post_id );
-
-			$total = $wpdb->get_row( $wpdb->prepare(
-				"SELECT SUM( `rating` ) AS `rating`, COUNT(*) AS `count`
+			
+			$total = $wpdb->get_results( $wpdb->prepare(
+				"SELECT `rating`
 				FROM `" . $wpdb->prefix . "bws_rating`
 				WHERE `post_id` = %d",
 			$post_id ), ARRAY_A );
-
-			if ( empty( $total['count'] ) ) {
+			
+			if ( empty( $total ) ) {
 				$total['count'] = 0;
 				$total['total'] = 0;
 				$total['average'] = 0;
 			} else {
-				$total['average'] = $total['rating'] / $total['count'];
+				$sum = 0;
+				foreach ( $total as $key => $instance ) {
+					$instance['rating'] = maybe_unserialize( $instance['rating'] );
+					if ( is_array( $instance['rating'] ) ) {
+						$sum += array_sum( $instance['rating'] ) / count( $instance['rating'] );
+					} else {
+						$sum += $instance['rating'];
+					}
+				}
+				$total['count'] = count( $total );
+				/* We need $sum var because without declaring $total['total'] as 0 PHP will throw an error
+				and if we declare it foreach will throw an error */
+				$total['total'] = $sum;
+				$total['average'] = $total['total'] / $total['count'];
 			}
 
 			return $total;
@@ -387,7 +414,8 @@ if ( ! function_exists( 'rtng_get_user_rating' ) ) {
 		$defaults = array(
 			'object_id'	=> false,
 			'user_ip'	=> rtng_get_user_ip(),
-			'type'		=> 'post'
+			'type'		=> 'post',
+			'key'		=> 0,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -406,9 +434,10 @@ if ( ! function_exists( 'rtng_get_user_rating' ) ) {
 			return $rating;
 		}
 
-		$cookie_rating = rtng_get_cookie_rating( $post_id );
-		if ( $cookie_rating ) {
-			return $cookie_rating;
+		$cookie_rating = rtng_get_cookie_rating( $post_id, $object_id );
+		if ( $cookie_rating ) {	
+			$rating_arr = maybe_unserialize( $cookie_rating );
+			return is_array( $rating_arr ) && isset( $rating_arr[ $key ] ) ? $rating_arr[ $key ] : $rating_arr;
 		}
 
 		if ( ! in_array( $type, array( 'post', 'comment' ) ) ) {
@@ -474,7 +503,9 @@ if ( ! function_exists( 'rtng_get_user_rating' ) ) {
 			$rating = $wpdb->get_var( $query );
 		}
 
-		return $rating;
+		$rating_arr = maybe_unserialize( $rating );
+
+		return is_array( $rating_arr ) && isset( $rating_arr[ $key ] ) ? $rating_arr[ $key ] : $rating_arr;
 	}
 }
 
@@ -522,19 +553,31 @@ if ( ! function_exists( 'rtng_add_user_rating' ) ) {
 			return false;
 		}
 
-		rtng_set_cookie( $post_id, $rating );
+		$old_rating = $wpdb->get_var(
+			"SELECT `rating`
+			FROM `" . $wpdb->prefix . "bws_rating`
+			WHERE `post_id` = '" . $post_id . "' AND
+			`object_id` = '" . $object_id . "'"
+		);
 
-		$wpdb->insert(
+		// merge arrays without losing numeric keys
+		if ( ! empty( $old_rating ) ) {
+			$rating = maybe_unserialize( $old_rating ) + $rating;
+		}
+
+		rtng_set_cookie( $post_id, $object_id, $rating );
+
+		$wpdb->replace(
 			$wpdb->prefix . "bws_rating",
 			array(
 				'post_id'		=> $post_id,
 				'object_id'		=> $object_id,
-				'rating'		=> $rating,
+				'rating'		=> maybe_serialize( $rating ),
 				'datetime'		=> current_time( 'mysql' ),
 				'object_type'	=> $type,
 				'user_ip'		=> $user_ip
 			),
-			array( '%d', '%d', '%d', '%s', '%s', '%s' )
+			array( '%d', '%d', '%s', '%s', '%s', '%s' )
 		);
 
 		return true;
@@ -558,13 +601,13 @@ if ( ! function_exists( 'rtng_get_cookies' ) ) {
 }
 
 if ( ! function_exists( 'rtng_set_cookie' ) ) {
-	function rtng_set_cookie( $post_id = false, $rating = 100 ) {
+	function rtng_set_cookie( $post_id = false, $object_id, $rating = 100 ) {
 		if ( false !== $post_id ) {
 			$cookies = rtng_get_cookies();
-			$cookies[ $post_id ] = $rating;
+			$cookies[ $post_id ][ $object_id ] = $rating;
 			$cookies = json_encode( $cookies );
 			$host = parse_url( home_url(), PHP_URL_HOST );
-			setcookie( 'bws_rtng', $cookies, 2147483647, '/', '.' . $host, is_ssl() );
+			setcookie( 'bws_rtng', maybe_serialize( $cookies ), 2147483647, '/', '.' . $host, is_ssl() );
 		}
 	}
 }
@@ -599,10 +642,10 @@ if ( ! function_exists( 'rtng_is_cookie_set' ) ) {
 }
 
 if ( ! function_exists( 'rtng_get_cookie_rating' ) ) {
-	function rtng_get_cookie_rating( $post_id = false ) {
+	function rtng_get_cookie_rating( $post_id = false, $object_id = false ) {
 		$cookies = rtng_get_cookies();
-		if ( false !== $post_id && isset( $cookies[ $post_id ] ) ) {
-			return $cookies[ $post_id ];
+		if ( false !== $post_id && false !== $object_id && isset( $cookies[ $post_id ][ $object_id ] ) ) {
+			return maybe_unserialize( $cookies[ $post_id ][ $object_id ] );
 		}
 		return false;
 	}
@@ -674,10 +717,11 @@ if ( ! function_exists( 'rtng_show_total_rating' ) ) {
 		global $post, $rtng_options, $wpdb;
 
 		$defaults = array(
-			'post_id'		=> false,
-			'type'			=> 'default',
-			'show_title'	=> true,
-			'show_text'		=> true
+			'post_id'			=> false,
+			'type'				=> 'default',
+			'show_title'		=> true,
+			'show_text'			=> true,
+			'show_review_count'	=> false,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -694,6 +738,10 @@ if ( ! function_exists( 'rtng_show_total_rating' ) ) {
 
 		if ( ! empty( $total['average'] ) ) {
 			$rating = $total['average'];
+		}
+
+		if ( $show_review_count ) {
+			$show_title = $show_text = false;
 		}
 
 		$title = ( ! $show_title || empty( $rtng_options['result_title'] ) ) ? '' : '<span class="rtng-text rtng-title">' . $rtng_options['result_title'] . '</span>';
@@ -715,6 +763,10 @@ if ( ! function_exists( 'rtng_show_total_rating' ) ) {
 			if ( '' != $total_message ) {
 				$total_message = '<span class="rtng-text rtng-total">' . $total_message . '</span>';
 			}
+		} elseif ( $show_review_count ) {
+			$title = '<input type="hidden" class="rtng-review-selector" />';
+			$total_message = sprintf( _n( '( %s review )', '( %s reviews )', $total['count'], 'rating-bws-pro' ), $total['count'] );
+			$total_message = '<span class="rtng-text rtng-review-count">' . $total_message . '</span>';
 		} else {
 			$total_message = '';
 		}
@@ -783,28 +835,30 @@ if ( ! function_exists( 'rtng_get_post_schema' ) ) {
 			}
 
 			$rating_data = rtng_get_post_rating( $post_id );
+
 			if ( ( intval( $rating_data['average'] ) / 100 * 5 ) >= $rtng_options['schema_min_rate'] ) {
 				$schema = sprintf(
-					'<script type="application/ld+json" data-rtng-post-id="%<?php echo $rtng_options["quantity_star"]$;?>s">
+					'<script type="application/ld+json" data-rtng-post-id="%1$d">
 						{
 							"@context": "http://schema.org/",
 							"@type": "WebPage",
-							"name": "%1$s",
+							"name": "%2$s",
 							"aggregateRating": {
 								"@type": "AggregateRating",
-								"bestRating": "$rtng_options["quantity_star"]",
+								"bestRating": "%3$d",
 								"worstRating": "1",
-								"ratingValue": "%2$s",
-								"ratingCount": "%3$d"
+								"ratingValue": "%4$s",
+								"ratingCount": "%5$d"
 							},
-							"url": "%4$s"
+							"url": "%6$s"
 						}
 					</script>',
+					$post_id,
 					get_the_title( $post_id ),
+					5,
 					$rating_data['average']/100*5,
 					$rating_data['count'],
-					get_the_permalink( $post_id ),
-					$post_id
+					get_the_permalink( $post_id )
 				);
 			}
 		}
@@ -814,12 +868,13 @@ if ( ! function_exists( 'rtng_get_post_schema' ) ) {
 
 if ( ! function_exists( 'rtng_show_rating_form' ) ) {
 	function rtng_show_rating_form( $args = array() ) {
-		global $post, $rtng_options, $wpdb;
+		global $post, $rtng_options;
 
 		$defaults = array(
 			'type'			=> 'comment',
 			'post_id'		=> false,
-			'show_title'	=> true
+			'show_title'	=> true,
+			'testimonial'	=> false
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -828,7 +883,7 @@ if ( ! function_exists( 'rtng_show_rating_form' ) ) {
 
 		$post_id = ! empty( $post_id ) ? absint( $post_id ) : $post->ID;
 
-		if ( 'comment' == $type ) {
+		if ( 'comment' == $type && ! $testimonial ) {
 			if ( is_page() ) { /* pages */
 				if ( ! in_array( 'page', $rtng_options['use_post_types'] ) ) {
 					return '';
@@ -854,23 +909,47 @@ if ( ! function_exists( 'rtng_show_rating_form' ) ) {
 		} elseif ( ! ( ! rtng_is_role_enabled() && 0 == $rtng_options['always_clickable'] ) ) {
 			$rating_block = '';
 
-			if ( ! empty( $rtng_options['vote_title'] ) && $show_title ) {
-				$rating_block .= '<span class="rtng-text rtng-vote-title">' . $rtng_options['vote_title'] . '</span>';
-			}
-
 			$rating_block .= '<input type="hidden" name="rtng_show_title" value="' . ( $show_title ? '1' : '0' ) . '">';
 
-			if ( $rtng_options['always_clickable'] ) {
-				$class = 'rtng-active';
-				if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-					$current_user_rate = rtng_get_user_rating( $post_id, array( 'type' => $type ) );
+			if ( ! $testimonial ) {
+				if ( ! empty( $rtng_options['vote_title'] ) && $show_title ) {
+					$rating_block .= '<span class="rtng-text rtng-vote-title">' . $rtng_options['vote_title'] . '</span>';	
 				}
-			} else {
-				$current_user_rate = rtng_get_user_rating( $post_id, array( 'type' => $type ) );
-				$class = ( $current_user_rate || ! rtng_is_role_enabled() ) ? '' : 'rtng-active';
-			}
+	
+				if ( $rtng_options['always_clickable'] ) {
+					$class = 'rtng-active';
+					if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+						$current_user_rate = rtng_get_user_rating( $post_id, array( 'type' => $type )  );
+					}
+				} else {
+					$current_user_rate = rtng_get_user_rating( $post_id, array( 'type' => $type ) );
+					$class = ( $current_user_rate || ! rtng_is_role_enabled() ) ? '' : 'rtng-active';
+				}
 
-			$rating_block .= rtng_display_stars( $current_user_rate, $class );
+				$rating_block .= rtng_display_stars( $current_user_rate, $class );
+			} else {
+				foreach ( (array)$rtng_options['testimonials_titles'] as $key => $title ) {
+					$rating_block .= '<div class="rtng_rating_block">';
+	
+					if ( ! empty( $title ) && $show_title ) {
+						$rating_block .= '<span class="rtng-text rtng-vote-title">' . $title . '</span>';	
+					}
+	
+					if ( $rtng_options['always_clickable'] ) {
+						$class = 'rtng-active';
+						if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+							$current_user_rate = rtng_get_user_rating( $post_id, array( 'type' => $type, 'key' => $key )  );
+						}
+					} else {
+						$current_user_rate = rtng_get_user_rating( $post_id, array( 'type' => $type, 'key' => $key ) );
+						$class = ( $current_user_rate || ! rtng_is_role_enabled() ) ? '' : 'rtng-active';
+					}
+
+					$rating_block .= rtng_display_stars( $current_user_rate, $class, $key );
+	
+					$rating_block .= '</div>';
+				}
+			}
 
 			if ( 'comment' == $type ) {
 				echo $rating_block;
@@ -889,18 +968,8 @@ if ( ! function_exists( 'rtng_show_rating_form' ) ) {
 	}
 }
 
-/* Check rating for comment */
-if ( ! function_exists('rtng_check_rating' ) ) {
-	function rtng_check_rating( $commentdata ) {
-		if( empty( $_POST['rtng_rating'] ) ) {
-			wp_die( 'ERROR: please type a rating.', 'rating-bws' );
-		}
-		return $commentdata;
-	}
-}
-
 if ( ! function_exists( 'rtng_display_stars' ) ) {
-	function rtng_display_stars( $rating = 0, $class = '' ) {
+	function rtng_display_stars( $rating = 0, $class = '', $key = 0 ) {
 		if ( is_wp_error( $rating ) ) {
 			$rating = 0;
 		}
@@ -913,24 +982,26 @@ if ( ! function_exists( 'rtng_display_stars' ) ) {
 			$full_stars = floor( $rating );
 			$half_stars = ceil( $rating - $full_stars );
 
+			$required = $rtng_options['rating_required'] ? 'required="required"' : '';
+
 			for ( $i = 0; $i < $full_stars; $i++ ) {
 				$rating_block .= '
 					<label class="rtng-star" data-rating="' . ( $i+1 ) . '">
-						<input type="radio" required="required" name="rtng_rating" value="' . ( $i+1 ) . '" />
+						<input type="radio" ' . $required . ' name="rtng_rating[' . $key . ']" value="' . ( $i+1 ) . '" />
 						<span class="dashicons dashicons-star-filled"></span>
 					</label>';
 			}
 			if ( $half_stars ) {
 				$rating_block .= '
 					<label class="rtng-star" data-rating="' . ( $i+1 ) . '">
-						<input type="radio" name="rtng_rating" value="' . ( $i+1 ) . '" />
+						<input type="radio" name="rtng_rating[' . $key . ']" value="' . ( $i+1 ) . '" />
 						<span class="dashicons dashicons-star-half"></span>
 					</label>';
 				$full_stars++;
 			}
 			for ( $j = $full_stars; $j < 5; $j++ ) {
 				$rating_block .= '<label class="rtng-star" data-rating="' . ( $j+1 ) . '">
-					<input type="radio" required="required" name="rtng_rating" value="' . ( $j+1 ) . '" />
+					<input type="radio" ' . $required . ' name="rtng_rating[' . $key . ']" value="' . ( $j+1 ) . '" />
 					<span class="dashicons dashicons-star-empty"></span>
 				</label>';
 			}
@@ -1205,7 +1276,7 @@ if ( ! function_exists( 'rtng_add_rating_db' ) ) {
 
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			check_ajax_referer( 'rtng_ajax_nonce', 'rtng_nonce' );
-			if ( isset( $_POST['rtng_post_id'] ) && isset( $_POST['rtng_object_id'] ) && isset( $_POST['rtng_rating_val'] ) ) {
+			if ( isset( $_POST['rtng_post_id'] ) && isset( $_POST['rtng_rating_id'] ) && isset( $_POST['rtng_object_id'] ) && isset( $_POST['rtng_rating_val'] ) ) {
 				$post_id = absint( $_POST['rtng_post_id'] );
 				$object_id = absint( $_POST['rtng_object_id'] );
 
@@ -1218,7 +1289,7 @@ if ( ! function_exists( 'rtng_add_rating_db' ) ) {
 				$args = array(
 					'post_id'	=> $post_id,
 					'object_id'	=> $object_id,
-					'rating'	=> $percent_rating
+					'rating'	=> array( $_POST['rtng_rating_id'] => $percent_rating )
 				);
 				$add = rtng_add_user_rating( $args );
 
@@ -1278,7 +1349,7 @@ if ( ! function_exists( 'rtng_add_rating_db_comment' ) ) {
 		global $wpdb;
 
 		if ( rtng_is_role_enabled() && ! empty( $_POST['rtng_rating'] ) ) {
-			$rating = intval( $_POST['rtng_rating'] );
+			$rating = intval( is_array( $_POST['rtng_rating'] ) ? $_POST['rtng_rating'][0] : $_POST['rtng_rating'] );
 
 			$post_id = $wpdb->get_var( $wpdb->prepare(
 				"SELECT `comment_post_ID`
@@ -1466,6 +1537,14 @@ if ( ! function_exists( 'rtng_wp_head' ) ) {
 			.rtng-text {
 				color: <?php echo $rtng_options['text_color']; ?> !important;
 				font-size: <?php echo $rtng_options['text_size']; ?>px;
+			}
+			.rtng-rate-bar-wrap {
+				height: 10px;
+				border: 1px solid <?php echo $rtng_options['rate_color']; ?>;
+			}
+			.rtng-rate-bar {
+				height: 100%;
+				background-color: <?php echo $rtng_options['rate_color']; ?>;
 			}
 		</style>
 	<?php }

@@ -121,6 +121,9 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
                     $this->options['result_title'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_result_title'] ) );
                     $this->options['total_message'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_total_message'] ) );
                     $this->options['vote_title'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_vote_title'] ) );
+                    $this->options['enable_testimonials'] = isset( $_REQUEST['rtng_testimonials'] ) ? 1 : 0;
+                    $this->options['options_quantity'] = intval( $_REQUEST['rtng_options_quantity'] );
+                    $this->options['testimonials_titles'] = array_map( 'stripslashes', array_map( 'htmlspecialchars', $_REQUEST['rtng_testimonials_titles'] ) );
                     $this->options['non_login_message'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_non_login_message'] ) );
                     $this->options['thankyou_message'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_thankyou_message'] ) );
                     $this->options['error_message'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_error_message'] ) );
@@ -289,6 +292,66 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
                         </label>
                     </td>
                 </tr>
+                <?php
+                if ( is_plugin_active( 'bws-testimonials/bws-testimonials.php' ) ) { ?>
+                    <tr>
+                        <th scope="row"><?php _e( 'Testimonials Review Form', 'rating-bws' ); ?></th>
+                        <td>
+                            <label>
+                                <input type="checkbox" name="rtng_testimonials" value="1" <?php checked( $this->options['enable_testimonials'] ); ?> />
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="rtng-show-testimonials">
+                        <th scope="row"><?php _e( 'Number of Titles', 'rating-bws' ); ?></th>
+                        <td>
+                            <input type="number" min="1" max="5" value="<?php echo $this->options['options_quantity']; ?>" name="rtng_options_quantity" />
+                        </td>
+                    </tr>
+                    <tr class="rtng-show-testimonials">
+                        <th scope="row"><?php _e( 'Review Title', 'rating-bws' ); ?></th>
+                        <td>
+                            <input type="text" maxlength="250" class="regular-text" value="<?php echo $this->options['testimonials_titles'][0]; ?>" name="rtng_testimonials_titles[]" />
+                        </td>
+                    </tr>
+                    <?php
+                    if ( $this->options['options_quantity'] > 1 ) {
+                        for ( $i = 1; $i < $this->options['options_quantity']; $i++ ) {
+                            ?>
+                            <tr class="rtng-show-testimonials">
+                                <th scope="row"><?php printf( __( 'Review Title %s %d', 'rating-bws' ), '&numero;', $i + 1 ); ?></th>
+                                <td>
+                                    <input type="text" maxlength="250" class="regular-text" value="<?php echo isset( $this->options['testimonials_titles'][ $i ] ) ? $this->options['testimonials_titles'][ $i ] : ''; ?>" name="rtng_testimonials_titles[]" />
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                    } ?>
+                <?php } else {
+                    $all_plugins = get_plugins();
+
+                    if ( array_key_exists( 'bws-testimonials/bws-testimonials.php', $all_plugins ) ) {
+                        $button_url         = network_admin_url( 'plugins.php' );
+                        $button_text        = __( 'Activate', 'rating-bws' );
+                        $button_text_after  = $all_plugins['bws-testimonials/bws-testimonials.php']['Name'];
+                    } else {
+                        // TODO cahnge link
+                        $button_url         = 'https://bestwebsoft.com/products/wordpress/plugins/testimonials/';
+                        $button_text        = __( 'Download', 'rating-bws' );
+                        $button_text_after  = 'Testimonials by BestWebSoft.';
+                    } ?>
+                    <tr>
+                        <th scope="row"><?php _e( 'Testimonial Reviews', 'rating-bws' ); ?></th>
+                        <td>
+                            <label>
+                                <input type="checkbox" disabled="disabled" name="rtng_testimonials" value="1" <?php checked( $this->options['enable_testimonials'] ); ?> />
+                                <span class="bws_info">
+                                    <a href="<?php echo $button_url; ?>" target="_blank"><?php echo $button_text; ?></a> <?php echo $button_text_after; ?>
+                                </span>
+                            </label>
+                        </td>
+                    </tr>
+                <?php } ?>
                 <tr>
                     <th scope="row"><?php _e( 'Enable Rating for', 'rating-bws' ); ?></th>
                     <td>

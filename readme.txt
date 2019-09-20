@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: 5 stars, rating, stars, rating plugin, add rating, plugin star rating, add vote, voiting, rate, post rating, rating system, review
 Requires at least: 4.0
-Tested up to: 5.2.2
-Stable tag: 1.1
+Tested up to: 5.2.3
+Stable tag: 1.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -22,6 +22,7 @@ Show rating from other people to increase conversions!
 	* Post
 	* Pages
 	* Media
+	* Testimonials
 	* Custom post types
 * Add rating via shortcode
 * Select the user roles that can submit ratings
@@ -117,8 +118,15 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 5. Rate option in comments.
 6. Plugin settings.
 7. Plugin appearance settings.
+8. Testimonials review form display.
+9. Testimonials reviews display.
 
 == Changelog ==
+
+= V1.2 - 20.09.2019 =
+* NEW : Compatibility with Testimonials by BestWebSoft has been added.
+* Bugfix : JSON-LD schema incorrect code output has been fixed.
+* Bugfix : Required Rating checkbox has been fixed.
 
 = V1.1 - 04.09.2019 =
 * Update: The deactivation feedback has been changed. Misleading buttons have been removed.
@@ -147,8 +155,12 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Upgrade Notice ==
 
+= V1.2 =
+* New features added.
+* Bugs fixed.
+
 = V1.1 =
-* Usability improved
+* Usability improved.
 
 = V1.0 = 
 * New features added.

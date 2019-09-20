@@ -10,6 +10,7 @@
 <li>Post</li>
 <li>Pages</li>
 <li>Media</li>
+<li>Testimonials</li>
 <li>Custom post types</li>
 </ul>
 </li>

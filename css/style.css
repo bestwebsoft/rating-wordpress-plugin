@@ -30,6 +30,12 @@
 .rtng-text.hidden {
     display: none;
 }
+.rtng-review-selector + .rtng-star-rating {
+    display: inline-block;
+}
+.rtng-review-count {
+    margin-left: 10px;
+}
 .rtng-add-button {
     margin: 5px 0;
 }

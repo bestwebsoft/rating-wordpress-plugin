@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rating-bws\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-08 14:49+0200\n"
-"PO-Revision-Date: 2019-03-08 14:49+0200\n"
+"POT-Creation-Date: 2019-08-06 13:33+0300\n"
+"PO-Revision-Date: 2019-08-06 13:34+0300\n"
 "Last-Translator: plugin@bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language-Team: BestWebSoft <plugin@bestwebsoft.com>\n"
 "Language: ru_RU\n"
@@ -13,15 +13,15 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.3\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: includes/class-rtng-settings.php:28 rating-bws.php:35 rating-bws.php:1505
-#: rating-bws.php:1518
+#: includes/class-rtng-settings.php:28 rating-bws.php:35 rating-bws.php:1563
+#: rating-bws.php:1576
 msgid "Settings"
 msgstr "Настройки"
 
-#: includes/class-rtng-settings.php:29 includes/class-rtng-settings.php:320
+#: includes/class-rtng-settings.php:29 includes/class-rtng-settings.php:377
 msgid "Appearance"
 msgstr "Внешний вид"
 
@@ -37,56 +37,56 @@ msgstr "Пользовательский код"
 msgid "Licence Key"
 msgstr "Лицензионный ключ"
 
-#: includes/class-rtng-settings.php:135
+#: includes/class-rtng-settings.php:134
 msgid "Settings saved."
 msgstr "Настройки сохранены."
 
-#: includes/class-rtng-settings.php:148 rating-bws.php:34 rating-bws.php:35
-#: rating-bws.php:237
+#: includes/class-rtng-settings.php:145 rating-bws.php:34 rating-bws.php:35
+#: rating-bws.php:247
 msgid "Rating Settings"
 msgstr "Настройки Rating"
 
-#: includes/class-rtng-settings.php:153
+#: includes/class-rtng-settings.php:150
 msgid "Display Rating"
 msgstr "Отображение рейтинга"
 
-#: includes/class-rtng-settings.php:167
+#: includes/class-rtng-settings.php:164
 msgid "Average Rating Position"
 msgstr "Расположение среднего рейтинга"
 
-#: includes/class-rtng-settings.php:172 includes/class-rtng-settings.php:194
+#: includes/class-rtng-settings.php:169 includes/class-rtng-settings.php:191
 msgid "Before the content"
 msgstr "Перед содержимым"
 
-#: includes/class-rtng-settings.php:177 includes/class-rtng-settings.php:199
+#: includes/class-rtng-settings.php:174 includes/class-rtng-settings.php:196
 msgid "After the content"
 msgstr "После содержимого"
 
-#: includes/class-rtng-settings.php:183
+#: includes/class-rtng-settings.php:180
 msgid "Combine Average Rating with Rate Option"
 msgstr "Объеденить средний рейтинг и форму рейтинга"
 
-#: includes/class-rtng-settings.php:189
+#: includes/class-rtng-settings.php:186
 msgid "Rate Option Position"
 msgstr "Расположение опции \"оценить\""
 
-#: includes/class-rtng-settings.php:204
+#: includes/class-rtng-settings.php:201
 msgid "In comments"
 msgstr "В комментариях"
 
-#: includes/class-rtng-settings.php:210
+#: includes/class-rtng-settings.php:207
 msgid "Required Rating"
 msgstr "Обязательный рейтинг"
 
-#: includes/class-rtng-settings.php:215
+#: includes/class-rtng-settings.php:212
 msgid "Enable to make rating submitting required for comments form."
 msgstr "Включите, чтобы сделать рейтинг обязательным для формы комментариев."
 
-#: includes/class-rtng-settings.php:221
+#: includes/class-rtng-settings.php:218
 msgid "Always Clickable Stars"
 msgstr "Кликабельные звёзды"
 
-#: includes/class-rtng-settings.php:226
+#: includes/class-rtng-settings.php:223
 msgid ""
 "Enable to make stars always clickable, even if the user has already rated "
 "the post or user role is disabled."
@@ -94,164 +94,193 @@ msgstr ""
 "Включите, чтобы сделать звёзды всегда кликабельными, даже если пользователь "
 "уже оценил запись или пользовательская роль отключена."
 
-#: includes/class-rtng-settings.php:235 includes/class-rtng-settings.php:327
+#: includes/class-rtng-settings.php:232 includes/class-rtng-settings.php:384
 msgid "Close"
 msgstr "Закрыть"
 
-#: includes/class-rtng-settings.php:239
+#: includes/class-rtng-settings.php:236
 msgid "Show Rating in Posts"
 msgstr "Отображать рейтинг в записях"
 
-#: includes/class-rtng-settings.php:246
+#: includes/class-rtng-settings.php:243
 #, php-format
 msgid "Enable to display average rating in the list of %s and"
 msgstr "Включите, чтобы отображать средний рейтинг в списке %s и"
 
-#: includes/class-rtng-settings.php:249
+#: includes/class-rtng-settings.php:246
 msgid "posts"
 msgstr "записей"
 
-#: includes/class-rtng-settings.php:254
+#: includes/class-rtng-settings.php:251
 msgid "pages."
 msgstr "страниц."
 
-#: includes/class-rtng-settings.php:267
+#: includes/class-rtng-settings.php:264
 msgid "Schema Markup"
 msgstr "Структурированные данные"
 
-#: includes/class-rtng-settings.php:275
+#: includes/class-rtng-settings.php:272
 #, php-format
 msgid "Enable to add JSON-LD rating %s markup."
 msgstr "Включите, чтобы добавить %s JSON-LD."
 
-#: includes/class-rtng-settings.php:278 rating-bws.php:1153
+#: includes/class-rtng-settings.php:275 rating-bws.php:1210
 msgid "schema"
 msgstr "структурированные данные"
 
-#: includes/class-rtng-settings.php:283
+#: includes/class-rtng-settings.php:280
 msgid "Learn More"
 msgstr "Подробнее"
 
-#: includes/class-rtng-settings.php:291
+#: includes/class-rtng-settings.php:288
 msgid "Minimum Rating to Add Schema"
 msgstr "Минимальный рейтинг для добавления структурированных данных"
 
-#: includes/class-rtng-settings.php:294
+#: includes/class-rtng-settings.php:291
 msgid ""
 "Schema markup will not be included if post rating goes under this value."
 msgstr ""
 "Разметка для структурированных данных не будет добавляться если рейтинг "
 "записи опустится ниже указанного значения."
 
-#: includes/class-rtng-settings.php:299
+#: includes/class-rtng-settings.php:298
+msgid "Testimonials Review Form"
+msgstr "Форма отзыва Testimonials"
+
+#: includes/class-rtng-settings.php:306
+msgid "Number of Titles"
+msgstr "Количество заголовков"
+
+#: includes/class-rtng-settings.php:312
+msgid "Review Title"
+msgstr "Заголовок отзыва"
+
+#: includes/class-rtng-settings.php:322
+#, php-format
+msgid "Review Title %s %d"
+msgstr "Заголовок отзыва %s %d"
+
+#: includes/class-rtng-settings.php:335
+msgid "Activate"
+msgstr "Активировать"
+
+#: includes/class-rtng-settings.php:340
+msgid "Download"
+msgstr "Загрузить"
+
+#: includes/class-rtng-settings.php:344
+msgid "Testimonial Reviews"
+msgstr "Testimonial отзывы"
+
+#: includes/class-rtng-settings.php:356
 msgid "Enable Rating for"
 msgstr "Включить рейтинг для"
 
-#: includes/class-rtng-settings.php:303
+#: includes/class-rtng-settings.php:360
 msgid "All"
 msgstr "Все"
 
-#: includes/class-rtng-settings.php:311
+#: includes/class-rtng-settings.php:368
 msgid "Guest"
 msgstr "Гость"
 
-#: includes/class-rtng-settings.php:331
+#: includes/class-rtng-settings.php:388
 msgid "Number of Stars"
 msgstr "Количество звёзд"
 
-#: includes/class-rtng-settings.php:333
+#: includes/class-rtng-settings.php:390
 msgid " "
 msgstr ""
 
-#: includes/class-rtng-settings.php:343
+#: includes/class-rtng-settings.php:400
 msgid "Star Color"
 msgstr "Цвет звезды"
 
-#: includes/class-rtng-settings.php:349
+#: includes/class-rtng-settings.php:406
 msgid "Star Color on Hover"
 msgstr "Цвет звезды при наведении мышью"
 
-#: includes/class-rtng-settings.php:355
+#: includes/class-rtng-settings.php:412
 msgid "Star Size"
 msgstr "Размер звезды"
 
-#: includes/class-rtng-settings.php:357 includes/class-rtng-settings.php:369
+#: includes/class-rtng-settings.php:414 includes/class-rtng-settings.php:426
 msgid "px"
 msgstr "пикс"
 
-#: includes/class-rtng-settings.php:361
+#: includes/class-rtng-settings.php:418
 msgid "Text Color"
 msgstr "Цвет текста"
 
-#: includes/class-rtng-settings.php:367
+#: includes/class-rtng-settings.php:424
 msgid "Text Font-Size"
 msgstr "Размер шрифта текста"
 
-#: includes/class-rtng-settings.php:373
+#: includes/class-rtng-settings.php:430
 msgid "Average Rating Title"
 msgstr "Заголовок среднего рейтинга"
 
-#: includes/class-rtng-settings.php:379
+#: includes/class-rtng-settings.php:436
 msgid "Total Rating Message"
 msgstr "Текст общего рейтинга"
 
-#: includes/class-rtng-settings.php:385
+#: includes/class-rtng-settings.php:442
 #, php-format
 msgid "Use %s to insert current rate."
 msgstr "Используйте %s, чтобы добавить текущий рейтинг."
 
-#: includes/class-rtng-settings.php:389
+#: includes/class-rtng-settings.php:446
 #, php-format
 msgid "Use %s to insert rates count."
 msgstr "Используйте %s, чтобы добавить количество голосов."
 
-#: includes/class-rtng-settings.php:396
+#: includes/class-rtng-settings.php:453
 msgid "Rate Option Title"
 msgstr "Заголовок опции \"оценить\""
 
-#: includes/class-rtng-settings.php:402
+#: includes/class-rtng-settings.php:459
 msgid "Message for Guests"
 msgstr "Сообщение для незалогиненных пользователей"
 
-#: includes/class-rtng-settings.php:408
+#: includes/class-rtng-settings.php:465
 #, php-format
 msgid "Use %s to insert login link."
 msgstr "Используйте %s, чтобы добавить ссылку на страницу логина."
 
-#: includes/class-rtng-settings.php:415
+#: includes/class-rtng-settings.php:472
 msgid "Thank You Message"
 msgstr "Текст благодарности"
 
-#: includes/class-rtng-settings.php:420
+#: includes/class-rtng-settings.php:477
 msgid "This message will be displayed after the rating is submitted."
 msgstr ""
 "Сообщение, которое отображается после того, как пользователь оставил оценку."
 
-#: includes/class-rtng-settings.php:425
+#: includes/class-rtng-settings.php:482
 msgid "Disabled User Role Message"
 msgstr "Сообщение для отключенной пользовательской роли"
 
-#: includes/class-rtng-settings.php:430
+#: includes/class-rtng-settings.php:487
 msgid "This message will be displayed if user role is disabled."
 msgstr ""
 "Сообщение, которое отображается, если пользовательской роли недоступна опция "
 "оценки."
 
-#: includes/class-rtng-settings.php:435
+#: includes/class-rtng-settings.php:492
 msgid "Already Rated Message"
 msgstr "Сообщение для оцененных записей"
 
-#: includes/class-rtng-settings.php:440
+#: includes/class-rtng-settings.php:497
 msgid "This message will be displayed if the user has already rated the post."
 msgstr ""
 "Сообщение, которое отображается, если пользователь ранее уже оценивал эту "
 "страницу."
 
-#: includes/class-rtng-settings.php:450 rating-bws.php:1121
+#: includes/class-rtng-settings.php:507 rating-bws.php:1178
 msgid "Rating"
 msgstr "Рейтинг"
 
-#: includes/class-rtng-settings.php:453
+#: includes/class-rtng-settings.php:510
 msgid ""
 "If you would like to add rating to your page or post, please use next "
 "shortcode:"
@@ -263,164 +292,169 @@ msgstr ""
 msgid "Upgrade to Pro"
 msgstr "Обновить до Pro"
 
-#: rating-bws.php:177 rating-bws.php:1336
+#: rating-bws.php:186 rating-bws.php:1393
 msgid "Average Rating"
 msgstr "Средний рейтинг"
 
-#: rating-bws.php:178
+#: rating-bws.php:187 rating-bws.php:190
 msgid "My Rating"
 msgstr "Мой рейтинг"
 
-#: rating-bws.php:179
+#: rating-bws.php:191
 #, php-format
 msgid "%s out of 5 stars. %s votes."
 msgstr "%s из 5 звезд. %s голосов."
 
-#: rating-bws.php:180
+#: rating-bws.php:192
 #, php-format
 msgid "You should %s to submit a review."
 msgstr "Вам нужно %s для того, чтобы проголосовать."
 
-#: rating-bws.php:180
+#: rating-bws.php:192
 msgid "log in"
 msgstr "авторизироваться"
 
-#: rating-bws.php:181
+#: rating-bws.php:193
 msgid "Thank you!"
 msgstr "Спасибо!"
 
-#: rating-bws.php:182
+#: rating-bws.php:194
 msgid "You cannot submit ratings."
 msgstr "Вы не можете выставлять оценку."
 
-#: rating-bws.php:183
+#: rating-bws.php:195
 msgid "You have already rated this post."
 msgstr "Вы уже оценивали эту страницу."
 
-#: rating-bws.php:232
+#: rating-bws.php:242
 msgid "All plugin settings were restored."
 msgstr "Все настройки плагина восстановлены."
 
-#: rating-bws.php:240
+#: rating-bws.php:250
 msgid "Please, enable JavaScript in your browser."
 msgstr "Пожалуйста, включите поддержку JavaScript в вашем браузере."
 
-#: rating-bws.php:402 rating-bws.php:506
+#: rating-bws.php:426 rating-bws.php:533
 msgid "Post ID is required"
 msgstr "ID записи является обязательным"
 
-#: rating-bws.php:406 rating-bws.php:522
+#: rating-bws.php:430 rating-bws.php:549
 msgid "Specified User IP is invalid"
 msgstr "Указанный IP пользователя является некорректным"
 
-#: rating-bws.php:510
+#: rating-bws.php:537
 msgid "User or comment ID is required"
 msgstr "ID пользователя или комментария является обязательным"
 
-#: rating-bws.php:517
+#: rating-bws.php:544
 msgid "Rating is required"
 msgstr "Рейтинг является обязательным"
 
-#: rating-bws.php:761 rating-bws.php:883
+#: rating-bws.php:799 rating-bws.php:948
 msgid "Rate"
 msgstr "Поставить оценку"
 
-#: rating-bws.php:1144
+#: rating-bws.php:1201
 msgid "Exclude schema"
 msgstr "Исключение структурированных данных"
 
-#: rating-bws.php:1150
+#: rating-bws.php:1207
 #, php-format
 msgid "Enable to exclude JSON-LD %s markup."
 msgstr "Включите, чтобы исключить %s JSON-LD."
 
-#: rating-bws.php:1320 rating-bws.php:1327
+#: rating-bws.php:1377 rating-bws.php:1384
 msgid "Use plugin settings"
 msgstr "Использовать настройки плагина"
 
-#: rating-bws.php:1321
+#: rating-bws.php:1378
 msgid "Average Rating Only"
 msgstr "Только средний рейтинг"
 
-#: rating-bws.php:1322
+#: rating-bws.php:1379
 msgid "Rate Option Only"
 msgstr "Только форма рейтинга"
 
-#: rating-bws.php:1323
+#: rating-bws.php:1380
 msgid "Average Rating and Rate Option"
 msgstr "Средний рейтинг и форма рейтинга"
 
-#: rating-bws.php:1324
+#: rating-bws.php:1381
 msgid "Combined"
 msgstr "Комбинировать"
 
-#: rating-bws.php:1328
+#: rating-bws.php:1385
 msgid "Include"
 msgstr "Добавлять"
 
-#: rating-bws.php:1329
+#: rating-bws.php:1386
 msgid "Exclude"
 msgstr "Исключать"
 
-#: rating-bws.php:1332
+#: rating-bws.php:1389
 msgid "Select Shortcode"
 msgstr "Выберите шорткод"
 
-#: rating-bws.php:1334
+#: rating-bws.php:1391
 msgid "Rating Block"
 msgstr "Форма рейтинга"
 
-#: rating-bws.php:1335
+#: rating-bws.php:1392
 msgid "Total Rates Number"
 msgstr "Общее количество оценок"
 
-#: rating-bws.php:1337
+#: rating-bws.php:1394
 msgid "Max Stars Available"
 msgstr "Максимально доступное количество звёзд"
 
-#: rating-bws.php:1340
+#: rating-bws.php:1397
 msgid "Add Rating block to your page or post"
 msgstr "Добавить блок рейтинга на вашу страницу"
 
-#: rating-bws.php:1344
+#: rating-bws.php:1401
 msgid "Display"
 msgstr "Вывод"
 
-#: rating-bws.php:1350
+#: rating-bws.php:1407
 msgid "rating block title"
 msgstr "заголовок формы рейтинга"
 
-#: rating-bws.php:1355
+#: rating-bws.php:1412
 msgid "rating block text"
 msgstr "текст формы рейтинга"
 
-#: rating-bws.php:1362
+#: rating-bws.php:1419
 msgid "Output"
 msgstr "Вид"
 
-#: rating-bws.php:1372
+#: rating-bws.php:1429
 msgid "Schema"
 msgstr "Структурированные данные"
 
-#: rating-bws.php:1383
+#: rating-bws.php:1440
 msgid "Display total number of ratings."
 msgstr "Вывод количества оценок."
 
-#: rating-bws.php:1386
+#: rating-bws.php:1443
 msgid "Display average post rating."
 msgstr "Вывод среднего рейтинга."
 
-#: rating-bws.php:1389
+#: rating-bws.php:1446
 msgid "Display available number of stars."
 msgstr "Вывод максимально доступного количества звёзд."
 
-#: rating-bws.php:1519
+#: rating-bws.php:1577
 msgid "FAQ"
 msgstr "FAQ"
 
-#: rating-bws.php:1520
+#: rating-bws.php:1578
 msgid "Support"
 msgstr "Поддержка"
+
+#, fuzzy
+#~| msgid "Number of Stars"
+#~ msgid "Number of Options"
+#~ msgstr "Количество звёзд"
 
 #~ msgid "Custom code"
 #~ msgstr "Пользовательский код"

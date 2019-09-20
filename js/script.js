@@ -7,6 +7,7 @@
 			form.before( '<div class="rtng-form-marker"></div>' );
 
 			var val = $( this ).val(),
+				rating_id = $( this ).attr( 'name' ).match( /rtng_rating\[(\d)\]$/ )[1],
 				object_id = form.find( 'input[name="rtng_object_id"]' ).val(),
 				post_id = form.data( 'id' ),
 				object_type = form.find( 'input[name="rtng_object_type"]' ).val();
@@ -19,6 +20,8 @@
 				data: {
 					action: 'rtng_add_rating_db',
 					rtng_rating_val: val,
+					rtng_rating_id: rating_id,
+					rtng_object_type: object_type,
 					rtng_object_id: object_id,
 					rtng_post_id: post_id,
 					rtng_show_title: show_title,
@@ -67,8 +70,8 @@
 				.removeClass( 'dashicons-star-empty dashicons-star-half' )
 				.addClass( 'dashicons-star-filled rtng-hovered' );
 		}).on( 'mouseleave', '.rtng-star-rating.rtng-active .rtng-star', function() {
-			if ( $( this ).parent().find( 'input[name="rtng_rating"]:checked' ).val() ) {
-				rating = $( this ).parent().find( 'input[name="rtng_rating"]:checked' ).val();
+			if ( $( this ).parent().find( 'input[name^="rtng_rating"]:checked' ).val() ) {
+				rating = $( this ).parent().find( 'input[name^="rtng_rating"]:checked' ).val();
 			} else {
 				rating = $( this ).parent().attr( 'data-rating' );
 				rating = ( rating / 100 ) * 5;
