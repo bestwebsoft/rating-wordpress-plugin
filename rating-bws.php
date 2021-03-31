@@ -6,12 +6,12 @@ Description: Add rating plugin to your WordPress website to receive feedback fro
 Author: BestWebSoft
 Text Domain: rating-bws
 Domain Path: /languages
-Version: 1.2
+Version: 1.3
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
 
-/*  © Copyright 2019  BestWebSoft  ( https://support.bestwebsoft.com )
+/*  © Copyright 2021  BestWebSoft  ( https://support.bestwebsoft.com )
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as
@@ -39,7 +39,7 @@ if ( ! function_exists( 'add_rtng_menu' ) ) {
             $submenu['rating.php'][] = array(
                 '<span style="color:#d86463"> ' . __( 'Upgrade to Pro', 'rating-bws' ) . '</span>',
                 'manage_options',
-                'https://bestwebsoft.com/products/wordpress/plugins/rating/?k=427287ceae749cbd015b4bba6041c4b8&pn=78&v=' . $rtng_plugin_info["Version"] . '&wp_v=' . $wp_version );
+                'https://bestwebsoft.com/products/wordpress/plugins/rating/?k=cc5cf22c4332ef4ba368cf4b739c90df&pn=630&v=' . $rtng_plugin_info["Version"] . '&wp_v=' . $wp_version );
 
         add_action( 'load-' . $settings, 'rtng_add_tabs' );
 	}
@@ -67,7 +67,7 @@ if ( ! function_exists( 'rtng_init' ) ) {
 		bws_include_init( plugin_basename( __FILE__ ) );
 
 		/* check compatible with current WP version */
-		bws_wp_min_version_check( plugin_basename( __FILE__ ), $rtng_plugin_info, '3.9' );
+		bws_wp_min_version_check( plugin_basename( __FILE__ ), $rtng_plugin_info, '4.5' );
 
 		/* Get/Register and check settings for plugin */
 		if ( ! is_admin() || ( isset( $_GET['page'] ) && 'rating.php' == $_GET['page'] ) ) {
@@ -94,6 +94,7 @@ if ( ! function_exists( 'rtng_init' ) ) {
 /* Function for admin_init */
 if ( ! function_exists( 'rtng_admin_init' ) ) {
 	function rtng_admin_init() {
+        global $pagenow, $rtng_options;
 		/* Add variable for bws_menu */
 		global $bws_plugin_info, $rtng_plugin_info, $bws_shortcode_list;
 		/* Function for bws menu */
@@ -102,6 +103,15 @@ if ( ! function_exists( 'rtng_admin_init' ) ) {
 		}
 		/* add Plugin to global $bws_shortcode_list */
 		$bws_shortcode_list['rtng'] = array( 'name' => 'Rating', 'js_function' => 'rtng_shortcode_init' );
+
+        if ( 'plugins.php' == $pagenow ) {
+            if ( empty( $rtng_options ) )
+                rtng_settings();
+
+            if ( function_exists( 'bws_plugin_banner_go_pro' ) ) {
+                bws_plugin_banner_go_pro( $rtng_options, $rtng_plugin_info, 'rtng', 'rating', '3878391ae3be686396044e5e64f7634e', '630', 'rating-bws' );
+            }
+        }
 	}
 }
 
@@ -124,6 +134,8 @@ if ( ! function_exists( 'rtng_settings' ) ) {
 			$options_default = rtng_get_default_options();
 			$rtng_options = array_merge( $options_default, $rtng_options );
 			$rtng_options['plugin_option_version'] = $rtng_plugin_info["Version"];
+
+            /* show pro features */
             $rtng_options['hide_premium_options'] = array();
 
 			$update_option = true;
@@ -187,7 +199,7 @@ if ( ! function_exists( 'rtng_get_default_options' ) ) {
 			'vote_title'				=>	__( 'My Rating', 'rating-bws' ) . ':',
 			'enable_testimonials'		=> 0,
 			'options_quantity'			=> 1,
-			'testimonials_titles'		=> array( __( 'My Rating', 'rating-bws-pro' ) . ':' ),
+			'testimonials_titles'		=> array( __( 'My Rating', 'rating-bws' ) . ':' ),
 			'total_message'				=>	sprintf( __( '%s out of 5 stars. %s votes.', 'rating-bws' ), '{total_rate}', '{total_count}' ),
 			'non_login_message'			=> esc_html( sprintf( __( 'You should %s to submit a review.', 'rating-bws' ), '{login_link="' . __( 'log in', 'rating-bws' ) . '"}' ) ),
 			'thankyou_message'			=> __( 'Thank you!', 'rating-bws' ),
@@ -235,14 +247,12 @@ if ( ! function_exists( 'rtng_db_create' ) ) {
 /* Function formed content of the plugin's admin page. */
 if ( ! function_exists( 'rtng_settings_page' ) ) {
 	function rtng_settings_page() {
-        global $rtng_options;
-	    if ( isset( $_REQUEST['bws_restore_confirm'] ) && check_admin_referer( plugin_basename( __FILE__ ), 'bws_settings_nonce_name' ) ) {
-            $rtng_options = rtng_get_default_options();
-            update_option( 'rtng_options', $rtng_options );
-            $message = __( 'All plugin settings were restored.', 'bws-testimonials' );
-        } /* end */
+        if ( ! class_exists( 'Bws_Settings_Tabs' ) )
+            require_once( dirname( __FILE__ ) . '/bws_menu/class-bws-settings.php' );
 	    require_once( dirname( __FILE__ ) . '/includes/class-rtng-settings.php' );
-        $page = new Rtng_Settings_Tabs( plugin_basename( __FILE__ ) ); ?>
+        $page = new Rtng_Settings_Tabs( plugin_basename( __FILE__ ) );
+        if ( method_exists( $page,'add_request_feature' ) )
+            $page->add_request_feature(); ?>
 		<div class="wrap">
 			<h1><?php _e( 'Rating Settings', 'rating-bws' ); ?></h1>
 			<noscript>
@@ -303,12 +313,9 @@ if ( ! function_exists( 'rtng_is_role_enabled' ) ) {
 	function rtng_is_role_enabled( $role = false ) {
 		global $rtng_options;
 
-		if ( empty( $rtng_options ) ) {
-			$rtng_options = get_option( 'rtng_options' );
-			if ( empty( $rtng_options ) ) {
-				rtng_settings();
-			}
-		}
+        if ( empty( $rtng_options ) ) {
+            rtng_settings();
+        }
 
 		if ( ! $role ) {
 			$role = rtng_get_user_role();
@@ -512,7 +519,7 @@ if ( ! function_exists( 'rtng_get_user_rating' ) ) {
 /* requires: post_id, object_id, rating */
 if ( ! function_exists( 'rtng_add_user_rating' ) ) {
 	function rtng_add_user_rating( $args = array() ) {
-		global $wpdb;
+		global $wpdb, $rtng_options;
 
 		$rating = false;
 		$error = new WP_Error;
@@ -549,16 +556,30 @@ if ( ! function_exists( 'rtng_add_user_rating' ) ) {
 			$error->add( 'rtng_user_ip_error', __( 'Specified User IP is invalid', 'rating-bws' ) );
 		}
 
-		if ( ! empty( $error->errors ) || ! rtng_is_rating_allowed( $post_id, $object_id ) ) {
-			return false;
-		}
-
 		$old_rating = $wpdb->get_var(
 			"SELECT `rating`
 			FROM `" . $wpdb->prefix . "bws_rating`
 			WHERE `post_id` = '" . $post_id . "' AND
 			`object_id` = '" . $object_id . "'"
 		);
+
+        if ( ( ! empty( $error->errors ) || ! rtng_is_rating_allowed( $post_id, $object_id ) || $type == 'comment' ) && $rtng_options['always_clickable'] != 0 && NULL != $old_rating ) {
+
+            $wpdb->update(
+                $wpdb->prefix . "bws_rating",
+                array(
+                    'rating'		=> maybe_serialize( $rating ),
+                    'datetime'		=> current_time( 'mysql' ),
+                    'object_id'		=> $object_id,
+                    'user_ip'		=> $user_ip
+                ),
+                array(
+                    'post_id'		=> $post_id,
+                    'object_type'	=> $type,
+                )
+            );
+            return true;
+        }
 
 		// merge arrays without losing numeric keys
 		if ( ! empty( $old_rating ) ) {
@@ -765,7 +786,7 @@ if ( ! function_exists( 'rtng_show_total_rating' ) ) {
 			}
 		} elseif ( $show_review_count ) {
 			$title = '<input type="hidden" class="rtng-review-selector" />';
-			$total_message = sprintf( _n( '( %s review )', '( %s reviews )', $total['count'], 'rating-bws-pro' ), $total['count'] );
+			$total_message = sprintf( _n( '( %s review )', '( %s reviews )', $total['count'], 'rating-bws' ), $total['count'] );
 			$total_message = '<span class="rtng-text rtng-review-count">' . $total_message . '</span>';
 		} else {
 			$total_message = '';
@@ -811,6 +832,10 @@ if ( ! function_exists( 'rtng_show_total_rating' ) ) {
 			}
 		} else {
 			/* Total rating block */
+            if ( '0' == $total_rate ) {
+                $total_message = '<span class="rtng-text rtng-total">' . __( 'No rating yet', 'rating-bws' ) . '</span>';
+            }
+
 			$rating_block = '<div class="rtng-rating-total" data-id="' . $post_id . '">' .
 				$title .
 				rtng_display_stars( $rating ) .
@@ -827,9 +852,6 @@ if ( ! function_exists( 'rtng_get_post_schema' ) ) {
 		global $rtng_options;
 		$schema = '';
 		if ( false !== $post_id ) {
-			if ( empty( $rtng_options ) ) {
-				$rtng_options = get_option( 'rtng_options' );
-			}
 			if ( empty( $rtng_options ) ) {
 				rtng_settings();
 			}
@@ -1171,10 +1193,6 @@ if ( ! function_exists( 'rtng_add_meta_boxes' ) ) {
 		global $rtng_options;
 
 		if ( empty( $rtng_options ) ) {
-			$rtng_options = get_option( 'rtng_options' );
-		}
-
-		if ( empty( $rtng_options ) ) {
 			rtng_settings();
 		}
 
@@ -1237,10 +1255,6 @@ if ( ! function_exists( 'rtng_save_postdata' ) ) {
 		}
 
 		if ( empty( $rtng_options ) ) {
-			$rtng_options = get_option( 'rtng_options' );
-		}
-
-		if ( empty( $rtng_options ) ) {
 			rtng_settings();
 		}
 
@@ -1282,7 +1296,7 @@ if ( ! function_exists( 'rtng_add_rating_db' ) ) {
 
 				/* Get options from the database */
 				if ( empty( $rtng_options ) )
-					$rtng_options = get_option( 'rtng_options' );
+                    rtng_settings();
 
 				$percent_rating = ( $_POST['rtng_rating_val'] / 5 ) * 100;
 
@@ -1346,7 +1360,7 @@ if ( ! function_exists( 'rtng_add_rating_db' ) ) {
 /* Function for adding rating from comments to db */
 if ( ! function_exists( 'rtng_add_rating_db_comment' ) ) {
 	function rtng_add_rating_db_comment( $comment_id ) {
-		global $wpdb;
+		global $wpdb, $rtng_options;
 
 		if ( rtng_is_role_enabled() && ! empty( $_POST['rtng_rating'] ) ) {
 			$rating = intval( is_array( $_POST['rtng_rating'] ) ? $_POST['rtng_rating'][0] : $_POST['rtng_rating'] );
@@ -1368,7 +1382,18 @@ if ( ! function_exists( 'rtng_add_rating_db_comment' ) ) {
 				);
 				rtng_add_user_rating( $args );
 			}
-		}
+		} elseif ( empty( $_POST['rtng_rating'] ) && $rtng_options['rating_required'] ) {
+            $error = new WP_Error;
+            $error->add( 'rtng_rating_error', __( 'Error: Rating is required', 'rating-bws' ) );
+            wp_delete_comment( $comment_id, true );
+            wp_die(
+                '<p>' . $error->get_error_message() . '</p>',
+                __( 'Error: Rating is required.', 'rating-bws' ),
+                array(
+                    'back_link' => true,
+                )
+            );
+        }
 	}
 }
 
@@ -1514,9 +1539,7 @@ if ( ! function_exists( 'rtng_admin_head' ) ) {
 			wp_enqueue_script( 'rtng_script', plugins_url( 'js/admin_script.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ) );
 
 			bws_enqueue_settings_scripts();
-
-			if ( isset( $_GET['action'] ) && 'custom_code' == $_GET['action'] )
-				bws_plugins_include_codemirror();
+			bws_plugins_include_codemirror();
 		}
 	}
 }
@@ -1666,6 +1689,7 @@ add_shortcode( 'bws-rating-value', 'rtng_rating_value_shortcode' );
 add_shortcode( 'bws-rating-max', 'rtng_rating_max_shortcode' );
 /* Adds a box to the main column on the Posts edit screens. */
 add_action( 'add_meta_boxes', 'rtng_add_meta_boxes' );
+add_action( 'attachment_updated', 'rtng_save_postdata' );
 add_action( 'save_post', 'rtng_save_postdata' );
 
 add_filter( 'pgntn_callback', 'rtng_pagination_callback' );

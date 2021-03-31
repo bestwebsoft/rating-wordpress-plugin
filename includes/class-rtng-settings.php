@@ -3,8 +3,6 @@
  * Displays the content on the plugin settings page
  */
 
-require_once( dirname( dirname( __FILE__ ) ) . '/bws_menu/class-bws-settings.php' );
-
 if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
     class Rtng_Settings_Tabs extends Bws_Settings_Tabs {
         public $is_general_settings = true;
@@ -49,12 +47,10 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
             'default_options' 	 => rtng_get_default_options(),
             'options' 			 => $rtng_options,
             'tabs' 				 => $tabs,
-            'doc_link'			 => 'https://docs.google.com/document/d/1gy5uDVoebmYRUvlKRwBmc97jdJFz7GvUCtXy3L7r_Yg/',
+            'doc_link'			 => 'https://docs.google.com/document/d/1xFQZHTvem37naS9h3l_Xx_LnRy7djUKBlvtYgHR6k7s/',
             'wp_slug'			 => 'rating-bws',
-            'pro_page'			 => 'admin.php?page=rating-bws-pro.php',
-            'bws_license_plugin' => 'rating-bws-pro/rating-bws-pro.php',
-            'link_key'			 => '427287ceae749cbd015b4bba6041c4b8',
-            'link_pn'			 => '78'
+            'link_key'			 => 'cc5cf22c4332ef4ba368cf4b739c90df',
+            'link_pn'			 => '630'
         ) );
     }
 
@@ -65,6 +61,7 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
          * @return array    The action results
          */
             public function save_options(){
+                $message = $notice = $error = '';
                 $all_post_types = get_post_types( array( 'public' => 1, 'show_ui' => 1 ), 'objects' );
                 $editable_roles = get_editable_roles();
                 if ( !isset( $_GET['action'] ) ) {
@@ -111,23 +108,23 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
 
                     $this->options['always_clickable'] = isset( $_REQUEST['rtng_always_clickable'] ) ? 1 : 0;
                     $this->options['rating_required'] = isset( $_REQUEST['rtng_check_rating_required'] ) ? 1 : 0;
-                    $this->options['rate_color'] = stripslashes( esc_html( $_REQUEST['rtng_rate_color'] ) );
-                    $this->options['rate_hover_color'] = stripslashes( esc_html( $_REQUEST['rtng_rate_hover_color'] ) );
+                    $this->options['rate_color'] = stripslashes( sanitize_text_field( $_REQUEST['rtng_rate_color'] ) );
+                    $this->options['rate_hover_color'] = stripslashes( sanitize_text_field( $_REQUEST['rtng_rate_hover_color'] ) );
                     $this->options['rate_size'] = intval( $_REQUEST['rtng_rate_size'] );
 
-                    $this->options['text_color'] = stripslashes( esc_html( $_REQUEST['rtng_text_color'] ) );
+                    $this->options['text_color'] = stripslashes( sanitize_text_field( $_REQUEST['rtng_text_color'] ) );
                     $this->options['text_size'] = intval( $_REQUEST['rtng_text_size'] );
                     $this->options['star_post'] = isset( $_REQUEST['rtng_star_post'] ) ? 1 : 0;
-                    $this->options['result_title'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_result_title'] ) );
-                    $this->options['total_message'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_total_message'] ) );
-                    $this->options['vote_title'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_vote_title'] ) );
+                    $this->options['result_title'] = stripslashes( sanitize_text_field( $_REQUEST['rtng_result_title'] ) );
+                    $this->options['total_message'] = stripslashes( sanitize_text_field( $_REQUEST['rtng_total_message'] ) );
+                    $this->options['vote_title'] = stripslashes( sanitize_text_field( $_REQUEST['rtng_vote_title'] ) );
                     $this->options['enable_testimonials'] = isset( $_REQUEST['rtng_testimonials'] ) ? 1 : 0;
-                    $this->options['options_quantity'] = intval( $_REQUEST['rtng_options_quantity'] );
-                    $this->options['testimonials_titles'] = array_map( 'stripslashes', array_map( 'htmlspecialchars', $_REQUEST['rtng_testimonials_titles'] ) );
-                    $this->options['non_login_message'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_non_login_message'] ) );
-                    $this->options['thankyou_message'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_thankyou_message'] ) );
-                    $this->options['error_message'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_error_message'] ) );
-                    $this->options['already_rated_message'] = stripslashes( htmlspecialchars( $_REQUEST['rtng_already_rated_message'] ) );
+                    $this->options['options_quantity'] = isset( $_REQUEST['rtng_options_quantity'] ) ? intval( $_REQUEST['rtng_options_quantity'] ) : '';
+                    $this->options['testimonials_titles'] = isset( $_REQUEST['rtng_testimonials_titles'] ) ? array_map( 'stripslashes', array_map( 'sanitize_text_field', $_REQUEST['rtng_testimonials_titles'] ) ) : '';
+                    $this->options['non_login_message'] = stripslashes( sanitize_text_field( $_REQUEST['rtng_non_login_message'] ) );
+                    $this->options['thankyou_message'] = stripslashes( sanitize_text_field( $_REQUEST['rtng_thankyou_message'] ) );
+                    $this->options['error_message'] = stripslashes( sanitize_text_field( $_REQUEST['rtng_error_message'] ) );
+                    $this->options['already_rated_message'] = stripslashes( sanitize_text_field( $_REQUEST['rtng_already_rated_message'] ) );
                     $this->options = array_map('stripslashes_deep', $this->options );
 
                     update_option( 'rtng_options', $this->options );
@@ -147,7 +144,7 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
             <hr>
             <table class="form-table">
                 <tr>
-                    <th scope="row"><?php _e( 'Display Rating', 'rating-bws' ); ?></th>
+                    <th scope="row"><?php _e( 'Add Rating to', 'rating-bws' ); ?></th>
                     <td>
                         <fieldset>
                             <?php foreach ( $all_post_types as $key => $value ) { ?>
@@ -160,6 +157,66 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
                         </fieldset>
                     </td>
                 </tr>
+                <?php
+                if ( is_plugin_active( 'bws-testimonials/bws-testimonials.php' ) ) { ?>
+                    <tr>
+                        <th scope="row"><?php _e( 'Testimonials Review Form', 'rating-bws' ); ?></th>
+                        <td>
+                            <label>
+                                <input type="checkbox" name="rtng_testimonials" value="1" <?php checked( $this->options['enable_testimonials'] ); ?> />
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="rtng-show-testimonials">
+                        <th scope="row"><?php _e( 'Number of Titles', 'rating-bws' ); ?></th>
+                        <td>
+                            <input type="number" min="1" max="5" value="<?php echo $this->options['options_quantity']; ?>" name="rtng_options_quantity" />
+                        </td>
+                    </tr>
+                    <tr class="rtng-show-testimonials">
+                        <th scope="row"><?php _e( 'Review Title', 'rating-bws' ); ?></th>
+                        <td>
+                            <input type="text" maxlength="250" class="regular-text" value="<?php echo $this->options['testimonials_titles'][0]; ?>" name="rtng_testimonials_titles[]" />
+                        </td>
+                    </tr>
+                    <?php
+                    if ( $this->options['options_quantity'] > 1 ) {
+                        for ( $i = 1; $i < $this->options['options_quantity']; $i++ ) {
+                            ?>
+                            <tr class="rtng-show-testimonials">
+                                <th scope="row"><?php printf( __( 'Review Title %s %d', 'rating-bws' ), '&numero;', $i + 1 ); ?></th>
+                                <td>
+                                    <input type="text" maxlength="250" class="regular-text" value="<?php echo isset( $this->options['testimonials_titles'][ $i ] ) ? $this->options['testimonials_titles'][ $i ] : ''; ?>" name="rtng_testimonials_titles[]" />
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                    } ?>
+                <?php } else {
+                    $all_plugins = get_plugins();
+
+                    if ( array_key_exists( 'bws-testimonials/bws-testimonials.php', $all_plugins ) ) {
+                        $button_url         = network_admin_url( 'plugins.php' );
+                        $button_text        = __( 'Activate', 'rating-bws' );
+                        $button_text_after  = $all_plugins['bws-testimonials/bws-testimonials.php']['Name'];
+                    } else {
+                        // TODO cahnge link
+                        $button_url         = 'https://bestwebsoft.com/products/wordpress/plugins/testimonials/';
+                        $button_text        = __( 'Download', 'rating-bws' );
+                        $button_text_after  = 'Testimonials by BestWebSoft.';
+                    } ?>
+                    <tr>
+                        <th scope="row"><?php _e( 'Testimonial Reviews', 'rating-bws' ); ?></th>
+                        <td>
+                            <label>
+                                <input type="checkbox" disabled="disabled" name="rtng_testimonials" value="1" <?php checked( $this->options['enable_testimonials'] ); ?> />
+                                <span class="bws_info">
+                                    <a href="<?php echo $button_url; ?>" target="_blank"><?php echo $button_text; ?></a> <?php echo $button_text_after; ?>
+                                </span>
+                            </label>
+                        </td>
+                    </tr>
+                <?php } ?>
                 <tr>
                     <th><?php _e( 'Average Rating Position', 'rating-bws' ); ?></th>
                     <td>
@@ -177,13 +234,16 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
                     </td>
                 </tr>
                 <tr>
-                    <th><?php _e( 'Combine Average Rating with Rate Option', 'rating-bws' ); ?></th>
+                    <th><?php _e( 'Combine Average and My Rating Blocks', 'rating-bws' ); ?></th>
                     <td>
                         <input type="checkbox" name="rtng_combined" value="1" <?php if ( 1 == $this->options['combined'] ) echo 'checked="checked"'; ?> />
+                        <span class="bws_info">
+                            <?php _e( 'Enable to use a single rating block.', 'rating-bws' ); ?>
+                        </span>
                     </td>
                 </tr>
                 <tr id="rtng_rate_position">
-                    <th><?php _e( 'Rate Option Position', 'rating-bws' ); ?></th>
+                    <th><?php _e( 'My Rating Position', 'rating-bws' ); ?></th>
                     <td>
                         <fieldset>
                             <label>
@@ -203,24 +263,24 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
                         </fieldset>
                     </td>
                 </tr>
-                <tr>
+                <tr id="rtng_required_rate">
                     <th scope="row"><?php _e( 'Required Rating', 'rating-bws' ); ?></th>
                     <td>
                         <label>
                             <input type="checkbox" name="rtng_check_rating_required" value="1" <?php checked( $this->options['rating_required'] ); ?> />
                             <span class="bws_info">
-                                <?php _e( 'Enable to make rating submitting required for comments form.', 'rating-bws' ); ?>
+                                <?php _e( 'Enable to make the rating required for comment submission.', 'rating-bws' ); ?>
                             </span>
                         </label>
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><?php _e( 'Always Clickable Stars', 'rating-bws' ); ?></th>
+                    <th scope="row"><?php _e( 'Change Rating', 'rating-bws' ); ?></th>
                     <td>
                         <label>
                             <input type="checkbox" name="rtng_always_clickable" value="1" <?php checked( $this->options['always_clickable'] ); ?> />&nbsp;
                             <span class="bws_info">
-											<?php _e( 'Enable to make stars always clickable, even if the user has already rated the post or user role is disabled.', 'rating-bws'); ?>
+                                    <?php _e( 'Enable to allow users change their rating.', 'rating-bws'); ?>
                             </span>
                         </label>
                     </td>
@@ -284,7 +344,7 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
                         </label>
                     </td>
                 </tr>
-                <tr>
+                <tr id="rtng_minimun_rating">
                     <th scope="row"><?php _e( 'Minimum Rating to Add Schema', 'rating-bws' ); ?></th>
                     <td>
                         <label>
@@ -292,66 +352,6 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
                         </label>
                     </td>
                 </tr>
-                <?php
-                if ( is_plugin_active( 'bws-testimonials/bws-testimonials.php' ) ) { ?>
-                    <tr>
-                        <th scope="row"><?php _e( 'Testimonials Review Form', 'rating-bws' ); ?></th>
-                        <td>
-                            <label>
-                                <input type="checkbox" name="rtng_testimonials" value="1" <?php checked( $this->options['enable_testimonials'] ); ?> />
-                            </label>
-                        </td>
-                    </tr>
-                    <tr class="rtng-show-testimonials">
-                        <th scope="row"><?php _e( 'Number of Titles', 'rating-bws' ); ?></th>
-                        <td>
-                            <input type="number" min="1" max="5" value="<?php echo $this->options['options_quantity']; ?>" name="rtng_options_quantity" />
-                        </td>
-                    </tr>
-                    <tr class="rtng-show-testimonials">
-                        <th scope="row"><?php _e( 'Review Title', 'rating-bws' ); ?></th>
-                        <td>
-                            <input type="text" maxlength="250" class="regular-text" value="<?php echo $this->options['testimonials_titles'][0]; ?>" name="rtng_testimonials_titles[]" />
-                        </td>
-                    </tr>
-                    <?php
-                    if ( $this->options['options_quantity'] > 1 ) {
-                        for ( $i = 1; $i < $this->options['options_quantity']; $i++ ) {
-                            ?>
-                            <tr class="rtng-show-testimonials">
-                                <th scope="row"><?php printf( __( 'Review Title %s %d', 'rating-bws' ), '&numero;', $i + 1 ); ?></th>
-                                <td>
-                                    <input type="text" maxlength="250" class="regular-text" value="<?php echo isset( $this->options['testimonials_titles'][ $i ] ) ? $this->options['testimonials_titles'][ $i ] : ''; ?>" name="rtng_testimonials_titles[]" />
-                                </td>
-                            </tr>
-                            <?php
-                        }
-                    } ?>
-                <?php } else {
-                    $all_plugins = get_plugins();
-
-                    if ( array_key_exists( 'bws-testimonials/bws-testimonials.php', $all_plugins ) ) {
-                        $button_url         = network_admin_url( 'plugins.php' );
-                        $button_text        = __( 'Activate', 'rating-bws' );
-                        $button_text_after  = $all_plugins['bws-testimonials/bws-testimonials.php']['Name'];
-                    } else {
-                        // TODO cahnge link
-                        $button_url         = 'https://bestwebsoft.com/products/wordpress/plugins/testimonials/';
-                        $button_text        = __( 'Download', 'rating-bws' );
-                        $button_text_after  = 'Testimonials by BestWebSoft.';
-                    } ?>
-                    <tr>
-                        <th scope="row"><?php _e( 'Testimonial Reviews', 'rating-bws' ); ?></th>
-                        <td>
-                            <label>
-                                <input type="checkbox" disabled="disabled" name="rtng_testimonials" value="1" <?php checked( $this->options['enable_testimonials'] ); ?> />
-                                <span class="bws_info">
-                                    <a href="<?php echo $button_url; ?>" target="_blank"><?php echo $button_text; ?></a> <?php echo $button_text_after; ?>
-                                </span>
-                            </label>
-                        </td>
-                    </tr>
-                <?php } ?>
                 <tr>
                     <th scope="row"><?php _e( 'Enable Rating for', 'rating-bws' ); ?></th>
                     <td>
@@ -421,7 +421,7 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
                         </td>
                     </tr>
                     <tr>
-                        <th><?php _e( 'Text Font-Size', 'rating-bws' ); ?></th>
+                        <th><?php _e( 'Text Font Size', 'rating-bws' ); ?></th>
                         <td>
                             <input type="number" min="1" max="100" value="<?php echo $this->options['text_size']; ?>" name="rtng_text_size" /> <?php _e( 'px', 'rating-bws' ); ?>
                         </td>
@@ -433,7 +433,7 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><?php _e( 'Total Rating Message', 'rating-bws' ); ?></th>
+                        <th scope="row"><?php _e( 'Average Rating Text', 'rating-bws' ); ?></th>
                         <td>
                             <input type="text" maxlength="250" class="regular-text" value="<?php echo $this->options['total_message']; ?>" name="rtng_total_message" />
                             <br>
@@ -450,13 +450,13 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><?php _e( 'Rate Option Title', 'rating-bws' ); ?></th>
+                        <th scope="row"><?php _e( 'My Rating', 'rating-bws' ); ?></th>
                         <td>
                             <input type="text" maxlength="250" class="regular-text" value="<?php echo $this->options['vote_title']; ?>" name="rtng_vote_title" />
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><?php _e( 'Message for Guests', 'rating-bws' ); ?></th>
+                        <th scope="row"><?php _e( 'Authorization Required Text', 'rating-bws' ); ?></th>
                         <td>
                             <input type="text" maxlength="250" class="regular-text" value="<?php echo $this->options['non_login_message']; ?>" name="rtng_non_login_message" />
                             <br>
@@ -479,7 +479,7 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><?php _e( 'Disabled User Role Message', 'rating-bws' ); ?></th>
+                        <th scope="row"><?php _e( 'No Permissions Message', 'rating-bws' ); ?></th>
                         <td>
                             <input type="text" maxlength="250" class="regular-text" value="<?php echo $this->options['error_message']; ?>" name="rtng_error_message" />
                             <br>
@@ -489,7 +489,7 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><?php _e( 'Already Rated Message', 'rating-bws' ); ?></th>
+                        <th scope="row"><?php _e( 'Rating Already Submitted Message', 'rating-bws' ); ?></th>
                         <td>
                             <input type="text" maxlength="250" class="regular-text" value="<?php echo $this->options['already_rated_message']; ?>" name="rtng_already_rated_message" />
                             <br>

@@ -2,9 +2,9 @@
 Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: 5 stars, rating, stars, rating plugin, add rating, plugin star rating, add vote, voiting, rate, post rating, rating system, review
-Requires at least: 4.0
-Tested up to: 5.2.3
-Stable tag: 1.2
+Requires at least: 4.5
+Tested up to: 5.7
+Stable tag: 1.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,6 +15,8 @@ Add rating plugin to your WordPress website to receive feedback from your custom
 Simple plugin which adds 5 stars rating to your WordPress website posts, pages, and widgets. Customize the appearance, choose where you want to display rating statistic, and enjoy your customer's reviews.
 
 Show rating from other people to increase conversions!
+
+[View Demo](https://bestwebsoft.com/demo-rating-by-bestwebsoft/?ref=readme)
 
 = Features =
 
@@ -57,14 +59,18 @@ Show rating from other people to increase conversions!
 >
 > All features from Free version included plus:
 > 
->Customize the number of stars
->Display average rating in the list with pages/posts
+> * Customize the number of stars
+> * Display average rating in the list with pages/posts
+> * Get answer to your support question within one business day ([Support Policy](https://bestwebsoft.com/support-policy/))
+
+[Upgrade to Pro Now](https://bestwebsoft.com/products/wordpress/plugins/rating/?k=4808d50a7d9757de9577e1ce29ea07f6)
 
 If you have a feature suggestion or idea you'd like to see in the plugin, we'd love to hear about it! [Suggest a Feature](https://support.bestwebsoft.com/hc/en-us/requests/new)
 
 = Documentation & Videos =
 
 * [[Doc] Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
+* [[Doc] Purchase](https://docs.google.com/document/d/1EUdBVvnm7IHZ6y0DNyldZypUQKpB8UVPToSc_LdOYQI/edit)
 * [[Doc] How to Use](https://docs.google.com/document/d/1xFQZHTvem37naS9h3l_Xx_LnRy7djUKBlvtYgHR6k7s/)
 
 = Help & Support =
@@ -74,6 +80,7 @@ Visit our Help Center if you have any questions, our friendly Support Team is ha
 = Translation =
 
 * Russian (ru_RU)
+* Spanish (es_ES) (thanks to [Jose Bescos](mailto:jmbescos@ibidemgroup.com), www.ibidemgroup.com)
 * Ukrainian (uk)
 
 Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send [the text of PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [BestWebSoft](https://support.bestwebsoft.com/hc/en-us/requests/new) and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO [files Poedit](http://www.poedit.net/download.php).
@@ -81,12 +88,13 @@ Some of these translations are not complete. We are constantly adding new featur
 = Recommended Plugins =
 
 * [Updater](https://bestwebsoft.com/products/wordpress/plugins/updater/?k=c7ce6f79072aa3d73d66318b2370b719) - Automatically check and update WordPress website core with all installed plugins and themes to the latest versions.
+* [Testimonials](https://bestwebsoft.com/products/wordpress/plugins/testimonials/) - Add testimonials and feedbacks from your customers to WordPress website posts, pages, and widgets.
 
 == Installation ==
 
-1. Upload the `rating-bws` folder to `/wp-content/plugins/` directory.
-2. Activate the plugin using the 'Plugins' menu in your WordPress admin panel.
-3. You can adjust the necessary settings using your WordPress admin panel in "BWS Panel" > "Rating".
+1. Upload the `rating-bws-pro` folder to the `/wp-content/plugins/` directory.
+2. Activate the plugin via the 'Plugins' menu in WordPress.
+3. You can adjust the necessary settings using your WordPress admin panel in "Rating".
 
 == Frequently Asked Questions ==
 
@@ -123,6 +131,14 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V1.3 - 31.03.2021 =
+* Update : We updated all functionality for wordpress 5.7.
+* Update : BWS plugins section was updated.
+* Update : The plugin settings page was changed.
+* Bugfix : The bug with the display rating has been fixed.
+* NEW : The Spanish language file was added.
+* Pro : Added the ability to sort the average rating in the list of all posts and pages.
+
 = V1.2 - 20.09.2019 =
 * NEW : Compatibility with Testimonials by BestWebSoft has been added.
 * Bugfix : JSON-LD schema incorrect code output has been fixed.
@@ -154,6 +170,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * Release date of Rating.
 
 == Upgrade Notice ==
+
+= V1.3 =
+* Bugs fixed.
+* Usability improved.
 
 = V1.2 =
 * New features added.

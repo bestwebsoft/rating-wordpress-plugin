@@ -10,6 +10,22 @@
 			}
 		} ).trigger( 'change' );
 
+		$( 'input[value="in_comment"]' ).change( function() {
+			if ( $( this ).is( ':checked' ) ) {
+				$( '#rtng_required_rate' ).show();
+			} else {
+				$( '#rtng_required_rate' ).hide();
+			}
+		} ).trigger( 'change' );
+
+		$( 'input[name="rtng_add_schema"]' ).change( function() {
+			if ( $( this ).is( ':checked' ) ) {
+				$( '#rtng_minimun_rating' ).show();
+			} else {
+				$( '#rtng_minimun_rating' ).hide();
+			}
+		} ).trigger( 'change' );
+
 		$( '#rtng_rate_position input' ).change( function() {
 			if ( $( '#rtng_rate_position input[value="in_comment"]' ).is( ':checked' ) ) {
 				$( 'input[name="rtng_check_rating_required"]' ).removeAttr( 'disabled' );

@@ -13,8 +13,6 @@
 				object_type = form.find( 'input[name="rtng_object_type"]' ).val();
 				show_title = form.find( 'input[name="rtng_show_title"]' ).val();
 
-			form.find( '.rtng-star-rating' ).append( '<span class="rtng-loading"></span>' );
-
 			$.ajax( {
 				url: rtng_vars.ajaxurl,
 				data: {
@@ -48,7 +46,6 @@
 							form.find( '.rtng-thankyou' ).fadeOut();
 						}, 5000 );
 					}
-					form.find( '.rtng-loading' ).remove();
 					$( '.rtng-form-marker' ).remove();
 				}
 			} );

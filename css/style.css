@@ -42,6 +42,9 @@
 .rtng-add-button + .rtng-text {
     display: block;
 }
+.rtng_twentytwenty p.comment-notes {
+    margin: 0 0 6rem 0 !important;
+}
 .rtng-loading:before {
     content: "\f463";
     display: inline-block;
@@ -51,6 +54,72 @@
     vertical-align: bottom;
     -webkit-animation: rtng-rotation 2s infinite linear;
     animation: rtng-rotation 2s infinite linear;
+}
+span.rtng-text.rtng-thankyou {
+    font-size: 12px;
+    position: relative;
+    bottom: 25px;
+    left: 120px;
+}
+.rtng_twentytwentyone .rtng-star input[type=radio] {
+    position: absolute!important;
+}
+.rtl span.rtng-text.rtng-thankyou {
+    font-size: 12px;
+    position: relative;
+    bottom: 25px;
+    right: 120px !important;
+}
+.rtng_ span.rtng-text.rtng-thankyou {
+    font-size: 12px;
+    position: relative;
+    left: 125px !important;
+    bottom: 22px !important;
+}
+.rtl.rtng_ span.rtng-text.rtng-thankyou {
+    font-size: 12px;
+    position: relative;
+    right: 125px !important;
+    bottom: 22px !important;
+}
+.rtl.rtng_twentyfifteen span.rtng-text.rtng-thankyou {
+    font-size: 12px;
+    position: relative;
+    right: 125px !important;
+    bottom: 28px !important;
+}
+.rtng_twentyfifteen span.rtng-text.rtng-thankyou {
+    font-size: 12px;
+    position: relative;
+    left: 125px !important;
+    bottom: 28px !important;
+}
+.rtl.rtng_twentysixteen span.rtng-text.rtng-thankyou {
+    font-size: 12px;
+    position: relative;
+    bottom: 32px;
+    right: 130px !important;
+}
+.rtl.rtng_twentynineteen span.rtng-text.rtng-thankyou {
+    font-size: 12px;
+    position: relative;
+    bottom: 36px;
+    right: 130px !important;
+}
+.rtl.rtng_twentyseventeen span.rtng-text.rtng-thankyou {
+    font-size: 12px;
+    position: relative;
+    bottom: 21px;
+    right: 123px !important;
+}
+.rtl.rtng_twentyfourteen span.rtng-text.rtng-thankyou {
+    font-size: 12px;
+    position: relative;
+    bottom: 21px;
+    right: 120px !important;
+}
+.rtng_twentytwentyone .rtng-star input[type=radio] {
+    position: absolute!important;
 }
 @keyframes rtng-rotation {
     0% {transform:rotate(0deg);}
