@@ -6,7 +6,7 @@ Description: Add rating plugin to your WordPress website to receive feedback fro
 Author: BestWebSoft
 Text Domain: rating-bws
 Domain Path: /languages
-Version: 1.3
+Version: 1.4
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */

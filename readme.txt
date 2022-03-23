@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: 5 stars, rating, stars, rating plugin, add rating, plugin star rating, add vote, voiting, rate, post rating, rating system, review
 Requires at least: 4.5
-Tested up to: 5.7
-Stable tag: 1.3
+Tested up to: 5.9
+Stable tag: 1.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -131,6 +131,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V1.4 - 21.03.2022 =
+* Update : We updated all functionality for wordpress 5.9.
+* Update : BWS panel section was updated.
+
 = V1.3 - 31.03.2021 =
 * Update : We updated all functionality for wordpress 5.7.
 * Update : BWS plugins section was updated.
@@ -170,6 +174,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * Release date of Rating.
 
 == Upgrade Notice ==
+
+= V1.4 =
+* Usability improved.
 
 = V1.3 =
 * Bugs fixed.
