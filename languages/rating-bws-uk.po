@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: rating-bws\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-23 09:04+0200\n"
-"PO-Revision-Date: 2021-03-23 09:04+0200\n"
+"PO-Revision-Date: 2022-05-19 15:03+0300\n"
 "Last-Translator: plugin@bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language-Team: BestWebSoft <plugin@bestwebsoft.com>\n"
 "Language: ua_UA\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: bws_menu\n"
 
@@ -102,7 +102,7 @@ msgstr "Дозвольте використовувати один рейтин�
 
 #: includes/class-rtng-settings.php:246
 msgid "My Rating Position"
-msgstr "Розташування Середнього Рейтингу"
+msgstr "Розташування Мого Рейтингу"
 
 #: includes/class-rtng-settings.php:261
 msgid "In comments"
@@ -179,7 +179,7 @@ msgstr "Включити рейтинг для"
 
 #: includes/class-rtng-settings.php:360
 msgid "All"
-msgstr "Все"
+msgstr "Всіх"
 
 #: includes/class-rtng-settings.php:368
 msgid "Guest"

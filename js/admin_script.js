@@ -2,31 +2,31 @@
 	$( document ).ready( function() {
 		$( '.rtng_color' ).wpColorPicker();
 
-		$( 'input[name="rtng_combined"]' ).change( function() {
+		$( 'input[name="rtng_combined"]' ).on( 'change', function() {
 			if ( $( this ).is( ':checked' ) ) {
 				$( '#rtng_rate_position' ).hide();
 			} else {
 				$( '#rtng_rate_position' ).show();
 			}
-		} ).trigger( 'change' );
+		} );
 
-		$( 'input[value="in_comment"]' ).change( function() {
+		$( 'input[value="in_comment"]' ).on( 'change', function() {
 			if ( $( this ).is( ':checked' ) ) {
 				$( '#rtng_required_rate' ).show();
 			} else {
 				$( '#rtng_required_rate' ).hide();
 			}
-		} ).trigger( 'change' );
+		} );
 
-		$( 'input[name="rtng_add_schema"]' ).change( function() {
+		$( 'input[name="rtng_add_schema"]' ).on( 'change', function() {
 			if ( $( this ).is( ':checked' ) ) {
 				$( '#rtng_minimun_rating' ).show();
 			} else {
 				$( '#rtng_minimun_rating' ).hide();
 			}
-		} ).trigger( 'change' );
+		} );
 
-		$( '#rtng_rate_position input' ).change( function() {
+		$( '#rtng_rate_position input' ).on( 'change', function() {
 			if ( $( '#rtng_rate_position input[value="in_comment"]' ).is( ':checked' ) ) {
 				$( 'input[name="rtng_check_rating_required"]' ).removeAttr( 'disabled' );
 				$( '#rtng_rate_position input[value!="in_comment"]' ).attr( 'disabled', 'disabled' ).removeAttr( 'checked' );
@@ -34,7 +34,7 @@
 				$( '#rtng_rate_position input' ).removeAttr( 'disabled' );
 				$( 'input[name="rtng_check_rating_required"]' ).attr( 'disabled', 'disabled' ).removeAttr( 'checked' );
 			}
-		} ).trigger( 'change' );
+		} );
 
 		$( '#rtng-all-roles' ).on( 'click', function() {
 			if ( $( this ).is( ':checked' ) ) {
@@ -53,7 +53,7 @@
 			} else {
 				$cb_all.removeAttr( 'checked' );
 			}
-		} ).trigger( 'change' );
+		} );
 
 		var testimonials_options = $( '.rtng-show-testimonials' );
 

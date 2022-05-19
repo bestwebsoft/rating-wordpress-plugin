@@ -58,7 +58,7 @@
 span.rtng-text.rtng-thankyou {
     font-size: 12px;
     position: relative;
-    bottom: 25px;
+    bottom: 10px;
     left: 120px;
 }
 .rtng_twentytwentyone .rtng-star input[type=radio] {
@@ -67,7 +67,7 @@ span.rtng-text.rtng-thankyou {
 .rtl span.rtng-text.rtng-thankyou {
     font-size: 12px;
     position: relative;
-    bottom: 25px;
+    bottom: 10px;
     right: 120px !important;
 }
 .rtng_ span.rtng-text.rtng-thankyou {
