@@ -567,8 +567,12 @@ if ( ! function_exists( 'bws_add_menu_render' ) ) {
 								}
 
 								$key_plugin_explode = explode( '/', $key_plugin );
+								if ( in_array( $key_plugin_explode[0], array( 'car-rental', 'contact-form-multi', 'custom-admin-page', 'adsense-plugin', 'zendesk-help-center' ) ) ) {
+									$icon         = isset( $value_plugin['icon'] ) ? $value_plugin['icon'] : '//ps.w.org/' . $key_plugin_explode[0] . '/assets/icon-256x256.png';
+								} else {
+									$icon         = isset( $value_plugin['icon'] ) ? $value_plugin['icon'] : '//ps.w.org/' . $key_plugin_explode[0] . '/assets/icon-256x256.gif';
+								}
 
-								$icon         = isset( $value_plugin['icon'] ) ? $value_plugin['icon'] : '//ps.w.org/' . $key_plugin_explode[0] . '/assets/icon-256x256.png';
 								$is_pro_isset = isset( $value_plugin['pro_version'] );
 								$is_installed = array_key_exists( $key_plugin, $all_plugins );
 								$is_active    = in_array( $key_plugin, $active_plugins ) || isset( $sitewide_active_plugins[ $key_plugin ] );

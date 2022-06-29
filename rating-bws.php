@@ -6,7 +6,7 @@ Description: Add rating plugin to your WordPress website to receive feedback fro
 Author: BestWebSoft
 Text Domain: rating-bws
 Domain Path: /languages
-Version: 1.5
+Version: 1.6
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -164,7 +164,7 @@ if ( ! function_exists( 'rtng_settings' ) ) {
 			/* updating from free: add necessary columns to 'whitelist' table */
 			if ( isset( $rtng_options['plugin_db_version'] ) && version_compare( $rtng_options['plugin_db_version'], '1.1', '<' ) ) {
 				$column_exists = $wpdb->query( "SHOW COLUMNS FROM `{$wpdb->prefix}bws_rating` LIKE 'user_ip'" );
-				if ( 0 === intval( $column_exists ) ) {
+				if ( 0 === absint( $column_exists ) ) {
 					$wpdb->query( "ALTER TABLE `{$wpdb->prefix}bws_rating` ADD `user_ip` CHAR(15) NOT NULL;" );
 				}
 			}
@@ -608,7 +608,7 @@ if ( ! function_exists( 'rtng_add_user_rating' ) ) {
 			)
 		);
 
-		if ( ( ! empty( $error->errors ) || ! rtng_is_rating_allowed( $post_id, $object_id ) || 'comment' === $type ) && 0 !== intval( $rtng_options['always_clickable'] ) && null !== $old_rating ) {
+		if ( ( ! empty( $error->errors ) || ! rtng_is_rating_allowed( $post_id, $object_id ) || 'comment' === $type ) && 0 !== absint( $rtng_options['always_clickable'] ) && null !== $old_rating ) {
 			$wpdb->update(
 				$wpdb->prefix . 'bws_rating',
 				array(
@@ -762,14 +762,14 @@ if ( ! function_exists( 'rtng_add_rating_to_content' ) ) {
 			$before .= rtng_show_total_rating();
 		}
 
-		if ( 1 !== intval( $rtng_options['combined'] ) && in_array( 'before', $rtng_options['rate_position'] ) ) {
+		if ( 1 !== absint( $rtng_options['combined'] ) && in_array( 'before', $rtng_options['rate_position'] ) ) {
 			$before .= rtng_show_rating_form( array( 'type' => 'post' ) );
 		}
 
 		if ( in_array( 'after', $rtng_options['average_position'] ) ) {
 			$after .= rtng_show_total_rating();
 		}
-		if ( 1 !== intval( $rtng_options['combined'] ) && in_array( 'after', $rtng_options['rate_position'] ) ) {
+		if ( 1 !== absint( $rtng_options['combined'] ) && in_array( 'after', $rtng_options['rate_position'] ) ) {
 			$after .= rtng_show_rating_form( array( 'type' => 'post' ) );
 		}
 
@@ -840,7 +840,7 @@ if ( ! function_exists( 'rtng_show_total_rating' ) ) {
 		/* Combined form */
 		if (
 			'combined' === $type ||
-			'default' === $type && 1 === intval( $rtng_options['combined'] )
+			'default' === $type && 1 === absint( $rtng_options['combined'] )
 		) {
 			$message_login     = '';
 			$current_user_rate = rtng_get_user_rating( $post_id );
@@ -903,7 +903,7 @@ if ( ! function_exists( 'rtng_get_post_schema' ) ) {
 
 			$rating_data = rtng_get_post_rating( $post_id );
 
-			if ( ( intval( $rating_data['average'] ) / 100 * 5 ) >= $rtng_options['schema_min_rate'] ) {
+			if ( ( absint( $rating_data['average'] ) / 100 * 5 ) >= $rtng_options['schema_min_rate'] ) {
 				$schema = sprintf(
 					'<script type="application/ld+json" data-rtng-post-id="%1$d">
 						{
@@ -1195,7 +1195,7 @@ if ( ! function_exists( 'rtng_rating_shortcode' ) ) {
 		$rate_form_args['type'] = 'shortcode';
 
 		if ( 'default' === $atts['display'] ) {
-			if ( 1 !== intval( $rtng_options['combined'] ) ) {
+			if ( 1 !== absint( $rtng_options['combined'] ) ) {
 				$content .= rtng_show_total_rating( $total_args ) . rtng_show_rating_form( $rate_form_args );
 			} else {
 				$content .= rtng_show_total_rating( $total_args );
@@ -1368,18 +1368,23 @@ if ( ! function_exists( 'rtng_add_rating_db' ) ) {
 			if ( isset( $_POST['rtng_post_id'] ) && isset( $_POST['rtng_rating_id'] ) && isset( $_POST['rtng_object_id'] ) && isset( $_POST['rtng_rating_val'] ) ) {
 				$post_id   = absint( $_POST['rtng_post_id'] );
 				$object_id = absint( $_POST['rtng_object_id'] );
+				$rating    = absint( $_POST['rtng_rating_val'] );
 
 				/* Get options from the database */
 				if ( empty( $rtng_options ) ) {
 					rtng_settings();
 				}
 
-				$percent_rating = ( sanitize_text_field( wp_unslash( $_POST['rtng_rating_val'] ) ) / 5 ) * 100;
+				if ( 5 < $rating ) {
+					$rating = 5;
+				}
+
+				$percent_rating = ( $rating / 5 ) * 100;
 
 				$args = array(
 					'post_id'   => $post_id,
 					'object_id' => $object_id,
-					'rating'    => array( $_POST['rtng_rating_id'] => number_format( $percent_rating, 2, '.', '' ) ),
+					'rating'    => array( absint( $_POST['rtng_rating_id'] ) => number_format( $percent_rating, 2, '.', '' ) ),
 				);
 				$add  = rtng_add_user_rating( $args );
 
@@ -1413,17 +1418,17 @@ if ( ! function_exists( 'rtng_add_rating_db' ) ) {
 			die();
 		} elseif ( isset( $_REQUEST['rtng_add_button'] ) && check_admin_referer( plugin_basename( __FILE__ ), 'rtng_nonce_button' ) ) {
 			if ( rtng_is_role_enabled() && ! empty( $_POST['rtng_post_id'] ) && ! empty( $_POST['rtng_object_id'] ) && ! empty( $_POST['rtng_rating'] ) ) {
-				$post_id   = intval( $_POST['rtng_post_id'] );
-				$object_id = intval( $_POST['rtng_object_id'] );
+				$post_id   = absint( $_POST['rtng_post_id'] );
+				$object_id = absint( $_POST['rtng_object_id'] );
 
 				$percent_rating = rtng_get_user_rating( $post_id, array( 'object_id' => $object_id ) );
 
 				if ( empty( $percent_rating ) ) {
-					$rating = intval( $_POST['rtng_rating'] );
-					if ( 8 < strlen( strval( $rating ) ) ) {
-						$rating = intval( substr( strval( $rating ), 0, 8 ) );
+					$rating = absint( $_POST['rtng_rating'] );
+					if ( 5 < $rating ) {
+						$rating = 5;
 					}
-					$percent_rating = ( intval( $rating ) / 5 ) * 100;
+					$percent_rating = ( absint( $rating ) / 5 ) * 100;
 
 					$args = array(
 						'post_id'   => absint( $post_id ),
@@ -1443,9 +1448,10 @@ if ( ! function_exists( 'rtng_add_rating_db_comment' ) ) {
 		global $wpdb, $rtng_options;
 
 		if ( rtng_is_role_enabled() && ! empty( $_POST['rtng_rating'] ) && check_admin_referer( plugin_basename( __FILE__ ), 'rtng_nonce_button' ) ) {
-			$rating = isset( $_POST['rtng_rating'] ) && is_array( $_POST['rtng_rating'] ) && isset( $_POST['rtng_rating'][0] ) ? intval( $_POST['rtng_rating'][0] ) : intval( $_POST['rtng_rating'] );
-			if ( 8 < strlen( strval( $rating ) ) ) {
-				$rating = intval( substr( strval( $rating ), 0, 8 ) );
+			$rating = isset( $_POST['rtng_rating'] ) && is_array( $_POST['rtng_rating'] ) && isset( $_POST['rtng_rating'][0] ) ? absint( $_POST['rtng_rating'][0] ) : absint( $_POST['rtng_rating'] );
+
+			if ( 5 < $rating ) {
+				$rating = 5;
 			}
 
 			$post_id = $wpdb->get_var(

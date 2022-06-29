@@ -34,10 +34,10 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
 			if ( $this->is_multisite && ! $this->is_network_options ) {
 				$network_options = get_site_option( 'rtng_options' );
 				if ( ! empty( $network_options ) ) {
-					if ( 'all' === $network_options['network_apply'] && 0 === intval( $network_options['network_change'] ) ) {
+					if ( 'all' === $network_options['network_apply'] && 0 === absint( $network_options['network_change'] ) ) {
 						$this->change_permission_attr = ' readonly="readonly" disabled="disabled"';
 					}
-					if ( 'all' === $network_options['network_apply'] && 0 === intval( $network_options['network_view'] ) ) {
+					if ( 'all' === $network_options['network_apply'] && 0 === absint( $network_options['network_view'] ) ) {
 						$this->forbid_view = true;
 					}
 				}
@@ -126,16 +126,16 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
 				$this->options['rating_required']  = isset( $_REQUEST['rtng_check_rating_required'] ) ? 1 : 0;
 				$this->options['rate_color']       = isset( $_REQUEST['rtng_rate_color'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['rtng_rate_color'] ) ) : '';
 				$this->options['rate_hover_color'] = isset( $_REQUEST['rtng_rate_hover_color'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['rtng_rate_hover_color'] ) ) : '';
-				$this->options['rate_size']        = isset( $_REQUEST['rtng_rate_size'] ) ? intval( $_REQUEST['rtng_rate_size'] ) : 0;
+				$this->options['rate_size']        = isset( $_REQUEST['rtng_rate_size'] ) ? absint( $_REQUEST['rtng_rate_size'] ) : 0;
 
 				$this->options['text_color']            = isset( $_REQUEST['rtng_text_color'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['rtng_text_color'] ) ) : '';
-				$this->options['text_size']             = isset( $_REQUEST['rtng_text_size'] ) ? intval( $_REQUEST['rtng_text_size'] ) : 0;
+				$this->options['text_size']             = isset( $_REQUEST['rtng_text_size'] ) ? absint( $_REQUEST['rtng_text_size'] ) : 0;
 				$this->options['star_post']             = isset( $_REQUEST['rtng_star_post'] ) ? 1 : 0;
 				$this->options['result_title']          = isset( $_REQUEST['rtng_result_title'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['rtng_result_title'] ) ) : '';
 				$this->options['total_message']         = isset( $_REQUEST['rtng_total_message'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['rtng_total_message'] ) ) : '';
 				$this->options['vote_title']            = isset( $_REQUEST['rtng_vote_title'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['rtng_vote_title'] ) ) : '';
 				$this->options['enable_testimonials']   = isset( $_REQUEST['rtng_testimonials'] ) ? 1 : 0;
-				$this->options['options_quantity']      = isset( $_REQUEST['rtng_options_quantity'] ) ? intval( $_REQUEST['rtng_options_quantity'] ) : 0;
+				$this->options['options_quantity']      = isset( $_REQUEST['rtng_options_quantity'] ) ? absint( $_REQUEST['rtng_options_quantity'] ) : 0;
 				$this->options['testimonials_titles']   = isset( $_REQUEST['rtng_testimonials_titles'] ) ? array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_REQUEST['rtng_testimonials_titles'] ) ) : array( '' );
 				$this->options['non_login_message']     = isset( $_REQUEST['rtng_non_login_message'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['rtng_non_login_message'] ) ) : '';
 				$this->options['thankyou_message']      = isset( $_REQUEST['rtng_thankyou_message'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['rtng_thankyou_message'] ) ) : '';
@@ -212,7 +212,7 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
 						for ( $i = 1; $i < $this->options['options_quantity']; $i++ ) {
 							?>
 							<tr class="rtng-show-testimonials">
-								<th scope="row"><?php printf( esc_html__( 'Review Title %1$s %2$d', 'rating-bws' ), '&numero;', intval( $i + 1 ) ); ?></th>
+								<th scope="row"><?php printf( esc_html__( 'Review Title %1$s %2$d', 'rating-bws' ), '&numero;', absint( $i + 1 ) ); ?></th>
 								<td>
 									<input type="text" maxlength="250" class="regular-text" value="<?php echo isset( $this->options['testimonials_titles'][ $i ] ) ? esc_attr( $this->options['testimonials_titles'][ $i ] ) : ''; ?>" name="rtng_testimonials_titles[]" />
 								</td>
@@ -280,7 +280,7 @@ if ( ! class_exists( 'Rtng_Settings_Tabs' ) ) {
 					<td>
 						<input type="checkbox" name="rtng_combined" value="1" 
 						<?php
-						if ( 1 === intval( $this->options['combined'] ) ) {
+						if ( 1 === absint( $this->options['combined'] ) ) {
 							echo wp_kses_post( 'checked="checked"' );
 						}
 						?>

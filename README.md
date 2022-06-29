@@ -74,7 +74,7 @@
 <ul>
 <li><a href="https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/" rel="nofollow ugc">[Doc] Installation</a></li>
 <li><a href="https://docs.google.com/document/d/1EUdBVvnm7IHZ6y0DNyldZypUQKpB8UVPToSc_LdOYQI/edit" rel="nofollow ugc">[Doc] Purchase</a></li>
-<li><a href="https://docs.google.com/document/d/1xFQZHTvem37naS9h3l_Xx_LnRy7djUKBlvtYgHR6k7s/" rel="nofollow ugc">[Doc] How to Use</a></li>
+<li><a href="https://bestwebsoft.com/documentation/rating/rating-user-guide/" rel="nofollow ugc">[Doc] User Guide</a></li>
 </ul>
 <h4>Help &amp; Support</h4>
 <p>Visit our Help Center if you have any questions, our friendly Support Team is happy to help — <a href="https://support.bestwebsoft.com/" rel="nofollow ugc">https://support.bestwebsoft.com/</a></p>

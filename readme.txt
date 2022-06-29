@@ -4,7 +4,7 @@ Donate link: https://bestwebsoft.com/donate/
 Tags: 5 stars, rating, stars, rating plugin, add rating, plugin star rating, add vote, voiting, rate, post rating, rating system, review
 Requires at least: 4.5
 Tested up to: 6.0
-Stable tag: 1.5
+Stable tag: 1.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -71,7 +71,7 @@ If you have a feature suggestion or idea you'd like to see in the plugin, we'd l
 
 * [[Doc] Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
 * [[Doc] Purchase](https://docs.google.com/document/d/1EUdBVvnm7IHZ6y0DNyldZypUQKpB8UVPToSc_LdOYQI/edit)
-* [[Doc] How to Use](https://docs.google.com/document/d/1xFQZHTvem37naS9h3l_Xx_LnRy7djUKBlvtYgHR6k7s/)
+* [[Doc] User Guide](https://bestwebsoft.com/documentation/rating/rating-user-guide/)
 
 = Help & Support =
 
@@ -131,6 +131,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V1.6 - 25.06.2022 =
+* Bugfix : Display Average Rating bugs has been fixed.
+* Pro : Display Average Rating bugs has been fixed.
+
 = V1.5 - 19.05.2022 =
 * Bugfix : Testimonials compatibility bugs has been fixed.
 * Bugfix : Appearance settings has been fixed.
@@ -182,6 +186,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * Release date of Rating.
 
 == Upgrade Notice ==
+
+= V1.6 - 25.06.2022 =
+* Bugs fixed.
 
 = V1.5 - 19.05.2022 =
 * Bugs fixed.
